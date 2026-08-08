@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="引路：经验驱动的青年生涯决策信息平台产品原型">
+  <title>引路 | 青年生涯决策工作台</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-lockup">
+        <div class="brand-mark">引</div>
+        <div>
+          <div class="brand-name">引路</div>
+          <div class="brand-tagline">让每个学生找到自己人</div>
+        </div>
+      </div>
+
+      <div class="sidebar-label">决策工作台</div>
+      <nav class="sidebar-nav" aria-label="主导航">
+        <button class="nav-item active" data-view="home"><i data-lucide="compass"></i><span>发现经验</span></button>
+        <button class="nav-item" data-view="questions"><i data-lucide="message-circle-question"></i><span>匿名提问</span><span class="nav-count" id="questionsCount">0</span></button>
+        <button class="nav-item" data-view="compare"><i data-lucide="square-kanban"></i><span>我的候选</span></button>
+        <button class="nav-item" data-view="family"><i data-lucide="users-round"></i><span>家庭决策空间</span></button>
+        <button class="nav-item" data-view="trust"><i data-lucide="badge-check"></i><span>认证中心</span></button>
+      </nav>
+
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-label">我的信息源</div>
+      <div class="source-list">
+        <span><b class="dot blue"></b>在读认证</span>
+        <span><b class="dot teal"></b>官方信息</span>
+        <span><b class="dot amber"></b>客观数据</span>
+        <span><b class="dot cyan"></b>教师 / 从业者</span>
+      </div>
+
+      <div class="sidebar-footer">
+        <span class="prototype-dot"></span>
+        校园版 · 福州试点
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" aria-label="打开导航"><i data-lucide="menu"></i></button>
+        <div class="breadcrumb"><span>我的引路</span><span class="breadcrumb-separator">/</span><strong id="breadcrumbTitle">发现经验</strong></div>
+        <div class="top-actions">
+          <button class="icon-button" id="notifyButton" aria-label="消息"><i data-lucide="bell"></i><span class="notification-dot"></span></button>
+          <button class="avatar-button" id="accountButton" aria-label="打开账户">访</button>
+          <span class="profile-name" id="profileName">访客浏览</span>
+          <button class="icon-button" aria-label="更多选项"><i data-lucide="more-horizontal"></i></button>
+        </div>
+      </header>
+
+      <div class="view-stack">
+        <section class="view active" id="view-home" aria-labelledby="homeTitle">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <div class="eyebrow"><span class="eyebrow-line"></span>青年生涯决策信息平台</div>
+              <h1 id="homeTitle">找到真正懂你的人</h1>
+              <p class="hero-subtitle">从学校、专业到未来去向，把分散的信息放到一张决策桌面上。</p>
+              <div class="hero-actions">
+                <button class="primary-button" data-scroll-to="experienceSection"><i data-lucide="search"></i>开始寻找经验</button>
+                <button class="quiet-button" data-open-modal="questionModal"><i data-lucide="message-square-plus"></i>匿名提问</button>
+              </div>
+              <div class="hero-proof">
+                <div class="proof-avatars"><span>福</span><span>大</span><span>研</span><span>职</span></div>
+                <div><strong>认证经验正在积累</strong><small>身份可核验 · 观点保留分歧</small></div>
+              </div>
+            </div>
+
+            <div class="decision-card">
+              <div class="card-kicker"><span class="status-pulse"></span>你的决策路径</div>
+              <div class="decision-card-header">
+                <div>
+                  <h2>现在，你在考虑什么？</h2>
+                  <p>选择一个阶段，开始整理自己的问题。</p>
+                </div>
+                <span class="stage-index" id="stageIndex">01</span>
+              </div>
+              <div class="stage-picker" role="tablist" aria-label="决策阶段">
+                <button class="stage-option active" data-stage="gaokao" role="tab"><span>01</span><b>高考志愿</b><small>高中 → 大学</small></button>
+                <button class="stage-option" data-stage="graduate" role="tab"><span>02</span><b>考研择校</b><small>大学 → 深造</small></button>
+                <button class="stage-option" data-stage="career" role="tab"><span>03</span><b>职业选择</b><small>大学 → 工作</small></button>
+                <button class="stage-option" data-stage="adapt" role="tab"><span>04</span><b>大学适应</b><small>进入新阶段</small></button>
+              </div>
+              <div class="decision-search">
+                <div class="search-icon"><i data-lucide="search"></i></div>
+                <input id="heroSearch" type="search" placeholder="搜索学校、专业或你关心的问题" autocomplete="off">
+                <button id="heroSearchButton" class="search-button">搜索</button>
+              </div>
+              <div class="decision-note"><i data-lucide="shield-check"></i><span>匿名提问 · 认证回答 · 来源标注</span></div>
+            </div>
+          </div>
+
+          <div class="signal-row">
+            <div class="signal-item"><span class="signal-icon blue-bg"><i data-lucide="fingerprint"></i></span><div><strong>后台实名，前台匿名</strong><small>认证记录可追溯，表达不用暴露身份</small></div></div>
+            <div class="signal-item"><span class="signal-icon teal-bg"><i data-lucide="layers-3"></i></span><div><strong>四层信息源并列</strong><small>客观数据、官方信息、学生经验、职业视角</small></div></div>
+            <div class="signal-item"><span class="signal-icon amber-bg"><i data-lucide="heart-handshake"></i></span><div><strong>学生和家长共同决策</strong><small>共享候选清单，不默认共享私人记录</small></div></div>
+          </div>
+
+          <section class="content-section" id="experienceSection">
+            <div class="section-heading">
+              <div>
+                <div class="section-kicker">认证经验库</div>
+                <h2>一条内容，先看来源，再做判断</h2>
+                <p>引路把主观体验和客观信息并列呈现，不替你做决定。</p>
+              </div>
+              <button class="text-button" data-view-target="compare">查看我的候选 <i data-lucide="arrow-up-right"></i></button>
+            </div>
+            <div class="filter-bar" role="toolbar" aria-label="经验筛选">
+              <div class="filter-pills" id="filterPills">
+                <button class="filter-pill active" data-filter="all">全部</button>
+                <button class="filter-pill" data-filter="school">学校</button>
+                <button class="filter-pill" data-filter="major">专业</button>
+                <button class="filter-pill" data-filter="course">课程</button>
+                <button class="filter-pill" data-filter="housing">宿舍</button>
+                <button class="filter-pill" data-filter="career">就业</button>
+              </div>
+              <label class="same-school-toggle"><input type="checkbox" id="sameSchoolToggle"><span class="toggle-track"></span>同高中优先</label>
+            </div>
+            <div class="workspace-grid">
+              <div class="experience-grid" id="experienceGrid"></div>
+              <aside class="side-column">
+                <div class="question-card">
+                  <div class="side-card-topline orange-line"></div>
+                  <div class="side-card-content">
+                    <div class="side-card-label"><i data-lucide="message-circle-question"></i>匿名问答</div>
+                    <h3>不敢在群里问的问题，在这里找到真正经历过的人。</h3>
+                    <div class="question-example">“计算机专业每天都要写代码吗？”</div>
+                    <button class="orange-button" data-open-modal="questionModal">提问一位学长 <i data-lucide="arrow-right"></i></button>
+                    <small class="matching-note"><i data-lucide="sparkles"></i>系统会优先匹配：同校 · 同专业 · 同高中</small>
+                  </div>
+                </div>
+                <div class="family-card">
+                  <div class="family-card-title"><span class="family-icon"><i data-lucide="users-round"></i></span><span>家庭决策空间</span></div>
+                  <p>和家长共享候选清单，但匿名提问与浏览记录仍归你自己。</p>
+                  <button class="cyan-button" data-view-target="family">去关联家庭账号 <i data-lucide="arrow-up-right"></i></button>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <section class="dengplan-section">
+            <div class="dengplan-header">
+              <div class="section-kicker">传灯计划</div>
+              <h2>今年被帮助的人，三年后成为引路人</h2>
+              <p>每一届新生升入大学，自动收到"成为引路人"邀请——内容供给随平台成长自我更新，不依赖外部激励持续输血。</p>
+            </div>
+            <div class="dengplan-flow">
+              <div class="flow-step"><span class="flow-num">01</span><strong>高中生提问</strong><small>匿名问学长学姐，找到真实经历的人</small></div>
+              <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+              <div class="flow-step"><span class="flow-num">02</span><strong>升入大学</strong><small>三年后自动收到"成为引路人"邀请</small></div>
+              <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+              <div class="flow-step"><span class="flow-num">03</span><strong>回来回答</strong><small>用自己的真实经历帮助下一届</small></div>
+              <div class="flow-arrow"><i data-lucide="arrow-right"></i></div>
+              <div class="flow-step flow-step-highlight"><span class="flow-num">∞</span><strong>代际自循环</strong><small>壁垒随时间自动加深</small></div>
+            </div>
+          </section>
+
+          <section class="trust-section">
+            <div class="trust-copy"><div class="section-kicker">引路的信任底座</div><h2>不是更多信息，而是更清楚的信息</h2><p>每条经验都保留身份层级、发布时间与来源边界。观点可以不同，判断需要自己完成。</p></div>
+            <div class="source-cards">
+              <div class="source-card amber-source"><span class="source-dot"></span><strong>客观数据</strong><small>分数线 / 报告</small></div>
+              <div class="source-card teal-source"><span class="source-dot"></span><strong>官方信息</strong><small>招生简章 / 官网</small></div>
+              <div class="source-card blue-source"><span class="source-dot"></span><strong>学生经验</strong><small>在读 / 毕业认证</small></div>
+              <div class="source-card cyan-source"><span class="source-dot"></span><strong>教师 / 从业者</strong><small>专业与职业视角</small></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" id="view-questions">
+          <div class="page-header"><div><div class="section-kicker">匿名提问</div><h1>把具体问题交给经历过的人</h1><p>只展示脱敏标签，不公开姓名和私人浏览记录。</p></div><button class="primary-button" data-open-modal="questionModal"><i data-lucide="plus"></i>发起新问题</button></div>
+          <div class="question-layout"><div class="question-list-panel"><div class="panel-heading"><h2>我的问题</h2><span class="count-badge">3 个</span></div><div id="questionList" class="question-list"></div></div><aside class="answering-panel"><div class="answering-icon"><i data-lucide="messages-square"></i></div><h2>这里不需要“标准答案”</h2><p>引路把不同经历放在一起，让你看见选择背后的具体生活。</p><div class="answering-stats"><span><strong>48h</strong><small>回答目标</small></span><span><strong>认证</strong><small>身份来源</small></span><span><strong>匿名</strong><small>表达边界</small></span></div></aside></div>
+        </section>
+
+        <section class="view" id="view-compare">
+          <div class="page-header"><div><div class="section-kicker">我的候选</div><h1>把选择放在同一张桌面上</h1><p>收藏学校和专业，按你在意的维度进行比较。</p></div><button class="quiet-button" data-view-target="home"><i data-lucide="plus"></i>继续添加</button></div>
+          <div class="compare-board" id="compareContent"></div>
+        </section>
+
+        <section class="view" id="view-family">
+          <div class="page-header"><div><div class="section-kicker">家庭决策空间</div><h1>让两代人看见同一份信息</h1><p>学生主动选择共享内容，家长参与比较，不默认查看私人记录。</p></div><button class="primary-button" id="inviteFamily"><i data-lucide="user-plus"></i>邀请家长关联</button></div>
+          <div class="family-layout"><div class="family-main-card"><div class="family-header"><div class="family-large-icon"><i data-lucide="users-round"></i></div><div><span class="linked-status"><span></span>授权后共享</span><h2>家庭候选清单</h2><p>关联后可以共同查看你授权的学校和专业。</p></div></div><div id="familyMainContent" class="family-content"></div></div><aside class="privacy-card"><div class="side-card-label"><i data-lucide="lock-keyhole"></i>隐私边界</div><h2>哪些内容不会被共享？</h2><ul><li><i data-lucide="check"></i>匿名提问和回答记录</li><li><i data-lucide="check"></i>个人搜索与浏览记录</li><li><i data-lucide="check"></i>未主动授权的收藏内容</li></ul></aside></div>
+        </section>
+
+        <section class="view" id="view-trust">
+          <div class="page-header"><div><div class="section-kicker">认证中心</div><h1>让真实经验有可验证的来源</h1><p>后台实名，前台匿名。认证只保留必要的脱敏标签。</p></div><span class="mvp-badge"><i data-lucide="flask-conical"></i>MVP概念原型</span></div>
+          <div class="trust-dashboard"><div class="verification-card" id="verificationContent"></div><div class="trust-principles"><h2>引路的认证原则</h2><div class="principle"><span class="principle-number">01</span><div><strong>最小必要</strong><p>核验通过后只保留学校、专业和入学/毕业年份等脱敏字段。</p></div></div><div class="principle"><span class="principle-number">02</span><div><strong>匿名保护</strong><p>认证记录和内容分离存储，前台只显示认证标签。</p></div></div><div class="principle"><span class="principle-number">03</span><div><strong>观点并列</strong><p>平台呈现共识与分歧，不替用户输出报考或就业结论。</p></div></div></div></div>
+        </section>
+      </div>
+
+      <footer class="site-footer"><span><strong>引路</strong><span>让每一次升学与就业选择，都有可验证的过来人</span></span><span>浏览器试用版 · 数据仅保存在本机</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="questionModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close icon-button" data-close-modal="questionModal" aria-label="关闭"><i data-lucide="x"></i></button>
+      <div class="modal-kicker">匿名提问</div><h2 id="modalTitle">你想先问清哪件事？</h2><p class="modal-description">问题会以脱敏标签发布，并优先匹配相关认证经验。</p>
+      <label class="field-label" for="questionInput">问题内容</label><textarea id="questionInput" placeholder="例如：这个专业的课程强度和真实学习体验是什么？"></textarea>
+      <div class="modal-fields"><label><span>决策阶段</span><select id="questionStage"><option>高考志愿</option><option>考研择校</option><option>职业选择</option><option>大学适应</option></select></label><label><span>关注维度</span><select id="questionTopic"><option>课程学习</option><option>宿舍生活</option><option>就业去向</option><option>城市环境</option></select></label></div>
+      <div class="modal-actions"><button class="quiet-button" data-close-modal="questionModal">先不提问</button><button class="primary-button" id="submitQuestion"><i data-lucide="send"></i>发布匿名问题</button></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"><i data-lucide="check-circle-2"></i><span></span></div>
+
+  <div class="modal-backdrop" id="accountModal" aria-hidden="true">
+    <div class="modal account-modal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+      <button class="modal-close icon-button" data-close-modal="accountModal" aria-label="关闭"><i data-lucide="x"></i></button>
+      <div id="authPanel">
+        <div class="modal-kicker">引路试用版</div>
+        <h2 id="accountTitle">先建立你的决策身份</h2>
+        <p class="modal-description">注册信息只保存在当前浏览器，用于保存你的问题、收藏和家庭协作状态。</p>
+        <div class="auth-tabs" role="tablist"><button class="auth-tab active" data-auth-tab="login">登录</button><button class="auth-tab" data-auth-tab="register">注册</button></div>
+        <form id="loginForm" class="auth-form">
+          <label><span>邮箱</span><input id="loginEmail" type="email" autocomplete="email" placeholder="name@example.com" required></label>
+          <label><span>密码</span><input id="loginPassword" type="password" autocomplete="current-password" placeholder="至少 6 位字符" required></label>
+          <button class="primary-button full-button" type="submit"><i data-lucide="log-in"></i>登录试用</button>
+        </form>
+        <form id="registerForm" class="auth-form hidden">
+          <div class="form-grid"><label><span>昵称</span><input id="registerName" type="text" maxlength="16" placeholder="例如：小林同学" required></label><label><span>角色</span><select id="registerRole"><option>高中生</option><option>大学生</option><option>家长</option><option>教师 / 从业者</option></select></label></div>
+          <label><span>邮箱</span><input id="registerEmail" type="email" autocomplete="email" placeholder="用于本机登录" required></label>
+          <label><span>密码</span><input id="registerPassword" type="password" autocomplete="new-password" minlength="6" placeholder="至少 6 位字符" required></label>
+          <label><span>当前决策阶段</span><select id="registerStage"><option value="高考志愿">高考志愿</option><option value="考研择校">考研择校</option><option value="职业选择">职业选择</option><option value="大学适应">大学适应</option></select></label>
+          <button class="primary-button full-button" type="submit"><i data-lucide="user-plus"></i>创建试用账号</button>
+        </form>
+        <button class="guest-button" id="continueGuest"><i data-lucide="eye"></i>先浏览产品</button>
+        <p class="local-data-note"><i data-lucide="database"></i>试用版说明：不是真实多用户账号系统，不构成身份认证。</p>
+      </div>
+      <div id="profilePanel" class="hidden">
+        <div class="modal-kicker">我的引路</div><h2>账户与试用数据</h2><p class="modal-description">你的操作会绑定到这个浏览器中的本地账号。</p>
+        <div class="profile-summary"><span class="profile-avatar-large" id="profileAvatarLarge">访</span><div><strong id="profileSummaryName">访客</strong><span id="profileSummaryMeta">未登录</span></div></div>
+        <form id="profileForm" class="auth-form"><div class="form-grid"><label><span>昵称</span><input id="profileNameInput" maxlength="16" required></label><label><span>角色</span><select id="profileRoleInput"><option>高中生</option><option>大学生</option><option>家长</option><option>教师 / 从业者</option></select></label></div><label><span>当前决策阶段</span><select id="profileStageInput"><option>高考志愿</option><option>考研择校</option><option>职业选择</option><option>大学适应</option></select></label><button class="primary-button full-button" type="submit"><i data-lucide="save"></i>保存资料</button></form>
+        <div class="account-stats"><span><strong id="profileQuestionCount">0</strong><small>我的问题</small></span><span><strong id="profileFavoriteCount">0</strong><small>候选收藏</small></span><span><strong id="profileFamilyCode">未生成</strong><small>家庭邀请码</small></span></div>
+        <button class="logout-button" id="logoutButton"><i data-lucide="log-out"></i>退出当前账号</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="app.js"></script>
+</body>
+</html>
