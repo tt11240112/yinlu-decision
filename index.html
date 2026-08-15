@@ -18,7 +18,7 @@
 <link rel="apple-touch-icon" href="./favicon-180.png">
 
 <!-- 本地化的轻量图标脚本（替代外部 CDN） -->
-<script src="./lib/lucide-lite.js" defer></script>
+<script src="./lib/lucide-lite.js?v=7" defer></script>
 
 <!-- 本地 app.js（确保在 lucide-lite 后加载） -->
 <script src="./app.js" defer></script>
@@ -44,7 +44,7 @@
       <nav class="sidebar-nav" aria-label="主导航">
         <button class="nav-item active" data-view="home"><i data-lucide="compass"></i><span>首页</span></button>
         <button class="nav-item" data-view="experience"><i data-lucide="library"></i><span>院校与经验</span></button>
-        <button class="nav-item" data-view="questions"><i data-lucide="message-circle-question"></i><span>问答中心</span><span class="nav-count" id="questionsCount">0</span></button>
+        <button class="nav-item" data-view="questions"><span class="nav-dot-icon" aria-hidden="true"></span><span>问答中心</span><span class="nav-count" id="questionsCount">0</span></button>
         <button class="nav-item" data-view="compare"><i data-lucide="square-kanban"></i><span>我的候选</span></button>
         <button class="nav-item" data-view="trust"><i data-lucide="badge-check"></i><span>信任与认证</span></button>
       </nav>
@@ -69,6 +69,7 @@
         <button class="icon-button menu-button" id="menuButton" aria-label="打开导航"><i data-lucide="menu"></i></button>
         <div class="breadcrumb"><span>我的引路</span><span class="breadcrumb-separator">/</span><strong id="breadcrumbTitle">首页</strong></div>
         <div class="top-actions">
+          <button class="icon-button onboarding-replay-button" id="onboardingReplayButton" type="button" aria-label="重新查看新手指引" title="重新查看新手指引" hidden><span class="onboarding-replay-symbol" aria-hidden="true">?</span></button>
           <div class="theme-control">
             <button class="icon-button theme-button" id="themeButton" type="button" aria-label="切换主题，当前为苹果爱丽丝" aria-haspopup="menu" aria-expanded="false" title="切换主题">
               <span class="theme-button-icon" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
@@ -140,7 +141,10 @@
           <button class="icon-button" id="notifyButton" aria-label="消息"><i data-lucide="bell"></i><span class="notification-dot"></span></button>
           <button class="avatar-button" id="accountButton" aria-label="打开账户">访</button>
           <span class="profile-name" id="profileName">访客浏览</span>
-          <button class="icon-button" aria-label="更多选项"><i data-lucide="more-horizontal"></i></button>
+          <div class="decision-countdown empty" id="decisionCountdown" aria-live="polite">
+            <div class="decision-countdown-copy"><span id="decisionCountdownLabel">设置决策时间</span><strong id="decisionCountdownValue">添加时间点</strong></div>
+            <button class="icon-button decision-calendar-button" id="decisionCalendarButton" type="button" aria-label="打开决策日历设置时间点" title="决策日历"><i data-lucide="calendar-days"></i></button>
+          </div>
         </div>
       </header>
 
@@ -278,9 +282,9 @@
           <section class="content-section" id="experienceSection">
             <div class="section-heading">
               <div>
-                <div class="section-kicker">院校与经验库</div>
-                <h1>一条内容，先看来源，再做判断</h1>
-                <p>先看学校与公开信息，再结合学生真实经验，不替你做决定。</p>
+                <div class="section-kicker">院校与经验</div>
+                <h1>先查清学校，再参考真实经验</h1>
+                <p>院校资料与个人经验分开查看，需要时再相互对照。</p>
               </div>
               <div class="experience-heading-actions">
                 <div class="experience-layout-switch" role="group" aria-label="院校与经验页面布局">
@@ -294,57 +298,159 @@
                 <button class="text-button" data-view-target="compare">查看我的候选 <i data-lucide="arrow-up-right"></i></button>
               </div>
             </div>
-            <div class="filter-bar" role="toolbar" aria-label="经验筛选">
-              <div class="filter-group filter-scope-group">
-                <span class="filter-group-label">搜索范围</span>
-                <div class="filter-pills" id="filterScopePills">
-                  <button class="filter-pill active" data-scope-filter="all">全部范围</button>
-                  <button class="filter-pill" data-scope-filter="school">学校相关</button>
-                  <button class="filter-pill" data-scope-filter="major">专业相关</button>
-                  <button class="filter-pill" data-scope-filter="both">学校 + 专业</button>
-                </div>
-              </div>
+            <div class="experience-content-tabs" role="tablist" aria-label="院校与经验内容类型">
+              <button class="experience-content-tab active" type="button" role="tab" data-experience-content-tab="institution" aria-selected="true" aria-controls="institutionGrid"><i data-lucide="landmark"></i>院校信息</button>
+              <button class="experience-content-tab" type="button" role="tab" data-experience-content-tab="experience" aria-selected="false" aria-controls="experienceGrid"><i data-lucide="messages-square"></i>经验库</button>
+            </div>
+            <div class="institution-filter-bar" data-experience-content-panel="institution" role="search" aria-label="院校信息搜索">
               <div class="filter-search-stack">
                 <div class="filter-group">
                   <span class="filter-group-label">学校</span>
                   <div class="filter-search-field">
                     <i data-lucide="school"></i>
-                    <input id="experienceSchoolSearch" type="search" placeholder="搜索学校或城市" autocomplete="off">
+                    <input id="institutionSchoolSearch" type="search" placeholder="搜索学校名称" autocomplete="off">
                   </div>
                 </div>
                 <div class="filter-group">
                   <span class="filter-group-label">专业</span>
-                  <div class="filter-search-field">
-                    <i data-lucide="book-open"></i>
-                    <input id="experienceMajorSearch" type="search" placeholder="搜索专业名称" autocomplete="off">
+                  <div class="library-major-picker" data-major-picker="institution">
+                    <div class="filter-search-field major-picker-field">
+                      <i data-lucide="book-open"></i>
+                      <input id="institutionMajorSearch" type="search" placeholder="输入专业名称或按学科门类查找" autocomplete="off" aria-expanded="false" aria-controls="institutionMajorPanel">
+                      <button class="picker-expand-button" type="button" data-major-toggle="institution" aria-label="展开院校专业索引" tabindex="-1"><i data-lucide="chevron-down"></i></button>
+                    </div>
+                    <div class="major-picker-panel" id="institutionMajorPanel" hidden>
+                      <div class="major-category-list" id="institutionMajorCategories" aria-label="院校专业学科门类"></div>
+                      <div class="major-option-list" id="institutionMajorOptions" aria-live="polite"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="filter-group filter-dimension-group">
-                <span class="filter-group-label">关注维度</span>
-                <div class="filter-pills" id="dimensionFilterPills">
-                  <button class="filter-pill active" data-dimension-filter="all">全部</button>
-                  <button class="filter-pill" data-dimension-filter="课程学习">课程学习</button>
-                  <button class="filter-pill" data-dimension-filter="宿舍生活">宿舍生活</button>
-                  <button class="filter-pill" data-dimension-filter="城市环境">城市环境</button>
-                  <button class="filter-pill" data-dimension-filter="就业去向">就业去向</button>
+              <div class="library-region-index" aria-label="院校信息地区索引">
+                <div class="region-picker-entry">
+                  <span class="filter-group-label">地区</span>
+                  <div class="filter-search-field region-search-field">
+                    <i data-lucide="search"></i>
+                    <input id="institutionRegionSearch" type="search" placeholder="输入省份或城市" autocomplete="off" aria-label="搜索院校信息地区" aria-expanded="false" aria-controls="institutionRegionPanel">
+                    <button class="picker-expand-button" type="button" data-region-toggle="institution" aria-label="展开院校地区索引" tabindex="-1"><i data-lucide="chevron-down"></i></button>
+                  </div>
+                </div>
+                <div class="region-picker-panel" id="institutionRegionPanel" hidden>
+                  <div class="region-picker-toolbar">
+                    <span>先选省份，再选择城市或地区</span>
+                    <button class="region-all-button active" type="button" data-library-region="institution" data-region-province="" data-region-city="" aria-pressed="true">不限地区</button>
+                  </div>
+                  <div class="region-picker-body">
+                    <div class="region-option-list" id="institutionRegionOptions" aria-live="polite"></div>
+                    <div class="region-letter-rail" id="institutionRegionLetters" aria-label="按首字母查找院校地区"></div>
+                  </div>
                 </div>
               </div>
-              <div class="filter-group filter-source-group">
-                <span class="filter-group-label">信息来源</span>
-                <div class="filter-pills" id="sourceFilterPills">
-                  <button class="filter-pill active" data-source-filter="all">全部来源</button>
-                  <button class="filter-pill" data-source-filter="official">官方信息</button>
-                  <button class="filter-pill" data-source-filter="student">在读认证</button>
-                  <button class="filter-pill" data-source-filter="expert">教师 / 从业者</button>
+              <button class="clear-filter-button" id="clearInstitutionFilters" type="button"><i data-lucide="rotate-ccw"></i>清空搜索</button>
+            </div>
+            <div class="filter-bar" data-experience-content-panel="experience" role="toolbar" aria-label="经验筛选" hidden>
+              <div class="filter-search-stack">
+                <div class="filter-group">
+                  <span class="filter-group-label">学校</span>
+                  <div class="filter-search-field">
+                    <i data-lucide="school"></i>
+                    <input id="experienceSchoolSearch" type="search" placeholder="搜索学校名称" autocomplete="off">
+                  </div>
+                </div>
+                <div class="filter-group">
+                  <span class="filter-group-label">专业</span>
+                  <div class="library-major-picker" data-major-picker="experience">
+                    <div class="filter-search-field major-picker-field">
+                      <i data-lucide="book-open"></i>
+                      <input id="experienceMajorSearch" type="search" placeholder="输入专业名称或按学科门类查找" autocomplete="off" aria-expanded="false" aria-controls="experienceMajorPanel">
+                      <button class="picker-expand-button" type="button" data-major-toggle="experience" aria-label="展开经验专业索引" tabindex="-1"><i data-lucide="chevron-down"></i></button>
+                    </div>
+                    <div class="major-picker-panel" id="experienceMajorPanel" hidden>
+                      <div class="major-category-list" id="experienceMajorCategories" aria-label="经验专业学科门类"></div>
+                      <div class="major-option-list" id="experienceMajorOptions" aria-live="polite"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="filter-actions">
-                <label class="same-school-toggle"><input type="checkbox" id="sameSchoolToggle"><span class="toggle-track"></span>同高中优先</label>
+              <div class="library-region-index" aria-label="经验库地区索引">
+                <div class="region-picker-entry">
+                  <span class="filter-group-label">地区</span>
+                  <div class="filter-search-field region-search-field">
+                    <i data-lucide="search"></i>
+                    <input id="experienceRegionSearch" type="search" placeholder="输入省份或城市" autocomplete="off" aria-label="搜索经验库地区" aria-expanded="false" aria-controls="experienceRegionPanel">
+                    <button class="picker-expand-button" type="button" data-region-toggle="experience" aria-label="展开经验地区索引" tabindex="-1"><i data-lucide="chevron-down"></i></button>
+                  </div>
+                </div>
+                <div class="region-picker-panel" id="experienceRegionPanel" hidden>
+                  <div class="region-picker-toolbar">
+                    <span>先选省份，再选择城市或地区</span>
+                    <button class="region-all-button active" type="button" data-library-region="experience" data-region-province="" data-region-city="" aria-pressed="true">不限地区</button>
+                  </div>
+                  <div class="region-picker-body">
+                    <div class="region-option-list" id="experienceRegionOptions" aria-live="polite"></div>
+                    <div class="region-letter-rail" id="experienceRegionLetters" aria-label="按首字母查找经验地区"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="filter-overview">
+                <div class="filter-quick-summary" aria-label="当前常用筛选">
+                  <button class="filter-summary-button" type="button" data-filter-section="dimension" aria-expanded="false" aria-controls="advancedExperienceFilters"><span>关注维度</span><strong id="dimensionFilterSummary">全部</strong></button>
+                  <button class="filter-summary-button" type="button" data-filter-section="source" aria-expanded="false" aria-controls="advancedExperienceFilters"><span>信息来源</span><strong id="sourceFilterSummary">全部</strong></button>
+                  <button class="filter-summary-button" id="timeFilterTrigger" type="button" data-filter-section="time" aria-expanded="false" aria-controls="advancedExperienceFilters"><span>经验发布时间</span><strong id="timeFilterSummary">不限</strong></button>
+                </div>
+                <button class="filter-expand-button" id="toggleAdvancedFilters" type="button" data-filter-section="all" aria-expanded="false" aria-controls="advancedExperienceFilters">
+                  <i data-lucide="sliders-horizontal"></i><span>更多筛选</span><b id="activeFilterCount">0</b><i class="filter-expand-chevron" data-lucide="chevron-down"></i>
+                </button>
+              </div>
+              <div class="filter-selected-row">
+                <div class="filter-selected-tags" id="experienceSelectedFilters" aria-live="polite"><span class="filter-empty-label">当前未添加筛选条件</span></div>
                 <button class="clear-filter-button" id="clearExperienceFilters" type="button"><i data-lucide="rotate-ccw"></i>清空筛选</button>
               </div>
+              <div class="filter-advanced-panel" id="advancedExperienceFilters" hidden>
+                <div class="filter-group filter-dimension-group" data-filter-section-panel="dimension">
+                  <span class="filter-group-label">关注维度</span>
+                  <div class="filter-pills" id="dimensionFilterPills">
+                    <button class="filter-pill active" data-dimension-filter="all">全部</button>
+                    <button class="filter-pill" data-dimension-filter="课程学习">课程学习</button>
+                    <button class="filter-pill" data-dimension-filter="宿舍生活">宿舍生活</button>
+                    <button class="filter-pill" data-dimension-filter="设施布局">设施布局</button>
+                    <button class="filter-pill" data-dimension-filter="社团活动">社团活动</button>
+                    <button class="filter-pill" data-dimension-filter="校园氛围">校园氛围</button>
+                    <button class="filter-pill" data-dimension-filter="城市环境">城市环境</button>
+                    <button class="filter-pill" data-dimension-filter="就业去向">就业去向</button>
+                  </div>
+                </div>
+                <div class="filter-group filter-source-group" data-filter-section-panel="source">
+                  <span class="filter-group-label">信息来源</span>
+                  <div class="filter-pills" id="sourceFilterPills">
+                    <button class="filter-pill active" data-source-filter="all">全部来源</button>
+                    <button class="filter-pill" data-source-filter="student">在读学生</button>
+                    <button class="filter-pill" data-source-filter="expert">教师 / 从业者</button>
+                  </div>
+                </div>
+                <div class="filter-group filter-time-group" data-filter-section-panel="time">
+                  <span class="filter-group-label">经验发布时间</span>
+                  <div class="filter-pills" id="timeFilterPills">
+                    <button class="filter-pill active" data-time-filter="all">不限</button>
+                    <button class="filter-pill" data-time-filter="6m">近半年</button>
+                    <button class="filter-pill" data-time-filter="1y">近一年</button>
+                    <button class="filter-pill" data-time-filter="3y">近三年</button>
+                  </div>
+                </div>
+                <div class="filter-group filter-sort-group" data-filter-section-panel="extra">
+                  <label class="filter-group-label" for="experienceSort">排序方式</label>
+                  <select class="filter-sort-select" id="experienceSort">
+                    <option value="relevance">综合相关</option>
+                    <option value="newest">最新发布</option>
+                  </select>
+                </div>
+                <div class="filter-actions" data-filter-section-panel="extra">
+                  <label class="same-school-toggle"><input type="checkbox" id="sameSchoolToggle"><span class="toggle-track"></span>同高中优先</label>
+                  <span class="filter-time-note"><i data-lucide="clock-3"></i>发布时间用于判断学生、教师与从业者经验的时效性</span>
+                </div>
+              </div>
             </div>
-            <section class="institution-section" aria-labelledby="institutionHeading">
+            <section class="institution-section" data-experience-content-panel="institution" aria-labelledby="institutionHeading">
               <div class="subsection-heading">
                 <div>
                   <span class="subsection-kicker"><i data-lucide="building-2"></i>院校信息</span>
@@ -355,7 +461,7 @@
               </div>
               <div class="institution-grid" id="institutionGrid"></div>
             </section>
-            <section class="experience-section" aria-labelledby="experienceHeading">
+            <section class="experience-section" data-experience-content-panel="experience" aria-labelledby="experienceHeading" hidden>
               <div class="subsection-heading compact-subsection-heading">
                 <div>
                   <span class="subsection-kicker"><i data-lucide="messages-square"></i><span id="experienceSectionKicker">经验与职业视角</span></span>
@@ -472,30 +578,181 @@
     </div>
   </div>
 
+  <div class="modal-backdrop" id="decisionCalendarModal" aria-hidden="true">
+    <div class="modal decision-calendar-modal" role="dialog" aria-modal="true" aria-labelledby="decisionCalendarTitle">
+      <button class="modal-close icon-button" data-close-modal="decisionCalendarModal" aria-label="关闭"><i data-lucide="x"></i></button>
+      <div class="modal-kicker">决策日历</div><h2 id="decisionCalendarTitle">关键时间点</h2>
+      <div class="decision-calendar-layout">
+        <section class="decision-calendar-panel" aria-label="选择日期">
+          <header class="decision-calendar-toolbar">
+            <button class="icon-button" type="button" data-calendar-shift="-1" aria-label="上一个月"><i data-lucide="chevron-left"></i></button>
+            <strong id="decisionCalendarMonth"></strong>
+            <button class="icon-button" type="button" data-calendar-shift="1" aria-label="下一个月"><i data-lucide="chevron-right"></i></button>
+          </header>
+          <div class="decision-calendar-weekdays" aria-hidden="true"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+          <div class="decision-calendar-grid" id="decisionCalendarGrid"></div>
+        </section>
+        <section class="decision-event-panel">
+          <form class="decision-event-form" id="decisionEventForm">
+            <label><span>时间点名称</span><input id="decisionEventName" type="text" maxlength="24" placeholder="例如：高考报名" required></label>
+            <label><span>日期</span><input id="decisionEventDate" type="date" required></label>
+            <button class="primary-button" type="submit"><i data-lucide="calendar-plus"></i>添加时间点</button>
+          </form>
+          <div class="decision-event-list-heading"><strong>时间点</strong><span id="decisionEventCount">0 项</span></div>
+          <div class="decision-event-list" id="decisionEventList"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="cyber-pet" id="cyberPet" data-pet-avatar="egret">
+    <section class="cyber-pet-panel" id="cyberPetPanel" aria-labelledby="cyberPetAvatarName" hidden>
+      <header class="cyber-pet-header">
+        <div class="cyber-pet-identity">
+          <span class="cyber-pet-header-mascot"><img src="./pet-t-egret-guide.svg?v=20260815" alt="" aria-hidden="true" draggable="false" data-pet-avatar-image><span class="cyber-pet-status"></span></span>
+          <div><strong id="cyberPetAvatarName">鹭小引</strong><small>你的决策助手</small></div>
+        </div>
+        <button class="icon-button" id="cyberPetClose" type="button" aria-label="收起小助手"><i data-lucide="x"></i></button>
+      </header>
+
+      <div class="cyber-pet-tabs" role="tablist" aria-label="小引助手功能">
+        <button id="cyberPetTabTools" type="button" role="tab" aria-selected="true" aria-controls="cyberPetTools" data-pet-tab="tools">快捷工具</button>
+        <button id="cyberPetTabChat" type="button" role="tab" aria-selected="false" aria-controls="cyberPetChat" data-pet-tab="chat" tabindex="-1">问问小引</button>
+        <button id="cyberPetTabPlan" type="button" role="tab" aria-selected="false" aria-controls="cyberPetPlan" data-pet-tab="plan" tabindex="-1">规划建议</button>
+      </div>
+
+      <div class="cyber-pet-context">
+        <span>正在进行</span>
+        <strong id="cyberPetContext">高考志愿</strong>
+        <b id="cyberPetContextStatus">信息收集中</b>
+      </div>
+
+      <div class="cyber-pet-tab-panel active" id="cyberPetTools" role="tabpanel" aria-labelledby="cyberPetTabTools" data-pet-tab-panel="tools">
+        <div class="cyber-pet-actions" aria-label="快捷功能">
+          <button type="button" data-pet-action="ask-current"><span class="cyber-pet-action-icon blue"><i data-lucide="sparkles"></i></span><strong>问问当前页面</strong><small>结合浏览内容提问</small></button>
+          <button type="button" data-pet-action="anonymous"><span class="cyber-pet-action-icon pink"><i data-lucide="message-circle-question"></i></span><strong>匿名提问</strong><small>不显示身份发布</small></button>
+          <button type="button" data-pet-action="compare"><span class="cyber-pet-action-icon mint"><i data-lucide="git-compare-arrows"></i></span><strong>比较我的候选</strong><small>并排查看差异</small></button>
+          <button type="button" data-pet-action="calendar"><span class="cyber-pet-action-icon yellow"><i data-lucide="calendar-days"></i></span><strong>设置决策时间</strong><small>记录重要日期</small></button>
+        </div>
+        <button class="cyber-pet-recent" type="button" data-pet-action="compare"><span><i></i>最近关注</span><strong>查看等待比较的候选</strong><i data-lucide="chevron-right"></i></button>
+      </div>
+
+      <div class="cyber-pet-tab-panel" id="cyberPetChat" role="tabpanel" aria-labelledby="cyberPetTabChat" data-pet-tab-panel="chat" hidden>
+        <div class="cyber-pet-messages" id="cyberPetMessages" aria-live="polite" aria-atomic="false">
+          <div class="cyber-pet-message assistant">我会结合你正在查看的内容，陪你把选择一步步理清。</div>
+        </div>
+        <div class="cyber-pet-chat-prompts">
+          <button type="button" data-pet-action="ask-current">帮我整理条件</button>
+          <button type="button" data-view="experience">看看真实经验</button>
+        </div>
+      </div>
+
+      <div class="cyber-pet-tab-panel" id="cyberPetPlan" role="tabpanel" aria-labelledby="cyberPetTabPlan" data-pet-tab-panel="plan" hidden>
+        <div class="cyber-pet-stage-reminder">
+          <div><span>本阶段提醒</span><strong id="cyberPetStageName">志愿填报 · 初选候选</strong></div>
+          <p id="cyberPetStageReminder">先核对分数位次和地区范围，再收集学校与专业。</p>
+        </div>
+        <div class="cyber-pet-next-step">
+          <span>下一步建议</span>
+          <h3 id="cyberPetSuggestionTitle">先确定你最在意什么</h3>
+          <p id="cyberPetSuggestionText">城市、专业实力和录取把握很难同时最大化。先选出两个最重要的维度。</p>
+          <div>
+            <button type="button" data-pet-action="ask-current">整理关注维度</button>
+            <button type="button" data-view="experience">查看真实经验</button>
+          </div>
+        </div>
+        <div class="cyber-pet-plan-note"><i></i><span>建议会随当前事项和浏览内容变化</span></div>
+      </div>
+
+      <form class="cyber-pet-report" id="cyberPetReport" hidden>
+        <label for="cyberPetReportInput">页面问题</label>
+        <textarea id="cyberPetReportInput" maxlength="300" placeholder="哪里显示不对，或者哪个按钮无法使用？" required></textarea>
+        <div><button class="quiet-button" type="button" data-pet-action="cancel-report">取消</button><button class="primary-button" type="submit">记录反馈</button></div>
+      </form>
+
+      <form class="cyber-pet-composer" id="cyberPetComposer">
+        <label class="visually-hidden" for="cyberPetInput">向小引提问</label>
+        <input id="cyberPetInput" type="text" maxlength="200" autocomplete="off" placeholder="说说你现在纠结的选择">
+        <button class="icon-button" type="submit" aria-label="发送问题"><i data-lucide="send"></i></button>
+      </form>
+
+      <footer class="cyber-pet-footer">
+        <button class="cyber-pet-report-trigger" type="button" data-pet-action="report"><i data-lucide="bug"></i>反馈页面问题</button>
+        <label class="cyber-pet-motion-setting" for="cyberPetReduceMotion">
+          <span>减少动态效果</span>
+          <input id="cyberPetReduceMotion" type="checkbox">
+          <span class="cyber-pet-motion-switch" aria-hidden="true"></span>
+        </label>
+      </footer>
+    </section>
+
+    <div class="cyber-pet-avatar-menu" id="cyberPetAvatarMenu" role="menu" aria-label="选择小引伙伴" hidden>
+      <div><strong>选择小引伙伴</strong><small>右键或长按唤出</small></div>
+      <button type="button" role="menuitemradio" aria-checked="true" data-pet-avatar="egret"><img src="./pet-t-egret-guide.svg?v=20260815" alt=""><span><strong>鹭小引</strong><small>默认伙伴</small></span><i data-lucide="check"></i></button>
+      <button type="button" role="menuitemradio" aria-checked="false" data-pet-avatar="deer"><img src="./pet-s-never-lost-deer.svg?v=20260815" alt=""><span><strong>不迷鹿</strong><small>关键选择不迷路</small></span><i data-lucide="check"></i></button>
+      <button type="button" role="menuitemradio" aria-checked="false" data-pet-avatar="koi"><img src="./pet-v-lucky-koi.svg?v=20260815" alt=""><span><strong>小引鲤</strong><small>带来好运与引力</small></span><i data-lucide="check"></i></button>
+      <button type="button" role="menuitemradio" aria-checked="false" data-pet-avatar="sheep"><img src="./pet-w-sailing-sheep.svg?v=20260815" alt=""><span><strong>帆帆羊</strong><small>向着前程扬帆</small></span><i data-lucide="check"></i></button>
+      <button type="button" role="menuitemradio" aria-checked="false" data-pet-avatar="turtle"><img src="./pet-z-homebound-turtle.svg?v=20260815" alt=""><span><strong>归途龟</strong><small>记得方向与归途</small></span><i data-lucide="check"></i></button>
+    </div>
+
+    <button class="cyber-pet-toggle" id="cyberPetToggle" type="button" aria-label="打开鹭小引助手" aria-expanded="false" aria-controls="cyberPetPanel" aria-haspopup="menu" title="左键打开助手，右键切换伙伴">
+      <img class="cyber-pet-mascot" src="./pet-t-egret-guide.svg?v=20260815" alt="" aria-hidden="true" draggable="false" data-pet-avatar-image>
+      <span class="cyber-pet-bubbles" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="cyber-pet-glint" aria-hidden="true"></span>
+      <span class="cyber-pet-presence" aria-hidden="true"></span>
+    </button>
+  </div>
+
   <div class="toast" id="toast" role="status"><i data-lucide="check-circle-2"></i><span></span></div>
 
   <div class="modal-backdrop" id="accountModal" aria-hidden="true">
     <div class="modal account-modal" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
       <button class="modal-close icon-button" data-close-modal="accountModal" aria-label="关闭"><i data-lucide="x"></i></button>
-      <div id="authPanel">
-        <div class="modal-kicker">引路试用版</div>
-        <h2 id="accountTitle">先建立你的决策身份</h2>
-        <p class="modal-description">注册信息只保存在当前浏览器，用于保存你的问题、收藏和家庭协作状态。</p>
-        <div class="auth-tabs" role="tablist"><button class="auth-tab active" data-auth-tab="login">登录</button><button class="auth-tab" data-auth-tab="register">注册</button></div>
-        <form id="loginForm" class="auth-form">
-          <label><span>邮箱</span><input id="loginEmail" type="email" autocomplete="email" placeholder="name@example.com" required></label>
-          <label><span>密码</span><input id="loginPassword" type="password" autocomplete="current-password" placeholder="至少 6 位字符" required></label>
-          <button class="primary-button full-button" type="submit"><i data-lucide="log-in"></i>登录试用</button>
-        </form>
-        <form id="registerForm" class="auth-form hidden">
-          <div class="form-grid"><label><span>昵称</span><input id="registerName" type="text" maxlength="16" placeholder="例如：小林同学" required></label><label><span>角色</span><select id="registerRole"><option>高中生</option><option>大学生</option><option>家长</option><option>教师 / 从业者</option></select></label></div>
-          <label><span>邮箱</span><input id="registerEmail" type="email" autocomplete="email" placeholder="用于本机登录" required></label>
-          <label><span>密码</span><input id="registerPassword" type="password" autocomplete="new-password" minlength="6" placeholder="至少 6 位字符" required></label>
-          <label><span>当前决策阶段</span><select id="registerStage"><option value="高考志愿">高考志愿</option><option value="考研择校">考研择校</option><option value="职业选择">职业选择</option><option value="大学适应">大学适应</option></select></label>
-          <button class="primary-button full-button" type="submit"><i data-lucide="user-plus"></i>创建试用账号</button>
-        </form>
-        <button class="guest-button" id="continueGuest"><i data-lucide="eye"></i>先浏览产品</button>
-        <p class="local-data-note"><i data-lucide="database"></i>试用版说明：不是真实多用户账号系统，不构成身份认证。</p>
+      <div id="authPanel" class="account-auth-shell">
+        <div class="account-auth-header">
+          <div class="account-auth-brand">
+            <svg class="account-auth-logo" viewBox="0 0 48 48" role="img" aria-label="引路标志">
+              <path class="brand-mark-body" d="M13 9H30C34 9 37 12 37 16V37L25 30L13 37V9Z"/>
+              <path class="brand-mark-fold" d="M13 9H25C29 9 32 12 32 16V27"/>
+              <path class="account-auth-logo-gap" d="M25 16V29"/>
+              <circle class="brand-mark-dot" cx="25" cy="16" r="3"/>
+            </svg>
+            <div><strong>引路</strong><small>让每一次选择更清楚</small></div>
+          </div>
+          <div class="account-life-path" aria-label="人生阶段路径">
+            <span class="completed">高中</span><i></i><span class="active">大学</span><i></i><span>深造</span><i></i><span>职业</span>
+          </div>
+        </div>
+        <div class="account-auth-body">
+          <aside class="account-value-panel">
+            <div class="account-value-copy"><span>从经验出发</span><h3>把复杂选择，<br>一步一步想清楚</h3><p>真实经验、候选比较和家庭协同，都围绕你的决定展开。</p></div>
+            <div class="account-value-list">
+              <div class="mint"><b>01</b><span><strong>向经历过的人提问</strong><small>问题可以匿名，回答标明来源</small></span></div>
+              <div class="pink"><b>02</b><span><strong>收藏并比较候选</strong><small>学校和专业放在同一张桌面</small></span></div>
+              <div class="blue"><b>03</b><span><strong>按需与家人共享</strong><small>未经授权的内容保持私密</small></span></div>
+            </div>
+          </aside>
+          <div class="account-auth-form-panel">
+            <div class="modal-kicker">引路试用版</div>
+            <h2 id="accountTitle">先建立你的决策身份</h2>
+            <p class="modal-description">注册信息只保存在当前浏览器，用于保存你的问题、收藏和家庭协作状态。</p>
+            <div class="auth-tabs" role="tablist"><button class="auth-tab active" data-auth-tab="login">登录</button><button class="auth-tab" data-auth-tab="register">注册</button></div>
+            <form id="loginForm" class="auth-form">
+              <label><span>邮箱</span><input id="loginEmail" type="email" autocomplete="email" placeholder="name@example.com" required></label>
+              <label><span>密码</span><input id="loginPassword" type="password" autocomplete="current-password" placeholder="至少 6 位字符" required></label>
+              <button class="primary-button full-button" type="submit"><i data-lucide="log-in"></i>登录试用</button>
+            </form>
+            <form id="registerForm" class="auth-form hidden">
+              <div class="form-grid"><label><span>昵称</span><input id="registerName" type="text" maxlength="16" placeholder="例如：小林同学" required></label><label><span>角色</span><select id="registerRole"><option>高中生</option><option>大学生</option><option>家长</option><option>教师 / 从业者</option></select></label></div>
+              <label><span>邮箱</span><input id="registerEmail" type="email" autocomplete="email" placeholder="用于本机登录" required></label>
+              <label><span>密码</span><input id="registerPassword" type="password" autocomplete="new-password" minlength="6" placeholder="至少 6 位字符" required></label>
+              <label><span>当前决策阶段</span><select id="registerStage"><option value="高考志愿">高考志愿</option><option value="考研择校">考研择校</option><option value="职业选择">职业选择</option><option value="大学适应">大学适应</option></select></label>
+              <button class="primary-button full-button" type="submit"><i data-lucide="user-plus"></i>创建试用账号</button>
+            </form>
+            <button class="guest-button" id="continueGuest"><i data-lucide="eye"></i>先浏览产品</button>
+            <p class="local-data-note"><i data-lucide="database"></i>试用版说明：不是真实多用户账号系统，不构成身份认证。</p>
+          </div>
+        </div>
       </div>
       <div id="profilePanel" class="hidden">
         <div class="modal-kicker">我的引路</div><h2>个人资料</h2><p class="modal-description">完善你的基本信息，头像和资料仅保存在当前浏览器。</p>
@@ -546,5 +803,7 @@
       </div>
     </div>
   </div>
+
+  <button class="back-to-top-button" id="backToTopButton" type="button" aria-label="回到页面顶部" title="回到顶部" aria-hidden="true" tabindex="-1"><span aria-hidden="true">↑</span></button>
 </body>
 </html>

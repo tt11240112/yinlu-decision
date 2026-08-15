@@ -217,19 +217,78 @@ const institutions = [
 ];
 
 const demoQuestions = [
-  { title: "计算机专业每天都要写代码吗？", topic: "课程学习", status: "已回答", meta: "2 个认证回答 · 3 天前" },
-  { title: "福州读研的生活成本大概怎么样？", topic: "城市环境", status: "等待回答", meta: "已匹配 1 位学长 · 昨天", waiting: true },
-  { title: "这个专业毕业后真的只能考公吗？", topic: "就业去向", status: "已回答", meta: "4 个认证回答 · 6 天前" }
+  {
+    title:"计算机专业每天都要写代码吗？",
+    topic:"课程学习",
+    status:"已回答",
+    meta:"2 个认证回答 · 3 天前",
+    answers:[
+      {
+        author:"福建师范大学 · 软件工程 · 2023级",
+        text:"大一主要学习Java、数据结构等基础课程，真正大量写项目一般从后续课程开始。"
+      },
+      {
+        author:"福州大学 · 计算机专业 · 2022级",
+        text:"代码量会逐渐增加，建议早点培养工程实践能力。"
+      }
+    ]
+  },
+  {
+    title:"福州读研的生活成本大概怎么样？",
+    topic:"城市环境",
+    status:"等待回答",
+    meta:"已匹配1位学长 · 昨天",
+    waiting:true,
+    answers:[]
+  },
+  {
+    title:"这个专业毕业后真的只能考公吗？",
+    topic:"就业去向",
+    status:"已回答",
+    meta:"4 个认证回答 · 6 天前",
+    answers:[
+      {
+        author:"上海财经大学 · 金融学 · 2021级",
+        text:"不是的，商业银行、证券公司、四大会计师事务所都需要金融类专业。"
+      },
+      {
+        author:"厦门大学 · 金融工程 · 2020级",
+        text:"就业面很广，我身边同学有去银行、券商、基金公司、互联网金融的。"
+      }
+    ]
+  }
 ];
 
 const demoAnswers = [
-  { title: "转专业需要提前准备哪些课程？", topic: "课程学习", status: "已发布", meta: "收到 2 次感谢 · 5 天前" },
-  { title: "大学宿舍生活和高中想象差别大吗？", topic: "宿舍生活", status: "已发布", meta: "收到 1 次追问 · 2 周前" }
+  {
+    question:"计算机专业每天都要写代码吗？",
+    school:"福建师范大学",
+    major:"软件工程 · 2023级",
+    content:"大一主要学习Java、数据结构等基础课程，真正大量写项目一般从后续课程开始。"
+  },
+  {
+    question:"计算机专业每天都要写代码吗？",
+    school:"福州大学",
+    major:"计算机专业 · 2022级",
+    content:"代码量会逐渐增加，建议早点培养工程实践能力。"
+  },
+  {
+    question:"这个专业毕业后真的只能考公吗？",
+    school:"上海财经大学",
+    major:"金融学 · 2021级",
+    content:"不是的，商业银行、证券公司、四大会计师事务所都需要金融类专业。"
+  },
+  {
+    question:"这个专业毕业后真的只能考公吗？",
+    school:"厦门大学",
+    major:"金融工程 · 2020级",
+    content:"就业面很广，我身边同学有去银行、券商、基金公司、互联网金融的。"
+  }
 ];
 
 const stageNames = { gaokao: "高考志愿", graduate: "考研择校", career: "职业选择", adapt: "大学适应" };
 const stageOrder = ["gaokao", "graduate", "career", "adapt"];
-const STORE = { users: "yinlu_users", session: "yinlu_session", questions: "yinlu_questions", answers: "yinlu_answers", favorites: "yinlu_favorites", candidateStatus: "yinlu_candidate_status", compareHistory: "yinlu_compare_history", family: "yinlu_family", verification: "yinlu_verification", theme: "yinlu_theme", experienceLayout: "yinlu_experience_layout" };
+const STORE = { users: "yinlu_users", session: "yinlu_session", questions: "yinlu_questions", answers: "yinlu_answers", favorites: "yinlu_favorites", candidateStatus: "yinlu_candidate_status", compareHistory: "yinlu_compare_history", family: "yinlu_family", verification: "yinlu_verification", theme: "yinlu_theme", experienceLayout: "yinlu_experience_layout", history: "yinlu_history" };
 const THEME_NAMES = {
   spring: "春野同行",
   milestone: "金鱼气泡水",
@@ -339,6 +398,19 @@ const majorDecisionKey = (school, major) => encodeURIComponent(`${school}::${maj
 const candidateStatuses = ["待了解", "正在比较", "已倾向", "暂不考虑"];
 const currentUser = () => { const id = localStorage.getItem(STORE.session); return read(STORE.users, []).find((user) => user.id === id) || null; };
 const userFavorites = () => { const user = currentUser(); return user ? read(STORE.favorites, {})[user.id] || [] : []; };
+
+function getDemoAnswers(questionTitle) {
+  return demoAnswers.filter((answer) => answer.question === questionTitle);
+}
+
+function saveHistory(id) {
+  const user = currentUser();
+  if (!user) return;
+  const all = read(STORE.history, {});
+  all[user.id] = [id, ...(all[user.id] || []).filter((itemId) => itemId !== id)].slice(0, 5);
+  write(STORE.history, all);
+}
+
 const initials = (name = "访客") => name.trim().slice(0, 1) || "访";
 const AVATAR_MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -507,6 +579,19 @@ function showToast(message) {
 function openModal(id) { const modal = $(`#${id}`); if (!modal) return; modal.classList.add("open"); modal.setAttribute("aria-hidden", "false"); window.setTimeout(() => $("textarea, input, select, button", modal)?.focus?.(), 300); }
 function closeModal(id) { const modal = $(`#${id}`); if (!modal) return; modal.classList.remove("open"); modal.setAttribute("aria-hidden", "true"); }
 
+function switchExperienceContentTab(name) {
+  const activeName = name === "experience" ? "experience" : "institution";
+  $$('[data-experience-content-tab]').forEach((button) => {
+    const active = button.dataset.experienceContentTab === activeName;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
+  $$('[data-experience-content-panel]').forEach((panel) => {
+    panel.hidden = panel.dataset.experienceContentPanel !== activeName;
+  });
+  renderExperiences();
+}
+
 function switchView(name) {
   $$(".view").forEach((view) => view.classList.toggle("active", view.id === `view-${name}`));
   $$(".nav-item").forEach((button) => button.classList.toggle("active", button.dataset.view === name));
@@ -662,7 +747,7 @@ function renderExperiences() {
     const sourceDetail = item.sourceUrl ? `<a class="source-link" href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>查看来源 · ${item.sourceName}</a>` : `<span class="source-link source-link-muted"><i data-lucide="shield-check"></i>平台认证记录 · ${item.level || "身份已核验"}</span>`;
     const valueHtml = item.value ? `<div class="source-value"><strong>${item.value}</strong><small>来源内容摘要</small></div>` : "";
     const titleHtml = item.title ? `<h3 class="experience-card-title">${item.title}</h3>` : "";
-    return `<article class="experience-card">
+    return `<article class="experience-card" onclick="saveHistory('${item.id}')">
       <div class="experience-top"><span class="school-avatar">${(item.school || "").slice(0, 1)}</span><div class="experience-school"><strong>${item.school || "未命名学校"}</strong><small>${item.major || "未分类专业"} · ${item.city || "未标注城市"}</small></div><span class="source-level-tag ${src.cls}">${src.text}</span></div>
       <div class="experience-divider"></div>
       ${valueHtml}${titleHtml}
@@ -675,17 +760,77 @@ function renderExperiences() {
 }
 
 function renderQuestions() {
+  const container = $("#questionList");
+  if (!container) return;
+
   const user = currentUser();
-  const list = $("#questionList");
-  if (!list) return;
-  if (!user) {
-    list.innerHTML = demoQuestions.map((item) => `<article class="question-list-item"><header><strong>${escapeHtml(item.title)}</strong><span class="question-status ${item.waiting ? "waiting" : ""}">${escapeHtml(item.status)}</span></header><p>${escapeHtml(item.meta)}</p></article>`).join("");
-  } else {
-    const mine = read(STORE.questions, []).filter((item) => item.userId === user.id);
-    list.innerHTML = mine.length ? mine.map((item) => `<article class="question-list-item"><header><strong>${escapeHtml(item.title)}</strong><span class="question-status ${item.status === "已回答" ? "" : "waiting"}">${escapeHtml(item.status)}</span></header><p>${escapeHtml(item.meta || `${item.topic || "未分类"} · 发布于 ${new Date(item.createdAt).toLocaleDateString("zh-CN")}`)}</p></article>`).join("") : `<p>你还没有发布问题</p>`;
+  const all = read(STORE.questions, []);
+  const merged = [...demoQuestions, ...all];
+
+  if (!merged.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <p>暂无问题，快来提问吧</p>
+      </div>
+    `;
+    return;
   }
-  $("#questionsCount") && ($("#questionsCount").textContent = user ? read(STORE.questions, []).filter((item) => item.userId === user.id).length : "示例");
-  hydrateIcons();
+
+  const escapeHtml = (str) => {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+
+  container.innerHTML = merged.map((q) => {
+    const isWaiting = q.waiting || q.status === "等待回答";
+    const isDemo = demoQuestions.includes(q);
+
+    // 获取该问题的答案
+    const answers = q.answers || (isDemo ? getDemoAnswers(q.title) : []);
+    const hasAnswers = answers && answers.length > 0;
+
+    return `
+      <article class="question-item ${isWaiting ? 'waiting' : ''}">
+        <div class="question-header">
+          <div class="question-topic-badge">${escapeHtml(q.topic || "未分类")}</div>
+          <div class="question-status ${isWaiting ? 'status-waiting' : 'status-answered'}">
+            ${escapeHtml(q.status || "等待回答")}
+          </div>
+        </div>
+        <h3 class="question-title">${escapeHtml(q.title)}</h3>
+        <div class="question-meta">${escapeHtml(q.meta || "")}</div>
+
+        ${hasAnswers ? `
+          <div class="question-answers">
+            ${answers.map(answer => {
+              // 根据数据结构决定如何显示
+              const school = answer.school || '';
+              const major = answer.major || '';
+              const authorInfo = answer.author || (school && major ? `${school} · ${major}` : '');
+              const content = answer.text || answer.content || '';
+
+              return `
+                <div class="answer-card">
+                  <div class="answer-author">${escapeHtml(authorInfo)}</div>
+                  <div class="answer-content">${escapeHtml(content)}</div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        ` : ''}
+
+        ${!isDemo && user && q.userId === user.id ? `
+          <div class="question-actions">
+            <button type="button" onclick="deleteQuestion('${q.id}')">删除</button>
+          </div>
+        ` : ''}
+      </article>
+    `;
+  }).join('');
 }
 
 function renderInstitutionCard(item) {
@@ -1546,7 +1691,8 @@ function removeProfileAvatar() {
 function submitQuestion() {
   if (!requireAuth("登录后才能发布匿名问题")) return;
   const input = $("#questionInput"); const value = input?.value.trim() || ""; if (value.length < 8) { showToast("请把问题写得再具体一点"); input?.focus(); return; }
-  const user = currentUser(); const all = read(STORE.questions, []); all.unshift({ id: uid("question"), userId: user.id, title: value, topic: $("#questionTopic")?.value || "未分类", stage: $("#questionStage")?.value || "高考志愿", status: "等待回答", createdAt: new Date().toISOString() }); write(STORE.questions, all);
+  const user = currentUser(); const all = read(STORE.questions, []); all.unshift({ id: uid("question"), userId: user.id, title: value, topic: $("#questionTopic")?.value || "未分类", stage: $("#questionStage")?.value || "高考志愿", status: "等待回答", createdAt: new Date().toISOString(), answers: [] });
+  write(STORE.questions, all);
   input.value = ""; closeModal("questionModal"); renderQuestions(); showToast("匿名问题已发布，正在匹配认证回答者");
 }
 
@@ -1568,7 +1714,8 @@ function submitInlineQuestion() {
     topic: $("#questionTopicPreview")?.value || "未分类",
     stage: $("#questionStagePreview")?.value || "高考志愿",
     status: "等待回答",
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    answers: []
   });
   write(STORE.questions, all);
   input.value = "";
@@ -1695,6 +1842,8 @@ function switchQaTab(name) {
 document.addEventListener("click", (event) => {
   const experienceLayout = event.target.closest("[data-experience-layout]");
   if (experienceLayout) { applyExperienceLayout(experienceLayout.dataset.experienceLayout, { notify: true }); return; }
+  const experienceContentTab = event.target.closest("[data-experience-content-tab]");
+  if (experienceContentTab) { switchExperienceContentTab(experienceContentTab.dataset.experienceContentTab); return; }
   const nav = event.target.closest("[data-view]"); if (nav) { switchView(nav.dataset.view); return; }
   const targetView = event.target.closest("[data-view-target]"); if (targetView) { switchView(targetView.dataset.viewTarget); return; }
   const schoolDetail = event.target.closest("[data-school-detail]"); if (schoolDetail) {

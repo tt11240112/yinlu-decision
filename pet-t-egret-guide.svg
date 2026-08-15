@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320">
+  <style>
+    .pet-eye { transform-box: fill-box; transform-origin: center; animation: pet-blink 7.2s infinite; }
+    @keyframes pet-blink { 0%, 43%, 45%, 72%, 74%, 100% { transform: scaleY(1); } 44%, 73% { transform: scaleY(.08); } }
+    @media (prefers-reduced-motion: reduce) { .pet-eye { animation: none; } }
+  </style>
+  <defs><linearGradient id="tw" x1="109" y1="57" x2="245" y2="268" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#DCEBEA"/></linearGradient><filter id="ts" x="-35%" y="-35%" width="180%" height="190%"><feDropShadow dx="0" dy="11" stdDeviation="9" flood-color="#385A60" flood-opacity=".16"/></filter></defs>
+  <g filter="url(#ts)">
+    <path d="M206 71c18-28 41-37 62-26-23 3-39 15-50 35l-12-9Z" fill="#6DBBAC"/>
+    <path d="M145 93c11-36 39-56 68-47 31 9 38 42 21 72-12 21-15 42-9 63l-69 3c8-29 7-54-5-75l-6-16Z" fill="url(#tw)"/>
+    <path d="M233 90 306 76c8-2 12 8 5 13l-75 34-3-33Z" fill="#F4B963"/>
+    <path class="pet-eye" d="M194 79c2-8 13-8 15 0 1 9-3 14-8 14s-9-5-7-14Z" fill="#294A58"/>
+    <path d="M134 161c-25 12-38 39-31 71 8 38 37 60 77 60s69-22 77-60c7-32-6-59-31-71-18-9-74-9-92 0Z" fill="url(#tw)"/>
+    <path d="M138 172c12 41 36 69 72 83-11 14-26 22-43 24-29-27-42-62-39-104l10-3Z" fill="#9AD6CE"/>
+    <path d="M146 190c18 12 39 18 63 18s42-6 57-16" fill="none" stroke="#55B4A5" stroke-width="10" stroke-linecap="round"/>
+    <path d="m239 201 28 28-25 7-23-29 20-6Z" fill="#43A596"/>
+    <circle cx="180" cy="223" r="18" fill="#FFF8E7"/><path d="m180 212 4 8 9 1-7 6 2 9-8-4-8 4 2-9-7-6 9-1 4-8Z" fill="#FFD065"/>
+    <path d="M160 286v22m40-22v22" stroke="#E3A35C" stroke-width="7" stroke-linecap="round"/>
+    <path d="M145 310h31m10 0h31" stroke="#B97A4E" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>
