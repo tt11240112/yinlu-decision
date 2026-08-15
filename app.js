@@ -1190,19 +1190,6 @@ function submitCyberPetReport(event) {
   showToast("页面问题已记录在本机");
 }
 
-function switchExperienceContentTab(name) {
-  const activeName = name === "experience" ? "experience" : "institution";
-  $$('[data-experience-content-tab]').forEach((button) => {
-    const active = button.dataset.experienceContentTab === activeName;
-    button.classList.toggle("active", active);
-    button.setAttribute("aria-selected", String(active));
-  });
-  $$('[data-experience-content-panel]').forEach((panel) => {
-    panel.hidden = panel.dataset.experienceContentPanel !== activeName;
-  });
-  renderExperiences();
-}
-
 function switchView(name) {
   $$(".view").forEach((view) => view.classList.toggle("active", view.id === `view-${name}`));
   $$(".nav-item").forEach((button) => button.classList.toggle("active", button.dataset.view === name));
