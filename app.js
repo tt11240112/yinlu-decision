@@ -229,32 +229,9 @@ const demoQuestions = [
 ];
 
 const demoAnswers = [
-  {
-    question:"计算机专业每天都要写代码吗？",
-    school:"福建师范大学",
-    major:"软件工程 · 2023级",
-    content:"大一主要学习Java、数据结构等基础课程，真正大量写项目一般从后续课程开始。"
-  },
-  {
-    question:"计算机专业每天都要写代码吗？",
-    school:"福州大学",
-    major:"计算机专业 · 2022级",
-    content:"代码量会逐渐增加，建议早点培养工程实践能力。"
-  },
-  {
-    question:"这个专业毕业后真的只能考公吗？",
-    school:"上海财经大学",
-    major:"金融学 · 2021级",
-    content:"不是的，商业银行、证券公司、四大会计师事务所都需要金融类专业。"
-  },
-  {
-    question:"这个专业毕业后真的只能考公吗？",
-    school:"厦门大学",
-    major:"金融工程 · 2020级",
-    content:"就业面很广，我身边同学有去银行、券商、基金公司、互联网金融的。"
-  }
+  { title: "转专业需要提前准备哪些课程？", topic: "课程学习", status: "已发布", meta: "收到 2 次感谢 · 5 天前" },
+  { title: "大学宿舍生活和高中想象差别大吗？", topic: "宿舍生活", status: "已发布", meta: "收到 1 次追问 · 2 周前" }
 ];
-
 const stageNames = { gaokao: "高考志愿", graduate: "考研择校", career: "职业选择", adapt: "大学适应" };
 const stageOrder = ["gaokao", "graduate", "career", "adapt"];
 const STORE = { users: "yinlu_users", session: "yinlu_session", questions: "yinlu_questions", answers: "yinlu_answers", favorites: "yinlu_favorites", candidateStatus: "yinlu_candidate_status", compareHistory: "yinlu_compare_history", family: "yinlu_family", verification: "yinlu_verification", theme: "yinlu_theme", experienceLayout: "yinlu_experience_layout", history: "yinlu_history", decisionEvents: "yinlu_decision_events", petPosition: "yinlu_pet_position_v2", petAvatar: "yinlu_pet_avatar", petMotion: "yinlu_pet_reduce_motion", pageFeedback: "yinlu_page_feedback", onboarding: "yinlu_onboarding_complete_v1" };
@@ -434,10 +411,6 @@ const majorDecisionKey = (school, major) => encodeURIComponent(`${school}::${maj
 const candidateStatuses = ["待了解", "正在比较", "已倾向", "暂不考虑"];
 const currentUser = () => { const id = localStorage.getItem(STORE.session); return read(STORE.users, []).find((user) => user.id === id) || null; };
 const userFavorites = () => { const user = currentUser(); return user ? read(STORE.favorites, {})[user.id] || [] : []; };
-
-function getDemoAnswers(questionTitle) {
-  return demoAnswers.filter((answer) => answer.title === questionTitle);
-}
 
 function saveHistory(id) {
   const user = currentUser();
@@ -2083,15 +2056,12 @@ function renderExperiences() {
 }
 
 function renderQuestionAnswers(item) {
-  const answers = Array.isArray(item.answers) ? item.answers : (demoQuestions.includes(item) ? getDemoAnswers(item.title) : []);
+  const answers = Array.isArray(item.answers) ? item.answers : [];
   if (!answers.length) return "";
   return `<div class="question-answers">${answers.map((answer) => `<div class="answer-card"><div class="answer-author">${escapeHtml(answer.author || "")}</div><div class="answer-content">${escapeHtml(answer.text || "")}</div></div>`).join("")}</div>`;
 }
 
 function renderQuestions() {
-  const container = $("#questionList");
-  if (!container) return;
-
   const user = currentUser();
   const list = $("#questionList");
   if (!list) return;
@@ -2101,62 +2071,8 @@ function renderQuestions() {
     const mine = read(STORE.questions, []).filter((item) => item.userId === user.id);
     list.innerHTML = mine.length ? mine.map((item) => `<article class="question-list-item"><header><strong>${escapeHtml(item.title)}</strong><span class="question-status ${item.status === "已回答" ? "" : "waiting"}">${escapeHtml(item.status)}</span></header><p>${escapeHtml(item.meta || `${item.topic || "未分类"} · 发布于 ${new Date(item.createdAt).toLocaleDateString("zh-CN")}`)}</p>${renderQuestionAnswers(item)}</article>`).join("") : `<p>你还没有发布问题</p>`;
   }
-
-  const escapeHtml = (str) => {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  };
-
-  container.innerHTML = merged.map((q) => {
-    const isWaiting = q.waiting || q.status === "等待回答";
-    const isDemo = demoQuestions.includes(q);
-
-    // 获取该问题的答案
-    const answers = q.answers || (isDemo ? getDemoAnswers(q.title) : []);
-    const hasAnswers = answers && answers.length > 0;
-
-    return `
-      <article class="question-item ${isWaiting ? 'waiting' : ''}">
-        <div class="question-header">
-          <div class="question-topic-badge">${escapeHtml(q.topic || "未分类")}</div>
-          <div class="question-status ${isWaiting ? 'status-waiting' : 'status-answered'}">
-            ${escapeHtml(q.status || "等待回答")}
-          </div>
-        </div>
-        <h3 class="question-title">${escapeHtml(q.title)}</h3>
-        <div class="question-meta">${escapeHtml(q.meta || "")}</div>
-
-        ${hasAnswers ? `
-          <div class="question-answers">
-            ${answers.map(answer => {
-              // 根据数据结构决定如何显示
-              const school = answer.school || '';
-              const major = answer.major || '';
-              const authorInfo = answer.author || (school && major ? `${school} · ${major}` : '');
-              const content = answer.text || answer.content || '';
-
-              return `
-                <div class="answer-card">
-                  <div class="answer-author">${escapeHtml(authorInfo)}</div>
-                  <div class="answer-content">${escapeHtml(content)}</div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-        ` : ''}
-
-        ${!isDemo && user && q.userId === user.id ? `
-          <div class="question-actions">
-            <button type="button" onclick="deleteQuestion('${q.id}')">删除</button>
-          </div>
-        ` : ''}
-      </article>
-    `;
-  }).join('');
+  $("#questionsCount") && ($("#questionsCount").textContent = user ? read(STORE.questions, []).filter((item) => item.userId === user.id).length : "示例");
+  hydrateIcons();
 }
 
 function renderInstitutionCard(item) {
