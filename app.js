@@ -1,24 +1,27 @@
 const experiences = [
-  { id: "fjnu-cs", school: "福建师范大学", major: "计算机科学与技术", city: "福州", level: "已认证 · 2023级", source: "student", consensus: { recommend: 9, total: 12 }, text: "课程强调理论与工程实践的结合，作业量中等偏上，适合喜欢系统性学习的同学。", tags: ["作业", "实践"], dimensions: ["课程学习"] },
-  { id: "fzu-econ", school: "福州大学", major: "经济学", city: "福州", level: "已认证 · 2022级", source: "student", consensus: { recommend: 8, total: 9 }, text: "考研氛围浓，建议提前准备数学与专业课，社团与实践机会较多。", tags: ["考研", "生活"], dimensions: ["课程学习", "城市环境"] },
-  { id: "xmu-news", school: "厦门大学", major: "新闻传播学", city: "厦门", level: "已认证 · 2024级", source: "student", consensus: { recommend: 14, total: 17 }, text: "课程里有不少实战项目，适合想做媒体与内容生产的同学，实习机会较多。", tags: ["实习", "项目"], dimensions: ["课程学习", "就业去向"] },
-  { id: "hqu-med", school: "华侨大学", major: "临床医学", city: "泉州", level: "已认证 · 2021级", source: "student", consensus: { recommend: 2, total: 2 }, text: "专业学习周期长，临床实践密集，对体力与耐心要求高。", tags: ["临床", "实践"], dimensions: ["课程学习"] },
-  { id: "fafu-land", school: "福建农林大学", major: "风景园林", city: "福州", level: "已认证 · 2023级", source: "student", consensus: { recommend: 6, total: 8 }, text: "项目制作业较多，利于作品集准备，适合偏向设计/景观方向的同学。", tags: ["设计", "作品集"], dimensions: ["课程学习", "就业去向"] },
-  { id: "jmu-nautical", school: "集美大学", major: "航海技术", city: "厦门", level: "已认证 · 2022级", source: "student", consensus: { recommend: 1, total: 1 }, text: "专业路径比较明确，但需要适应海上实训与体能训练。", tags: ["实训", "体能"], dimensions: ["课程学习", "城市环境"] },
-  { id: "fjnu-cs-campus", school: "福建师范大学", major: "计算机科学与技术", city: "福州", level: "已认证 · 2023级", source: "student", consensus: { recommend: 7, total: 10 }, text: "宿舍条件和校区安排需要结合具体学院确认，公共学习空间比较方便，建议提前了解宿舍分配规则。", tags: ["宿舍", "校区"], dimensions: ["宿舍生活"] },
-  { id: "fjnu-education", school: "福建师范大学", major: "教育学", city: "福州", level: "已认证 · 2022级", source: "student", consensus: { recommend: 10, total: 13 }, text: "课程阅读和课堂讨论占比不低，想走教师教育方向的同学可以关注实习安排和教育实践机会。", tags: ["阅读", "教育实践"], dimensions: ["课程学习", "就业去向"] },
-  { id: "fjnu-city", school: "福建师范大学", major: "汉语言文学", city: "福州", level: "已认证 · 2021级", source: "student", consensus: { recommend: 8, total: 11 }, text: "福州生活节奏适中，学校周边日常配套较完整，通勤和生活成本仍要按校区与个人习惯估算。", tags: ["生活成本", "通勤"], dimensions: ["城市环境"] },
-  { id: "fzu-econ-campus", school: "福州大学", major: "经济学", city: "福州", level: "已认证 · 2022级", source: "student", consensus: { recommend: 6, total: 9 }, text: "课程中需要持续阅读和整理案例，期末阶段任务集中，平时做好笔记会比临时突击轻松。", tags: ["案例", "期末"], dimensions: ["课程学习"] },
-  { id: "fzu-engineering", school: "福州大学", major: "机械设计制造及其自动化", city: "福州", level: "已认证 · 2023级", source: "student", consensus: { recommend: 5, total: 7 }, text: "实验和课程设计需要投入连续时间，喜欢动手和工程实践的同学更容易找到学习节奏。", tags: ["实验", "工程实践"], dimensions: ["课程学习", "就业去向"] },
-  { id: "fzu-career", school: "福州大学", major: "经济学", city: "福州", level: "已认证 · 2021级", source: "student", consensus: { recommend: 7, total: 8 }, text: "实习和考研是比较常见的选择，最好在大二前后确定更偏向数据分析、金融或公共部门的方向。", tags: ["实习", "考研"], dimensions: ["就业去向"] },
-  { id: "xmu-news-campus", school: "厦门大学", major: "新闻传播学", city: "厦门", level: "已认证 · 2024级", source: "student", consensus: { recommend: 12, total: 15 }, text: "课程展示和小组项目较多，宿舍与课堂之间的安排需要留出机动时间，适合愿意主动表达和协作的同学。", tags: ["小组项目", "表达"], dimensions: ["宿舍生活", "课程学习"] },
-  { id: "hqu-med-career", school: "华侨大学", major: "临床医学", city: "泉州", level: "已认证 · 2021级", source: "student", consensus: { recommend: 2, total: 3 }, text: "后续升学和规培规划需要较早了解，专业学习投入时间长，不能只用本科阶段的课程数量来判断压力。", tags: ["升学", "规培"], dimensions: ["就业去向"] },
-  { id: "fafu-land-campus", school: "福建农林大学", major: "风景园林", city: "福州", level: "已认证 · 2023级", source: "student", consensus: { recommend: 5, total: 7 }, text: "图纸、模型和软件练习可能集中在同一阶段，宿舍里需要注意桌面空间和作息安排。", tags: ["模型", "作息"], dimensions: ["宿舍生活", "课程学习"] },
-  { id: "jmu-nautical-career", school: "集美大学", major: "航海技术", city: "厦门", level: "已认证 · 2022级", source: "student", consensus: { recommend: 2, total: 3 }, text: "行业路径相对明确，但工作地点和轮班方式与普通办公室岗位不同，报考前应把职业生活方式一起考虑。", tags: ["行业路径", "轮班"], dimensions: ["就业去向"] },
+  { id: "fjnu-cs", school: "福建师范大学", major: "计算机科学与技术", city: "福州", level: "已认证 · 2023级", source: "student", publishedAt: "2026-08-10", consensus: { recommend: 9, total: 12 }, text: "课程强调理论与工程实践的结合，作业量中等偏上，适合喜欢系统性学习的同学。", tags: ["作业", "实践"], dimensions: ["课程学习"] },
+  { id: "fzu-econ", school: "福州大学", major: "经济学", city: "福州", level: "已认证 · 2022级", source: "student", publishedAt: "2026-07-24", consensus: { recommend: 8, total: 9 }, text: "考研氛围浓，建议提前准备数学与专业课，社团与实践机会较多。", tags: ["考研", "生活"], dimensions: ["课程学习", "校园氛围", "城市环境", "社团活动"] },
+  { id: "xmu-news", school: "厦门大学", major: "新闻传播学", city: "厦门", level: "已认证 · 2024级", source: "student", publishedAt: "2026-06-18", consensus: { recommend: 14, total: 17 }, text: "课程里有不少实战项目，适合想做媒体与内容生产的同学，实习机会较多。", tags: ["实习", "项目"], dimensions: ["课程学习", "就业去向"] },
+  { id: "hqu-med", school: "华侨大学", major: "临床医学", city: "泉州", level: "已认证 · 2021级", source: "student", publishedAt: "2026-05-09", consensus: { recommend: 2, total: 2 }, text: "专业学习周期长，临床实践密集，对体力与耐心要求高。", tags: ["临床", "实践"], dimensions: ["课程学习"] },
+  { id: "fafu-land", school: "福建农林大学", major: "风景园林", city: "福州", level: "已认证 · 2023级", source: "student", publishedAt: "2026-04-16", consensus: { recommend: 6, total: 8 }, text: "项目制作业较多，利于作品集准备，适合偏向设计/景观方向的同学。", tags: ["设计", "作品集"], dimensions: ["课程学习", "就业去向"] },
+  { id: "jmu-nautical", school: "集美大学", major: "航海技术", city: "厦门", level: "已认证 · 2022级", source: "student", publishedAt: "2026-02-11", consensus: { recommend: 1, total: 1 }, text: "专业路径比较明确，但需要适应海上实训与体能训练。", tags: ["实训", "体能"], dimensions: ["课程学习", "城市环境"] },
+  { id: "fjnu-cs-campus", school: "福建师范大学", major: "计算机科学与技术", city: "福州", level: "已认证 · 2023级", source: "student", publishedAt: "2026-01-22", consensus: { recommend: 7, total: 10 }, text: "宿舍条件和校区安排需要结合具体学院确认，公共学习空间比较方便，建议提前了解宿舍分配规则。", tags: ["宿舍", "校区"], dimensions: ["宿舍生活"] },
+  { id: "fjnu-education", school: "福建师范大学", major: "教育学", city: "福州", level: "已认证 · 2022级", source: "student", publishedAt: "2025-12-02", consensus: { recommend: 10, total: 13 }, text: "课程阅读和课堂讨论占比不低，想走教师教育方向的同学可以关注实习安排和教育实践机会。", tags: ["阅读", "教育实践"], dimensions: ["课程学习", "就业去向"] },
+  { id: "fjnu-city", school: "福建师范大学", major: "汉语言文学", city: "福州", level: "已认证 · 2021级", source: "student", publishedAt: "2025-10-18", consensus: { recommend: 8, total: 11 }, text: "福州生活节奏适中，学校周边日常配套较完整，通勤和生活成本仍要按校区与个人习惯估算。", tags: ["生活成本", "通勤"], dimensions: ["城市环境"] },
+  { id: "fzu-econ-campus", school: "福州大学", major: "经济学", city: "福州", level: "已认证 · 2022级", source: "student", publishedAt: "2025-08-26", consensus: { recommend: 6, total: 9 }, text: "课程中需要持续阅读和整理案例，期末阶段任务集中，平时做好笔记会比临时突击轻松。", tags: ["案例", "期末"], dimensions: ["课程学习"] },
+  { id: "fzu-engineering", school: "福州大学", major: "机械设计制造及其自动化", city: "福州", level: "已认证 · 2023级", source: "student", publishedAt: "2025-06-12", consensus: { recommend: 5, total: 7 }, text: "实验和课程设计需要投入连续时间，喜欢动手和工程实践的同学更容易找到学习节奏。", tags: ["实验", "工程实践"], dimensions: ["课程学习", "就业去向"] },
+  { id: "fzu-career", school: "福州大学", major: "经济学", city: "福州", level: "已认证 · 2021级", source: "student", publishedAt: "2025-02-03", consensus: { recommend: 7, total: 8 }, text: "实习和考研是比较常见的选择，最好在大二前后确定更偏向数据分析、金融或公共部门的方向。", tags: ["实习", "考研"], dimensions: ["就业去向"] },
+  { id: "xmu-news-campus", school: "厦门大学", major: "新闻传播学", city: "厦门", level: "已认证 · 2024级", source: "student", publishedAt: "2024-11-28", consensus: { recommend: 12, total: 15 }, text: "课程展示和小组项目较多，宿舍与课堂之间的安排需要留出机动时间，适合愿意主动表达和协作的同学。", tags: ["小组项目", "表达"], dimensions: ["宿舍生活", "课程学习"] },
+  { id: "hqu-med-career", school: "华侨大学", major: "临床医学", city: "泉州", level: "已认证 · 2021级", source: "student", publishedAt: "2024-06-14", consensus: { recommend: 2, total: 3 }, text: "后续升学和规培规划需要较早了解，专业学习投入时间长，不能只用本科阶段的课程数量来判断压力。", tags: ["升学", "规培"], dimensions: ["就业去向"] },
+  { id: "fafu-land-campus", school: "福建农林大学", major: "风景园林", city: "福州", level: "已认证 · 2023级", source: "student", publishedAt: "2023-12-08", consensus: { recommend: 5, total: 7 }, text: "图纸、模型和软件练习可能集中在同一阶段，宿舍里需要注意桌面空间和作息安排。", tags: ["模型", "作息"], dimensions: ["宿舍生活", "课程学习"] },
+  { id: "jmu-nautical-career", school: "集美大学", major: "航海技术", city: "厦门", level: "已认证 · 2022级", source: "student", publishedAt: "2023-04-20", consensus: { recommend: 2, total: 3 }, text: "行业路径相对明确，但工作地点和轮班方式与普通办公室岗位不同，报考前应把职业生活方式一起考虑。", tags: ["行业路径", "轮班"], dimensions: ["就业去向"] },
+  { id: "fjnu-campus-route", school: "福建师范大学", major: "地理科学", city: "福州", level: "已认证 · 2023级", source: "student", publishedAt: "2026-08-06", text: "旗山校区不同宿舍区到食堂、快递站和教学楼的步行时间差异较大，选宿舍与校区信息时最好把日常动线一起确认。", tags: ["食堂", "快递站", "步行动线"], dimensions: ["设施布局"] },
+  { id: "fafu-campus-culture", school: "福建农林大学", major: "风景园林", city: "福州", level: "已认证 · 2023级", source: "student", publishedAt: "2026-07-12", text: "学院项目协作较多，同学之间常会交流软件、模型和作品集经验，但不同年级与工作室的节奏可能不一样。", tags: ["同学互助", "项目协作"], dimensions: ["校园氛围"] },
   { id: "fjnu-data", school: "福建师范大学", major: "计算机科学与技术", city: "福州", source: "data", title: "招生与录取数据入口", value: "录取位次 · 招生计划 · 专业目录", text: "用于查看公开招生计划、历年录取信息和专业目录，具体数据以当年度发布页面为准。", tags: ["公开数据", "年度更新"], dimensions: ["录取信息"], sourceName: "阳光高考信息平台", sourceUrl: "https://gaokao.chsi.com.cn/" },
   { id: "fjnu-official", school: "福建师范大学", major: "计算机科学与技术", city: "福州", source: "official", title: "学校官方招生与培养信息", value: "招生简章 · 培养方案 · 校方通知", text: "学校官网提供招生政策、院系介绍和培养相关信息，适合与学生经验对照阅读。", tags: ["官方发布", "学校信息"], dimensions: ["课程学习", "录取信息"], sourceName: "福建师范大学官网", sourceUrl: "https://www.fjnu.edu.cn/" },
   { id: "fzu-official", school: "福州大学", major: "经济学", city: "福州", source: "official", title: "学校官方招生信息", value: "招生政策 · 院校介绍 · 官方通知", text: "优先查看学校公开发布的招生与院校信息，具体专业要求以当年度官方页面为准。", tags: ["官方发布", "招生信息"], dimensions: ["录取信息"], sourceName: "福州大学官网", sourceUrl: "https://www.fzu.edu.cn/" },
-  { id: "career-expert", school: "福建师范大学", major: "计算机科学与技术", city: "福州", source: "expert", title: "计算机专业就业能力从哪里开始积累？", value: "课程基础 · 项目实践 · 岗位要求", text: "从业视角更关注技能如何对应真实岗位，建议把课程、项目和实习经历放在一起判断。", tags: ["职业路径", "技能要求"], dimensions: ["就业去向"], sourceName: "人力资源和社会保障部", sourceUrl: "https://www.mohrss.gov.cn/" }
+  { id: "career-expert", school: "福建师范大学", major: "计算机科学与技术", city: "福州", source: "expert", publishedAt: "2026-07-05", title: "计算机专业就业能力从哪里开始积累？", value: "课程基础 · 项目实践 · 岗位要求", text: "从业视角更关注技能如何对应真实岗位，建议把课程、项目和实习经历放在一起判断。", tags: ["职业路径", "技能要求"], dimensions: ["就业去向"], sourceName: "人力资源和社会保障部", sourceUrl: "https://www.mohrss.gov.cn/" },
+  { id: "fjnu-teacher-culture", school: "福建师范大学", major: "教育学", city: "福州", level: "教师身份已核验", source: "expert", publishedAt: "2026-06-26", title: "如何判断学院的学习与交流氛围？", text: "可以观察课堂讨论、导师交流、学生组织与跨年级互助是否稳定，不要只根据一次活动或宣传材料判断整个学院。", tags: ["师生交流", "学习氛围"], dimensions: ["校园氛围"] }
 ];
 
 const institutions = [
@@ -36,6 +39,7 @@ const institutions = [
     educationLevel: "本科 / 研究生教育",
     campuses: "旗山校区、仓山校区",
     updatedAt: "2026年8月",
+    updatedAtISO: "2026-08-01",
     intro: "学校以教师教育为特色，同时覆盖文、理、工、经、管等多个学科方向。平台先把学校概况、招生线索和专业培养信息整理成摘要，方便你建立整体认识。",
     majors: ["计算机科学与技术", "汉语言文学", "教育学"],
     majorPrograms: [
@@ -84,7 +88,7 @@ const institutions = [
     officialUrl: "https://www.fjnu.edu.cn/",
     dataSource: "阳光高考信息平台",
     dataUrl: "https://gaokao.chsi.com.cn/",
-    dimensions: ["课程学习", "录取信息", "城市环境", "就业去向"]
+    dimensions: ["课程学习", "录取信息", "设施布局", "城市环境"]
   },
   {
     id: "fzu",
@@ -100,6 +104,7 @@ const institutions = [
     educationLevel: "本科 / 研究生教育",
     campuses: "旗山校区等",
     updatedAt: "2026年8月",
+    updatedAtISO: "2026-08-01",
     intro: "学校是一所以工为主、理工结合，兼有经济、管理、人文等学科的综合性大学。平台将院校层面的基本信息与具体专业经验分开呈现，避免只看到一个官网入口。",
     majors: ["经济学", "机械设计制造及其自动化", "计算机科学与技术"],
     majorPrograms: [
@@ -148,7 +153,7 @@ const institutions = [
     officialUrl: "https://www.fzu.edu.cn/",
     dataSource: "阳光高考信息平台",
     dataUrl: "https://gaokao.chsi.com.cn/",
-    dimensions: ["课程学习", "录取信息", "城市环境", "就业去向"]
+    dimensions: ["课程学习", "录取信息", "设施布局", "城市环境"]
   },
   {
     id: "fafu",
@@ -164,6 +169,7 @@ const institutions = [
     educationLevel: "本科 / 研究生教育",
     campuses: "金山校区等",
     updatedAt: "2026年8月",
+    updatedAtISO: "2026-08-01",
     intro: "学校以农林学科和生命科学为特色，同时覆盖工、理、经、管、文、法、艺等学科方向。平台将学校概况、专业培养、招生资料和校园体验分开整理，便于进一步核对不同专业所在学院与培养安排。",
     majors: ["风景园林", "食品科学与工程", "植物保护"],
     majorPrograms: [
@@ -212,14 +218,14 @@ const institutions = [
     officialUrl: "https://www.fafu.edu.cn/",
     dataSource: "阳光高考信息平台",
     dataUrl: "https://gaokao.chsi.com.cn/",
-    dimensions: ["课程学习", "录取信息", "城市环境", "就业去向"]
+    dimensions: ["课程学习", "录取信息", "设施布局", "城市环境"]
   }
 ];
 
 const demoQuestions = [
-  { title: "计算机专业每天都要写代码吗？", topic: "课程学习", status: "已回答", meta: "2 个认证回答 · 3 天前" },
-  { title: "福州读研的生活成本大概怎么样？", topic: "城市环境", status: "等待回答", meta: "已匹配 1 位学长 · 昨天", waiting: true },
-  { title: "这个专业毕业后真的只能考公吗？", topic: "就业去向", status: "已回答", meta: "4 个认证回答 · 6 天前" }
+  { title: "计算机专业每天都要写代码吗？", topic: "课程学习", status: "已回答", meta: "2 个认证回答 · 3 天前", answers: [{ author: "福建师范大学 · 软件工程 · 2023级", text: "大一主要学习Java、数据结构等基础课程，真正大量写项目一般从后续课程开始。" }, { author: "福州大学 · 计算机专业 · 2022级", text: "代码量会逐渐增加，建议早点培养工程实践能力。" }] },
+  { title: "福州读研的生活成本大概怎么样？", topic: "城市环境", status: "等待回答", meta: "已匹配 1 位学长 · 昨天", waiting: true, answers: [] },
+  { title: "这个专业毕业后真的只能考公吗？", topic: "就业去向", status: "已回答", meta: "4 个认证回答 · 6 天前", answers: [{ author: "上海财经大学 · 金融学 · 2021级", text: "不是的，商业银行、证券公司、四大会计师事务所都需要金融类专业。" }, { author: "厦门大学 · 金融工程 · 2020级", text: "就业面很广，我身边同学有去银行、券商、基金公司、互联网金融的。" }] }
 ];
 
 const demoAnswers = [
@@ -229,7 +235,21 @@ const demoAnswers = [
 
 const stageNames = { gaokao: "高考志愿", graduate: "考研择校", career: "职业选择", adapt: "大学适应" };
 const stageOrder = ["gaokao", "graduate", "career", "adapt"];
-const STORE = { users: "yinlu_users", session: "yinlu_session", questions: "yinlu_questions", answers: "yinlu_answers", favorites: "yinlu_favorites", candidateStatus: "yinlu_candidate_status", compareHistory: "yinlu_compare_history", family: "yinlu_family", verification: "yinlu_verification", theme: "yinlu_theme", experienceLayout: "yinlu_experience_layout" };
+const STORE = { users: "yinlu_users", session: "yinlu_session", questions: "yinlu_questions", answers: "yinlu_answers", favorites: "yinlu_favorites", candidateStatus: "yinlu_candidate_status", compareHistory: "yinlu_compare_history", family: "yinlu_family", verification: "yinlu_verification", theme: "yinlu_theme", experienceLayout: "yinlu_experience_layout", history: "yinlu_history", decisionEvents: "yinlu_decision_events", petPosition: "yinlu_pet_position_v2", petAvatar: "yinlu_pet_avatar", petMotion: "yinlu_pet_reduce_motion", pageFeedback: "yinlu_page_feedback", onboarding: "yinlu_onboarding_complete_v1" };
+const CYBER_PET_AVATARS = {
+  egret: { name: "鹭小引", src: "./pet-t-egret-guide.svg?v=20260815" },
+  deer: { name: "不迷鹿", src: "./pet-s-never-lost-deer.svg?v=20260815" },
+  koi: { name: "小引鲤", src: "./pet-v-lucky-koi.svg?v=20260815" },
+  sheep: { name: "帆帆羊", src: "./pet-w-sailing-sheep.svg?v=20260815" },
+  turtle: { name: "归途龟", src: "./pet-z-homebound-turtle.svg?v=20260815" }
+};
+const CYBER_PET_GUIDANCE = {
+  experience: { context: "院校与经验", status: "经验对照中", stage: "经验筛选 · 核实信息", reminder: "先看信息来源和发布时间，再把个人体验与客观事实分开记录。", title: "把相同问题放在一起比较", text: "同一所学校的体验可能因专业、校区和年份不同而变化。优先寻找与你情况接近的经验。" },
+  questions: { context: "问答中心", status: "问题梳理中", stage: "提出问题 · 补充细节", reminder: "说明你的地区、阶段和已经了解的内容，更容易获得真正有用的回答。", title: "把问题问得更具体一点", text: "与其问“这所学校好吗”，不如说明你在意的专业、城市、住宿或就业方向。" },
+  compare: { context: "我的候选", status: "候选比较中", stage: "候选比较 · 聚焦差异", reminder: "一次先比较两个最重要的维度，避免信息太多反而难以判断。", title: "先找出真正影响选择的差异", text: "相似条件可以暂时收起，把注意力放在专业实力、城市机会和录取把握等关键差异上。" },
+  trust: { context: "信任与认证", status: "来源确认中", stage: "信息核验 · 查看来源", reminder: "优先查看认证经历、回答时间和信息来源，过期内容需要再次确认。", title: "先确认这条经验是否适合你", text: "真实经历很重要，但不同年份、专业和校区也会影响结论。把经验放回具体背景里判断。" },
+  "school-detail": { context: "学校详情", status: "资料查看中", stage: "学校详情 · 补齐信息", reminder: "把学校优势、专业情况和录取条件放在一起看，不要只依赖单一排名。", title: "记录一个优点和一个疑问", text: "先写下吸引你的地方，再记录仍需确认的问题，之后比较候选会更清楚。" }
+};
 const THEME_NAMES = {
   spring: "春野同行",
   milestone: "金鱼气泡水",
@@ -281,12 +301,53 @@ const REGION_CITIES = {
   "台湾省": ["台北市", "新北市", "桃园市", "台中市", "台南市", "高雄市", "基隆市", "新竹市", "嘉义市", "新竹县", "苗栗县", "彰化县", "南投县", "云林县", "嘉义县", "屏东县", "宜兰县", "花莲县", "台东县", "澎湖县", "金门县", "连江县"],
   "海外": ["亚洲其他地区", "欧洲", "北美洲", "南美洲", "大洋洲", "非洲", "其他海外地区"]
 };
+const REGION_INITIAL_BY_PROVINCE = {
+  "北京市": "B", "天津市": "T", "河北省": "H", "山西省": "S", "内蒙古自治区": "N",
+  "辽宁省": "L", "吉林省": "J", "黑龙江省": "H", "上海市": "S", "江苏省": "J",
+  "浙江省": "Z", "安徽省": "A", "福建省": "F", "江西省": "J", "山东省": "S",
+  "河南省": "H", "湖北省": "H", "湖南省": "H", "广东省": "G", "广西壮族自治区": "G",
+  "海南省": "H", "重庆市": "C", "四川省": "S", "贵州省": "G", "云南省": "Y",
+  "西藏自治区": "X", "陕西省": "S", "甘肃省": "G", "青海省": "Q", "宁夏回族自治区": "N",
+  "新疆维吾尔自治区": "X", "香港特别行政区": "X", "澳门特别行政区": "A", "台湾省": "T", "海外": "H"
+};
+const REGION_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const POPULAR_REGIONS = [
+  { label: "北京", province: "北京市", city: "" }, { label: "上海", province: "上海市", city: "" },
+  { label: "广州", province: "广东省", city: "广州市" }, { label: "深圳", province: "广东省", city: "深圳市" },
+  { label: "杭州", province: "浙江省", city: "杭州市" }, { label: "武汉", province: "湖北省", city: "武汉市" },
+  { label: "厦门", province: "福建省", city: "厦门市" }, { label: "西安", province: "陕西省", city: "西安市" },
+  { label: "成都", province: "四川省", city: "成都市" }, { label: "重庆", province: "重庆市", city: "" }
+];
+const MUNICIPALITIES = new Set(["北京市", "上海市", "天津市", "重庆市"]);
+const MAJOR_CATEGORIES = ["工学", "理学", "文学", "教育学", "经济学", "管理学", "农学", "医学", "法学", "艺术学"];
+const MAJOR_CATEGORY_BY_NAME = {
+  "计算机科学与技术": "工学", "机械设计制造及其自动化": "工学", "电气工程及其自动化": "工学",
+  "化学工程与工艺": "工学", "食品科学与工程": "工学", "风景园林": "工学", "航海技术": "工学",
+  "数学与应用数学": "理学", "地理科学": "理学", "汉语言文学": "文学", "新闻传播学": "文学",
+  "教育学": "教育学", "经济学": "经济学", "农学": "农学", "植物保护": "农学", "临床医学": "医学"
+};
 let currentStage = "gaokao";
 let currentSchoolSearch = "";
 let currentMajorSearch = "";
-let currentDimensionFilter = "all";
+let currentInstitutionSchoolSearch = "";
+let currentInstitutionMajorSearch = "";
+let currentInstitutionRegion = "all";
+let currentExperienceRegion = "all";
+let currentInstitutionRegionSearch = "";
+let currentExperienceRegionSearch = "";
+let currentInstitutionRegionLetter = "";
+let currentExperienceRegionLetter = "";
+let currentInstitutionRegionOpen = false;
+let currentExperienceRegionOpen = false;
+let currentInstitutionMajorCategory = "";
+let currentExperienceMajorCategory = "";
+let currentInstitutionMajorOpen = false;
+let currentExperienceMajorOpen = false;
+let currentExperienceContentTab = "institution";
+const currentDimensionFilters = new Set();
 let currentSourceFilter = "all";
-let currentScopeFilter = "all";
+let currentTimeFilter = "all";
+let currentExperienceSort = "relevance";
 let currentSearch = "";
 let currentSchoolDetail = "fjnu";
 let currentCandidateTab = "school";
@@ -305,6 +366,18 @@ let candidateMajorSearchQuery = "";
 let activeHistoryComparison = null;
 let currentSchoolCandidateResults = [];
 let currentMajorCandidateResults = [];
+let decisionCalendarView = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+let selectedDecisionDate = "";
+
+const EXPERIENCE_DIMENSIONS_BY_SOURCE = {
+  all: ["课程学习", "宿舍生活", "设施布局", "社团活动", "校园氛围", "城市环境", "就业去向"],
+  student: ["课程学习", "宿舍生活", "设施布局", "社团活动", "校园氛围", "城市环境", "就业去向"],
+  official: ["课程学习", "设施布局", "城市环境"],
+  expert: ["课程学习", "校园氛围", "城市环境", "就业去向"]
+};
+let cyberPetSuppressClick = false;
+let cyberPetExpressionTimer = 0;
+let cyberPetLongPressTimer = 0;
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -339,6 +412,19 @@ const majorDecisionKey = (school, major) => encodeURIComponent(`${school}::${maj
 const candidateStatuses = ["待了解", "正在比较", "已倾向", "暂不考虑"];
 const currentUser = () => { const id = localStorage.getItem(STORE.session); return read(STORE.users, []).find((user) => user.id === id) || null; };
 const userFavorites = () => { const user = currentUser(); return user ? read(STORE.favorites, {})[user.id] || [] : []; };
+
+function getDemoAnswers(questionTitle) {
+  return demoAnswers.filter((answer) => answer.title === questionTitle);
+}
+
+function saveHistory(id) {
+  const user = currentUser();
+  if (!user) return;
+  const all = read(STORE.history, {});
+  all[user.id] = [id, ...(all[user.id] || []).filter((itemId) => itemId !== id)].slice(0, 5);
+  write(STORE.history, all);
+}
+
 const initials = (name = "访客") => name.trim().slice(0, 1) || "访";
 const AVATAR_MAX_FILE_SIZE = 5 * 1024 * 1024;
 
@@ -468,6 +554,33 @@ function applyExperienceLayout(layout, { persist = true, notify = false } = {}) 
   if (notify) showToast(`已切换为${nextLayout === "vertical" ? "竖版" : "横版"}布局`);
 }
 
+function switchExperienceContentTab(tab, { focusSearch = false } = {}) {
+  const nextTab = tab === "experience" ? "experience" : "institution";
+  currentExperienceContentTab = nextTab;
+  currentInstitutionRegionOpen = false;
+  currentExperienceRegionOpen = false;
+  currentInstitutionMajorOpen = false;
+  currentExperienceMajorOpen = false;
+  $$('[data-experience-content-tab]').forEach((button) => {
+    const active = button.dataset.experienceContentTab === nextTab;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
+  $$('[data-experience-content-panel]').forEach((panel) => {
+    panel.hidden = panel.dataset.experienceContentPanel !== nextTab;
+  });
+  if (nextTab === "institution") {
+    const advancedFilters = $("#advancedExperienceFilters");
+    if (advancedFilters) advancedFilters.hidden = true;
+    $("#toggleAdvancedFilters")?.classList.remove("open");
+  }
+  renderExperiences();
+  if (focusSearch) {
+    const input = nextTab === "institution" ? $("#institutionSchoolSearch") : $("#experienceSchoolSearch");
+    input?.focus();
+  }
+}
+
 function updateThemeControls(theme) {
   const label = THEME_NAMES[theme] || THEME_NAMES.apple;
   const button = $("#themeButton");
@@ -505,7 +618,555 @@ function showToast(message) {
 }
 
 function openModal(id) { const modal = $(`#${id}`); if (!modal) return; modal.classList.add("open"); modal.setAttribute("aria-hidden", "false"); window.setTimeout(() => $("textarea, input, select, button", modal)?.focus?.(), 300); }
-function closeModal(id) { const modal = $(`#${id}`); if (!modal) return; modal.classList.remove("open"); modal.setAttribute("aria-hidden", "true"); }
+function closeModal(id) {
+  const modal = $(`#${id}`);
+  if (!modal) return;
+  const wasOpen = modal.classList.contains("open");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  if (id === "accountModal" && wasOpen) {
+    if (!currentUser()) localStorage.setItem("yinlu_guest_seen", "1");
+    scheduleOnboarding(420);
+  }
+}
+
+function parseDecisionDate(value) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+  if (!match) return null;
+  const [, yearText, monthText, dayText] = match;
+  const year = Number(yearText);
+  const month = Number(monthText) - 1;
+  const day = Number(dayText);
+  const date = new Date(year, month, day);
+  return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day ? date : null;
+}
+
+function decisionDateValue(date) {
+  const pad = (value) => String(value).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+function daysUntilDecision(value) {
+  const date = parseDecisionDate(value);
+  if (!date) return Number.POSITIVE_INFINITY;
+  const today = new Date();
+  const targetUtc = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+  const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
+  return Math.round((targetUtc - todayUtc) / 86400000);
+}
+
+function formatDecisionDate(value) {
+  const date = parseDecisionDate(value);
+  if (!date) return "日期未设置";
+  const weekdays = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  return `${date.getMonth() + 1}月${date.getDate()}日 · ${weekdays[date.getDay()]}`;
+}
+
+function decisionEvents() {
+  return read(STORE.decisionEvents, [])
+    .filter((item) => item && item.id && String(item.title || "").trim() && parseDecisionDate(item.date))
+    .sort((a, b) => a.date.localeCompare(b.date) || String(a.createdAt || "").localeCompare(String(b.createdAt || "")));
+}
+
+function decisionDistanceText(distance) {
+  if (distance === 0) return "就是今天";
+  if (distance > 0) return `还有 ${distance} 天`;
+  return `已过 ${Math.abs(distance)} 天`;
+}
+
+function renderDecisionCountdown() {
+  const container = $("#decisionCountdown");
+  const trigger = $("#decisionCalendarButton");
+  const label = $("#decisionCountdownLabel");
+  const value = $("#decisionCountdownValue");
+  if (!container || !trigger || !label || !value) return;
+  const nextEvent = decisionEvents().find((item) => daysUntilDecision(item.date) >= 0);
+  container.classList.toggle("empty", !nextEvent);
+  if (!nextEvent) {
+    label.textContent = "设置决策时间";
+    value.textContent = "添加时间点";
+    trigger.setAttribute("aria-label", "打开决策日历设置时间点");
+    return;
+  }
+  const distance = daysUntilDecision(nextEvent.date);
+  label.textContent = `距${nextEvent.title}`;
+  value.textContent = decisionDistanceText(distance);
+  trigger.setAttribute("aria-label", `${label.textContent}${value.textContent}，打开决策日历`);
+}
+
+function renderDecisionEventList() {
+  const list = $("#decisionEventList");
+  const count = $("#decisionEventCount");
+  if (!list || !count) return;
+  const events = decisionEvents();
+  count.textContent = `${events.length} 项`;
+  list.innerHTML = events.length ? events.map((item) => {
+    const distance = daysUntilDecision(item.date);
+    return `<article class="decision-event-item ${distance < 0 ? "past" : ""}"><span class="decision-event-date"><strong>${escapeHtml(String(parseDecisionDate(item.date).getDate()).padStart(2, "0"))}</strong><small>${escapeHtml(`${parseDecisionDate(item.date).getMonth() + 1}月`)}</small></span><div><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(formatDecisionDate(item.date))}</small></div><span class="decision-event-distance">${escapeHtml(decisionDistanceText(distance))}</span><button class="icon-button" type="button" data-delete-decision-event="${escapeHtml(item.id)}" aria-label="删除${escapeHtml(item.title)}"><i data-lucide="trash-2"></i></button></article>`;
+  }).join("") : `<div class="decision-event-empty"><i data-lucide="calendar-plus"></i><strong>还没有时间点</strong><span>选择日期后添加第一项</span></div>`;
+  hydrateIcons();
+}
+
+function renderDecisionCalendar() {
+  const monthTitle = $("#decisionCalendarMonth");
+  const grid = $("#decisionCalendarGrid");
+  const dateInput = $("#decisionEventDate");
+  if (!monthTitle || !grid || !dateInput) return;
+  const year = decisionCalendarView.getFullYear();
+  const month = decisionCalendarView.getMonth();
+  monthTitle.textContent = `${year}年${month + 1}月`;
+  const firstDay = new Date(year, month, 1);
+  const gridStart = new Date(year, month, 1 - firstDay.getDay());
+  const today = decisionDateValue(new Date());
+  const eventDates = new Set(decisionEvents().map((item) => item.date));
+  grid.replaceChildren();
+  for (let index = 0; index < 42; index += 1) {
+    const date = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + index);
+    const value = decisionDateValue(date);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "decision-calendar-day";
+    button.textContent = date.getDate();
+    button.dataset.calendarDate = value;
+    button.setAttribute("aria-label", `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`);
+    button.classList.toggle("other-month", date.getMonth() !== month);
+    button.classList.toggle("today", value === today);
+    button.classList.toggle("selected", value === selectedDecisionDate);
+    button.classList.toggle("has-event", eventDates.has(value));
+    grid.appendChild(button);
+  }
+  dateInput.min = today;
+  dateInput.value = selectedDecisionDate;
+  renderDecisionEventList();
+}
+
+function selectDecisionDate(value) {
+  const date = parseDecisionDate(value);
+  if (!date) return;
+  selectedDecisionDate = value;
+  decisionCalendarView = new Date(date.getFullYear(), date.getMonth(), 1);
+  renderDecisionCalendar();
+}
+
+function shiftDecisionCalendar(months) {
+  decisionCalendarView = new Date(decisionCalendarView.getFullYear(), decisionCalendarView.getMonth() + months, 1);
+  renderDecisionCalendar();
+}
+
+function openDecisionCalendar() {
+  const nextEvent = decisionEvents().find((item) => daysUntilDecision(item.date) >= 0);
+  const initialDate = nextEvent?.date || decisionDateValue(new Date());
+  selectDecisionDate(initialDate);
+  openModal("decisionCalendarModal");
+}
+
+function addDecisionEvent(event) {
+  event.preventDefault();
+  const title = $("#decisionEventName")?.value.trim() || "";
+  const date = $("#decisionEventDate")?.value || "";
+  if (!title) { showToast("请填写时间点名称"); return; }
+  if (!parseDecisionDate(date) || daysUntilDecision(date) < 0) { showToast("请选择今天或之后的日期"); return; }
+  const events = decisionEvents();
+  if (events.some((item) => item.title === title && item.date === date)) { showToast("这个时间点已经添加过了"); return; }
+  events.push({ id: uid("decision"), title, date, createdAt: new Date().toISOString() });
+  write(STORE.decisionEvents, events);
+  $("#decisionEventName").value = "";
+  selectedDecisionDate = date;
+  renderDecisionCalendar();
+  renderDecisionCountdown();
+  showToast(`已添加${title}`);
+}
+
+function deleteDecisionEvent(id) {
+  const events = decisionEvents();
+  const target = events.find((item) => item.id === id);
+  if (!target) return;
+  write(STORE.decisionEvents, events.filter((item) => item.id !== id));
+  renderDecisionCalendar();
+  renderDecisionCountdown();
+  showToast(`已删除${target.title}`);
+}
+
+function cyberPetContextLabel() {
+  const activeView = $(".view.active")?.id.replace("view-", "") || "home";
+  if (activeView === "school-detail") return institutions.find((item) => item.id === currentSchoolDetail)?.school || "学校详情";
+  return ({ home: "首页", experience: "院校与经验", questions: "问答中心", compare: "我的候选", trust: "信任与认证" })[activeView] || "当前页面";
+}
+
+function cyberPetGuidance() {
+  const activeView = $(".view.active")?.id.replace("view-", "") || "home";
+  if (activeView === "home") {
+    const guidance = {
+      gaokao: { context: "高考志愿", status: "信息收集中", stage: "志愿填报 · 初选候选", reminder: "先核对分数位次和地区范围，再收集学校与专业。", title: "先确定你最在意什么", text: "城市、专业实力和录取把握很难同时最大化。先选出两个最重要的维度。" },
+      graduate: { context: "考研择校", status: "院校筛选中", stage: "考研择校 · 收集信息", reminder: "先确认专业方向和考试科目，再比较院校难度与培养特点。", title: "先划定适合自己的选择范围", text: "把专业方向、地区偏好和备考基础放在一起考虑，再逐步缩小候选院校。" },
+      career: { context: "职业选择", status: "方向比较中", stage: "职业选择 · 梳理方向", reminder: "先记录感兴趣的工作内容，再核对岗位要求和真实从业体验。", title: "从喜欢做什么开始判断", text: "不要只看职位名称。比较日常工作、成长空间和生活方式，判断哪种方向更适合你。" },
+      adapt: { context: "大学适应", status: "问题梳理中", stage: "大学适应 · 寻找方法", reminder: "把最困扰你的具体场景写下来，再寻找有相似经历的同学。", title: "先处理最影响当下的一件事", text: "课程、社交和生活节奏不必同时解决。先选一个最需要改善的问题，从小行动开始。" }
+    };
+    return guidance[currentStage] || guidance.gaokao;
+  }
+  const guidance = { ...(CYBER_PET_GUIDANCE[activeView] || CYBER_PET_GUIDANCE.experience) };
+  if (activeView === "school-detail") guidance.context = institutions.find((item) => item.id === currentSchoolDetail)?.school || guidance.context;
+  return guidance;
+}
+
+function renderCyberPetContext() {
+  const guidance = cyberPetGuidance();
+  const context = $("#cyberPetContext");
+  const status = $("#cyberPetContextStatus");
+  const stage = $("#cyberPetStageName");
+  const reminder = $("#cyberPetStageReminder");
+  const title = $("#cyberPetSuggestionTitle");
+  const text = $("#cyberPetSuggestionText");
+  if (context) context.textContent = guidance.context;
+  if (status) status.textContent = guidance.status;
+  if (stage) stage.textContent = guidance.stage;
+  if (reminder) reminder.textContent = guidance.reminder;
+  if (title) title.textContent = guidance.title;
+  if (text) text.textContent = guidance.text;
+}
+
+function setCyberPetAvatar(id, { persist = true, notify = false } = {}) {
+  const avatarId = CYBER_PET_AVATARS[id] ? id : "egret";
+  const avatar = CYBER_PET_AVATARS[avatarId];
+  $$('[data-pet-avatar-image]').forEach((image) => { image.src = avatar.src; });
+  const pet = $("#cyberPet");
+  if (pet) {
+    pet.dataset.petAvatar = avatarId;
+    pet.classList.remove("avatar-changing");
+    window.requestAnimationFrame(() => pet.classList.add("avatar-changing"));
+    window.setTimeout(() => pet.classList.remove("avatar-changing"), 420);
+  }
+  const name = $("#cyberPetAvatarName");
+  if (name) name.textContent = avatar.name;
+  const toggle = $("#cyberPetToggle");
+  if (toggle) toggle.setAttribute("aria-label", "打开" + avatar.name + "助手");
+  $$("#cyberPetAvatarMenu [data-pet-avatar]").forEach((button) => {
+    const selected = button.dataset.petAvatar === avatarId;
+    button.classList.toggle("active", selected);
+    button.setAttribute("aria-checked", String(selected));
+  });
+  if (persist) write(STORE.petAvatar, avatarId);
+  if (notify) showToast("已切换为" + avatar.name);
+}
+
+function setCyberPetAvatarMenu(open, point = null, { focus = false } = {}) {
+  const menu = $("#cyberPetAvatarMenu");
+  const pet = $("#cyberPet");
+  if (!menu || !pet) return;
+  if (!open) {
+    menu.hidden = true;
+    return;
+  }
+  menu.hidden = false;
+  menu.style.visibility = "hidden";
+  const petRect = pet.getBoundingClientRect();
+  const width = menu.offsetWidth;
+  const height = menu.offsetHeight;
+  let left = Number(point?.x ?? petRect.left);
+  let top = Number(point?.y ?? (petRect.top - height - 10));
+  if (top < 10) top = petRect.bottom + 10;
+  left = Math.max(10, Math.min(left, window.innerWidth - width - 10));
+  top = Math.max(10, Math.min(top, window.innerHeight - height - 10));
+  menu.style.left = left + "px";
+  menu.style.top = top + "px";
+  menu.style.visibility = "";
+  if (focus) window.requestAnimationFrame(() => menu.querySelector(".active")?.focus());
+}
+
+function setCyberPetTab(tab, { focus = false } = {}) {
+  const next = ["tools", "chat", "plan"].includes(tab) ? tab : "tools";
+  $$("[data-pet-tab]").forEach((button) => {
+    const active = button.dataset.petTab === next;
+    button.setAttribute("aria-selected", String(active));
+    button.tabIndex = active ? 0 : -1;
+    if (active && focus) button.focus();
+  });
+  $$("[data-pet-tab-panel]").forEach((panel) => {
+    const active = panel.dataset.petTabPanel === next;
+    panel.hidden = !active;
+    panel.classList.toggle("active", active);
+  });
+  if (next === "chat") {
+    const messages = $("#cyberPetMessages");
+    if (messages) messages.scrollTop = messages.scrollHeight;
+  }
+}
+
+function setCyberPetMotionReduced(reduced, { persist = true } = {}) {
+  const next = Boolean(reduced);
+  $("#cyberPet")?.classList.toggle("motion-reduced", next);
+  const checkbox = $("#cyberPetReduceMotion");
+  if (checkbox) checkbox.checked = next;
+  if (persist) write(STORE.petMotion, next);
+  scheduleCyberPetExpression();
+}
+
+function scheduleCyberPetExpression() {
+  window.clearTimeout(cyberPetExpressionTimer);
+  const pet = $("#cyberPet");
+  if (!pet || pet.classList.contains("motion-reduced")) return;
+  cyberPetExpressionTimer = window.setTimeout(() => {
+    if (!document.hidden && !pet.classList.contains("dragging")) {
+      pet.classList.add("pet-expressing");
+      window.setTimeout(() => pet.classList.remove("pet-expressing"), 950);
+    }
+    scheduleCyberPetExpression();
+  }, 6000 + Math.random() * 6000);
+}
+
+
+function appendCyberPetMessage(role, text) {
+  const messages = $("#cyberPetMessages");
+  if (!messages) return;
+  const message = document.createElement("div");
+  message.className = `cyber-pet-message ${role === "user" ? "user" : "assistant"}`;
+  message.textContent = text;
+  messages.appendChild(message);
+  while (messages.children.length > 8) messages.firstElementChild?.remove();
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function positionCyberPetPanel() {
+  const pet = $("#cyberPet");
+  const panel = $("#cyberPetPanel");
+  if (!pet || !panel || panel.hidden) return;
+  const petRect = pet.getBoundingClientRect();
+  const panelWidth = panel.offsetWidth;
+  const panelHeight = panel.offsetHeight;
+  let left = petRect.left < window.innerWidth / 2 ? petRect.right + 14 : petRect.left - panelWidth - 14;
+  let top = petRect.top - panelHeight - 12;
+  if (top < 12) top = petRect.bottom + 12;
+  left = Math.max(12, Math.min(left, window.innerWidth - panelWidth - 12));
+  top = Math.max(12, Math.min(top, window.innerHeight - panelHeight - 12));
+  panel.style.left = `${left}px`;
+  panel.style.top = `${top}px`;
+  panel.style.right = "auto";
+  panel.style.bottom = "auto";
+}
+
+function setCyberPetOpen(open) {
+  const panel = $("#cyberPetPanel");
+  const toggle = $("#cyberPetToggle");
+  const pet = $("#cyberPet");
+  if (!panel || !toggle) return;
+  panel.hidden = !open;
+  pet?.classList.toggle("panel-open", open);
+  toggle.setAttribute("aria-expanded", String(open));
+  toggle.setAttribute("aria-label", open ? "收起小引助手" : "打开" + (CYBER_PET_AVATARS[pet?.dataset.petAvatar]?.name || "鹭小引") + "助手");
+  if (!open) {
+    setCyberPetAvatarMenu(false);
+    const report = $("#cyberPetReport");
+    if (report) report.hidden = true;
+  }
+  if (open) setCyberPetTab("tools");
+  renderCyberPetContext();
+  if (open) window.requestAnimationFrame(positionCyberPetPanel);
+}
+
+function clampCyberPetPosition(x, y) {
+  const pet = $("#cyberPet");
+  const width = pet?.offsetWidth || 64;
+  const height = pet?.offsetHeight || 64;
+  return {
+    x: Math.max(8, Math.min(x, window.innerWidth - width - 8)),
+    y: Math.max(8, Math.min(y, window.innerHeight - height - 8))
+  };
+}
+
+function setCyberPetPosition(x, y, persist = false) {
+  const pet = $("#cyberPet");
+  if (!pet) return;
+  const next = clampCyberPetPosition(x, y);
+  pet.style.left = `${next.x}px`;
+  pet.style.top = `${next.y}px`;
+  pet.style.right = "auto";
+  pet.style.bottom = "auto";
+  if (persist) write(STORE.petPosition, next);
+  positionCyberPetPanel();
+}
+
+function restoreCyberPetPosition() {
+  const pet = $("#cyberPet");
+  const saved = read(STORE.petPosition, null);
+  const mobile = window.matchMedia("(max-width: 540px)").matches;
+  const fallback = {
+    x: mobile ? 14 : 24,
+    y: window.innerHeight - (pet?.offsetHeight || 92) - (mobile ? 42 : 44)
+  };
+  setCyberPetPosition(Number(saved?.x ?? fallback.x), Number(saved?.y ?? fallback.y));
+}
+
+function initializeCyberPetDrag() {
+  const toggle = $("#cyberPetToggle");
+  const header = $(".cyber-pet-header");
+  const pet = $("#cyberPet");
+  if (!toggle || !header || !pet) return;
+  let drag = null;
+
+  const startDrag = (event) => {
+    if (event.button !== 0) return;
+    if (event.currentTarget === header && event.target.closest("button, input, textarea, select, a")) return;
+    const rect = pet.getBoundingClientRect();
+    drag = { handle: event.currentTarget, pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, left: rect.left, top: rect.top, moved: false };
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    pet.classList.add("dragging");
+  };
+
+  const moveDrag = (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    const deltaX = event.clientX - drag.startX;
+    const deltaY = event.clientY - drag.startY;
+    if (!drag.moved && Math.hypot(deltaX, deltaY) < 5) return;
+    drag.moved = true;
+    event.preventDefault();
+    setCyberPetPosition(drag.left + deltaX, drag.top + deltaY);
+  };
+
+  const finishDrag = (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    if (drag.moved) {
+      if (drag.handle === toggle) {
+        cyberPetSuppressClick = true;
+        window.setTimeout(() => { cyberPetSuppressClick = false; }, 250);
+      }
+      const rect = pet.getBoundingClientRect();
+      write(STORE.petPosition, { x: Math.round(rect.left), y: Math.round(rect.top) });
+    }
+    drag.handle.releasePointerCapture?.(event.pointerId);
+    drag = null;
+    pet.classList.remove("dragging");
+  };
+
+  [toggle, header].forEach((handle) => {
+    handle.addEventListener("pointerdown", startDrag);
+    handle.addEventListener("pointermove", moveDrag);
+    handle.addEventListener("pointerup", finishDrag);
+    handle.addEventListener("pointercancel", finishDrag);
+  });
+}
+
+function initializeCyberPetAvatarInteractions() {
+  const toggle = $("#cyberPetToggle");
+  const menu = $("#cyberPetAvatarMenu");
+  if (!toggle || !menu) return;
+  const openFromPointer = (event) => {
+    event.preventDefault();
+    setCyberPetOpen(false);
+    setCyberPetAvatarMenu(true, { x: event.clientX, y: event.clientY });
+  };
+  toggle.addEventListener("contextmenu", openFromPointer);
+  toggle.addEventListener("keydown", (event) => {
+    if (event.key !== "ContextMenu" && !(event.shiftKey && event.key === "F10")) return;
+    event.preventDefault();
+    setCyberPetOpen(false);
+    setCyberPetAvatarMenu(true, null, { focus: true });
+  });
+
+  let longPressPoint = null;
+  toggle.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "touch") return;
+    longPressPoint = { x: event.clientX, y: event.clientY };
+    window.clearTimeout(cyberPetLongPressTimer);
+    cyberPetLongPressTimer = window.setTimeout(() => {
+      cyberPetSuppressClick = true;
+      setCyberPetOpen(false);
+      setCyberPetAvatarMenu(true, longPressPoint);
+    }, 620);
+  });
+  toggle.addEventListener("pointermove", (event) => {
+    if (!longPressPoint || Math.hypot(event.clientX - longPressPoint.x, event.clientY - longPressPoint.y) > 8) {
+      window.clearTimeout(cyberPetLongPressTimer);
+      longPressPoint = null;
+    }
+  });
+  ["pointerup", "pointercancel", "pointerleave"].forEach((type) => toggle.addEventListener(type, () => {
+    window.clearTimeout(cyberPetLongPressTimer);
+    longPressPoint = null;
+  }));
+
+  menu.addEventListener("keydown", (event) => {
+    const items = $$('[role="menuitemradio"]', menu);
+    const current = items.indexOf(document.activeElement);
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setCyberPetAvatarMenu(false);
+      toggle.focus();
+      return;
+    }
+    if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : (current + (event.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+    items[next]?.focus();
+  });
+  $$("[data-pet-tab]").forEach((button) => {
+    button.addEventListener("click", () => setCyberPetTab(button.dataset.petTab));
+    button.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const tabs = $$("[data-pet-tab]");
+      const current = tabs.indexOf(button);
+      const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (current + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+      setCyberPetTab(tabs[next].dataset.petTab, { focus: true });
+    });
+  });
+}
+
+function handleCyberPetAction(action) {
+  const report = $("#cyberPetReport");
+  const input = $("#cyberPetInput");
+  if (action === "ask-current") {
+    setCyberPetTab("chat");
+    appendCyberPetMessage("assistant", `已带入${cyberPetContextLabel()}。你想先问哪一部分？`);
+    input?.focus();
+    return;
+  }
+  if (action === "anonymous") {
+    const questionInput = $("#questionInput");
+    if (questionInput && input?.value.trim()) questionInput.value = input.value.trim();
+    openModal("questionModal");
+    window.setTimeout(() => questionInput?.focus(), 320);
+    return;
+  }
+  if (action === "compare") { switchView("compare"); return; }
+  if (action === "calendar") { openDecisionCalendar(); return; }
+  if (action === "report") {
+    if (report) report.hidden = false;
+    $("#cyberPetReportInput")?.focus();
+    positionCyberPetPanel();
+    return;
+  }
+  if (action === "cancel-report") {
+    if (report) report.hidden = true;
+    positionCyberPetPanel();
+  }
+}
+
+function submitCyberPetQuestion(event) {
+  event.preventDefault();
+  const input = $("#cyberPetInput");
+  const question = input?.value.trim() || "";
+  if (!question) return;
+  setCyberPetTab("chat");
+  appendCyberPetMessage("user", question);
+  input.value = "";
+  appendCyberPetMessage("assistant", "这个问题已准备好。可以继续补充，或通过匿名提问发布到问答中心。");
+}
+
+function submitCyberPetReport(event) {
+  event.preventDefault();
+  const input = $("#cyberPetReportInput");
+  const description = input?.value.trim() || "";
+  if (!description) { showToast("请描述遇到的页面问题"); return; }
+  const feedback = read(STORE.pageFeedback, []);
+  feedback.unshift({ id: uid("feedback"), page: cyberPetContextLabel(), description, createdAt: new Date().toISOString() });
+  write(STORE.pageFeedback, feedback.slice(0, 20));
+  event.target.reset();
+  event.target.hidden = true;
+  setCyberPetTab("chat");
+  appendCyberPetMessage("assistant", "已记录当前页面的问题。");
+  positionCyberPetPanel();
+  showToast("页面问题已记录在本机");
+}
 
 function switchView(name) {
   $$(".view").forEach((view) => view.classList.toggle("active", view.id === `view-${name}`));
@@ -518,7 +1179,371 @@ function switchView(name) {
   if (name === "compare") { renderCompare(); renderFamily(); }
   if (name === "trust") renderTrust();
   if (name === "school-detail") renderSchoolDetail();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  renderCyberPetContext();
+  suppressBackToTopDuringViewChange();
+  window.scrollTo({ top: 0, behavior: document.body.classList.contains("onboarding-active") ? "auto" : "smooth" });
+}
+
+const BACK_TO_TOP_VIEWS = new Set(["view-experience", "view-compare"]);
+let backToTopFrame = 0;
+let backToTopHiddenUntil = 0;
+
+function updateBackToTopButton() {
+  const button = $("#backToTopButton");
+  if (!button) return;
+  const activeView = $(".view.active");
+  const shouldShow = BACK_TO_TOP_VIEWS.has(activeView?.id)
+    && (activeView?.id === "view-compare" || window.scrollY > 420)
+    && !document.body.classList.contains("onboarding-active")
+    && performance.now() >= backToTopHiddenUntil;
+  button.classList.toggle("is-visible", shouldShow);
+  button.setAttribute("aria-hidden", String(!shouldShow));
+  button.tabIndex = shouldShow ? 0 : -1;
+}
+
+function scheduleBackToTopUpdate() {
+  if (backToTopFrame) return;
+  backToTopFrame = window.requestAnimationFrame(() => {
+    backToTopFrame = 0;
+    updateBackToTopButton();
+  });
+}
+
+function suppressBackToTopDuringViewChange() {
+  backToTopHiddenUntil = performance.now() + 500;
+  updateBackToTopButton();
+  window.setTimeout(scheduleBackToTopUpdate, 520);
+}
+
+function scrollCurrentPageToTop() {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+}
+
+const ONBOARDING_STEPS = [
+  {
+    view: "home",
+    selector: "#stageCarousel",
+    placement: "bottom",
+    title: "先认识你的决策路径",
+    copy: "切换人生阶段，快速查学校、专业、政策或真实经验。"
+  },
+  {
+    view: "home",
+    selector: "#themeButton",
+    placement: "bottom",
+    title: "选择你喜欢的界面主题",
+    copy: "点击调色图标，可以在 12 套主题之间自由切换。"
+  },
+  {
+    view: "home",
+    selector: "#accountButton",
+    placement: "bottom",
+    title: "管理账户与个人资料",
+    copy: "登录后可以修改头像、昵称、出生日期和地区，并保存你的使用记录。"
+  },
+  {
+    view: "home",
+    selector: ".sidebar-nav",
+    placement: "right",
+    mobileSidebar: true,
+    title: "核心功能都在侧栏",
+    copy: "从院校经验到问答、候选与认证，使用这里随时切换。"
+  },
+  {
+    view: "experience",
+    selector: "#experienceSection .filter-bar",
+    placement: "bottom",
+    title: "先筛选，再比较信息",
+    copy: "按学校、专业、关注维度和信息来源筛选，减少无关内容。"
+  },
+  {
+    view: "questions",
+    selector: "#qaAskLayout",
+    placement: "top",
+    title: "把具体问题交给经历过的人",
+    copy: "匿名发布问题，也可以切换到“我要回答”分享真实经历。"
+  },
+  {
+    view: "compare",
+    selector: ".candidate-tabs",
+    placement: "bottom",
+    title: "整理和比较你的候选",
+    copy: "分别从院校和专业视角管理候选，也可以邀请家长共同查看。"
+  },
+  {
+    view: "trust",
+    selector: ".trust-dashboard",
+    placement: "top",
+    title: "查看经验背后的可信来源",
+    copy: "在这里了解认证规则并申请身份认证，让回答更有依据。"
+  }
+];
+
+let onboardingIndex = -1;
+let onboardingTimer = 0;
+let onboardingPositionFrame = 0;
+let onboardingRenderToken = 0;
+
+function onboardingIsComplete() {
+  return localStorage.getItem(STORE.onboarding) === "1";
+}
+
+function updateOnboardingReplayButton(announce = false) {
+  const button = $("#onboardingReplayButton");
+  if (!button) return;
+  const visible = onboardingIsComplete();
+  button.hidden = !visible;
+  button.classList.remove("is-new");
+  if (visible && announce) {
+    window.requestAnimationFrame(() => button.classList.add("is-new"));
+    window.setTimeout(() => button.classList.remove("is-new"), 2800);
+  }
+}
+
+function onboardingStepCardMarkup() {
+  return `
+    <button class="onboarding-close" type="button" data-onboarding-skip aria-label="跳过新手指引">×</button>
+    <div class="onboarding-label"><span></span><b id="onboardingProgress"></b></div>
+    <h2 id="onboardingTitle"></h2>
+    <p id="onboardingCopy"></p>
+    <div class="onboarding-footer">
+      <span id="onboardingHint">点击页面空白处继续</span>
+      <button type="button" data-onboarding-next aria-label="下一步">›</button>
+    </div>`;
+}
+
+function createOnboardingOverlay() {
+  let overlay = $("#onboardingOverlay");
+  if (overlay) return overlay;
+  overlay = document.createElement("div");
+  overlay.id = "onboardingOverlay";
+  overlay.className = "onboarding-overlay";
+  overlay.hidden = true;
+  overlay.innerHTML = `
+    <div class="onboarding-focus" aria-hidden="true"></div>
+    <div class="onboarding-arrow" aria-hidden="true"></div>
+    <section class="onboarding-card" role="dialog" aria-modal="true" aria-live="polite" tabindex="-1">${onboardingStepCardMarkup()}</section>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener("click", (event) => {
+    if (event.target.closest("[data-onboarding-skip]")) {
+      finishOnboarding({ showComplete: false });
+      return;
+    }
+    if (event.target.closest("[data-onboarding-finish]")) {
+      dismissOnboarding();
+      return;
+    }
+    if (event.target.closest("[data-onboarding-next]")) {
+      advanceOnboarding();
+      return;
+    }
+    if (event.target.closest(".onboarding-card")) return;
+    if (overlay.classList.contains("is-complete")) dismissOnboarding();
+    else advanceOnboarding();
+  });
+  return overlay;
+}
+
+function scheduleOnboarding(delay = 700) {
+  window.clearTimeout(onboardingTimer);
+  if (onboardingIsComplete() || onboardingIndex >= 0) return;
+  onboardingTimer = window.setTimeout(() => {
+    if ($(".modal-backdrop.open")) {
+      scheduleOnboarding(500);
+      return;
+    }
+    startOnboarding();
+  }, delay);
+}
+
+function startOnboarding({ force = false } = {}) {
+  if ((!force && onboardingIsComplete()) || onboardingIndex >= 0) return;
+  onboardingIndex = 0;
+  document.body.classList.add("onboarding-active");
+  showOnboardingStep();
+}
+
+function advanceOnboarding() {
+  if (onboardingIndex < 0) return;
+  if (onboardingIndex >= ONBOARDING_STEPS.length - 1) {
+    finishOnboarding({ showComplete: true });
+    return;
+  }
+  onboardingIndex += 1;
+  showOnboardingStep();
+}
+
+function showOnboardingStep() {
+  const step = ONBOARDING_STEPS[onboardingIndex];
+  if (!step) return;
+  const token = ++onboardingRenderToken;
+  const overlay = createOnboardingOverlay();
+  overlay.hidden = false;
+  overlay.classList.remove("is-complete");
+  overlay.classList.add("is-moving");
+  const card = $(".onboarding-card", overlay);
+  if (card && !$("#onboardingProgress", card)) card.innerHTML = onboardingStepCardMarkup();
+  $("#sidebar")?.classList.toggle("onboarding-open", Boolean(step.mobileSidebar));
+  switchView(step.view);
+  window.scrollTo({ top: 0, behavior: "auto" });
+  $("#onboardingProgress").textContent = `${String(onboardingIndex + 1).padStart(2, "0")} / ${String(ONBOARDING_STEPS.length).padStart(2, "0")}`;
+  $("#onboardingTitle").textContent = step.title;
+  $("#onboardingCopy").textContent = step.copy;
+  $("#onboardingHint").textContent = "点击页面空白处继续";
+  window.requestAnimationFrame(() => {
+    if (token !== onboardingRenderToken || onboardingIndex < 0) return;
+    const target = $(step.selector);
+    if (!target) {
+      advanceOnboarding();
+      return;
+    }
+    const initialRect = target.getBoundingClientRect();
+    if (initialRect.top < 92 || initialRect.bottom > window.innerHeight - 48) {
+      target.scrollIntoView({ block: "center", behavior: "auto" });
+    }
+    window.requestAnimationFrame(() => {
+      if (token !== onboardingRenderToken || onboardingIndex < 0) return;
+      positionOnboarding(step, target);
+      overlay.classList.remove("is-moving");
+      $(".onboarding-card", overlay)?.focus({ preventScroll: true });
+    });
+  });
+}
+
+function positionOnboarding(step, target) {
+  const overlay = $("#onboardingOverlay");
+  const focus = $(".onboarding-focus", overlay);
+  const card = $(".onboarding-card", overlay);
+  const arrow = $(".onboarding-arrow", overlay);
+  if (!overlay || !focus || !card || !arrow || !target) return;
+  const rect = target.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+  const focusPadding = window.innerWidth <= 540 ? 5 : 8;
+  const focusLeft = Math.max(5, rect.left - focusPadding);
+  const focusTop = Math.max(5, rect.top - focusPadding);
+  const focusRight = Math.min(window.innerWidth - 5, rect.right + focusPadding);
+  const focusBottom = Math.min(window.innerHeight - 5, rect.bottom + focusPadding);
+  Object.assign(focus.style, {
+    left: `${focusLeft}px`,
+    top: `${focusTop}px`,
+    width: `${Math.max(1, focusRight - focusLeft)}px`,
+    height: `${Math.max(1, focusBottom - focusTop)}px`
+  });
+
+  card.style.left = "16px";
+  card.style.top = "16px";
+  card.style.visibility = "hidden";
+  const cardRect = card.getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const margin = 16;
+  const gap = 54;
+  const spaces = {
+    bottom: viewportHeight - focusBottom,
+    top: focusTop,
+    right: viewportWidth - focusRight,
+    left: focusLeft
+  };
+  const allowed = viewportWidth <= 700 ? ["bottom", "top"] : ["bottom", "top", "right", "left"];
+  const ordered = [step.placement, ...allowed].filter((value, index, values) => allowed.includes(value) && values.indexOf(value) === index);
+  const fits = (placement) => ["bottom", "top"].includes(placement)
+    ? spaces[placement] >= cardRect.height + gap
+    : spaces[placement] >= cardRect.width + gap;
+  const placement = ordered.find(fits) || allowed.reduce((best, value) => spaces[value] > spaces[best] ? value : best, allowed[0]);
+  let cardLeft = margin;
+  let cardTop = margin;
+  if (placement === "bottom" || placement === "top") {
+    cardLeft = (rect.left + rect.right - cardRect.width) / 2;
+    cardTop = placement === "bottom" ? focusBottom + gap : focusTop - gap - cardRect.height;
+  } else {
+    cardLeft = placement === "right" ? focusRight + gap : focusLeft - gap - cardRect.width;
+    cardTop = (rect.top + rect.bottom - cardRect.height) / 2;
+  }
+  cardLeft = Math.min(Math.max(margin, cardLeft), viewportWidth - cardRect.width - margin);
+  cardTop = Math.min(Math.max(margin, cardTop), viewportHeight - cardRect.height - margin);
+  Object.assign(card.style, { left: `${cardLeft}px`, top: `${cardTop}px`, visibility: "visible" });
+  positionOnboardingArrow(arrow, placement, rect, { left: cardLeft, top: cardTop, width: cardRect.width, height: cardRect.height });
+}
+
+function positionOnboardingArrow(arrow, placement, target, card) {
+  arrow.dataset.direction = placement === "bottom" ? "up" : placement === "top" ? "down" : placement === "right" ? "left" : "right";
+  if (placement === "bottom" || placement === "top") {
+    const targetEdge = placement === "bottom" ? target.bottom + 5 : target.top - 5;
+    const cardEdge = placement === "bottom" ? card.top : card.top + card.height;
+    Object.assign(arrow.style, {
+      left: `${(target.left + target.right) / 2 - 6}px`,
+      top: `${Math.min(targetEdge, cardEdge)}px`,
+      width: "12px",
+      height: `${Math.max(14, Math.abs(cardEdge - targetEdge))}px`
+    });
+  } else {
+    const targetEdge = placement === "right" ? target.right + 5 : target.left - 5;
+    const cardEdge = placement === "right" ? card.left : card.left + card.width;
+    Object.assign(arrow.style, {
+      left: `${Math.min(targetEdge, cardEdge)}px`,
+      top: `${(target.top + target.bottom) / 2 - 6}px`,
+      width: `${Math.max(14, Math.abs(cardEdge - targetEdge))}px`,
+      height: "12px"
+    });
+  }
+}
+
+function finishOnboarding({ showComplete }) {
+  localStorage.setItem(STORE.onboarding, "1");
+  updateOnboardingReplayButton(false);
+  onboardingIndex = -1;
+  $("#sidebar")?.classList.remove("onboarding-open");
+  if (!showComplete) {
+    dismissOnboarding();
+    return;
+  }
+  const overlay = createOnboardingOverlay();
+  overlay.hidden = false;
+  overlay.classList.remove("is-moving");
+  overlay.classList.add("is-complete");
+  $(".onboarding-focus", overlay).removeAttribute("style");
+  $(".onboarding-arrow", overlay).removeAttribute("style");
+  $(".onboarding-card", overlay).innerHTML = `
+    <div class="onboarding-complete-mark" aria-hidden="true">✓</div>
+    <div class="onboarding-label"><span></span><b>指引完成</b></div>
+    <h2>现在可以开始探索了</h2>
+    <p>我们的新手指引到这里就结束啦，感谢使用我们网站！</p>
+    <p class="onboarding-replay-note">忘记怎么操作的话，可以来右上角的指引按钮这里找到我哟！</p>
+    <button class="onboarding-finish-button" type="button" data-onboarding-finish>开始探索</button>`;
+  $(".onboarding-card", overlay)?.focus({ preventScroll: true });
+}
+
+function dismissOnboarding() {
+  const overlay = $("#onboardingOverlay");
+  if (overlay) {
+    overlay.hidden = true;
+    overlay.classList.remove("is-complete");
+  }
+  onboardingIndex = -1;
+  onboardingRenderToken += 1;
+  $("#sidebar")?.classList.remove("onboarding-open");
+  updateOnboardingReplayButton(true);
+  switchView("home");
+  document.body.classList.remove("onboarding-active");
+  const resetScroll = () => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+  resetScroll();
+  window.requestAnimationFrame(resetScroll);
+  $(".view.active")?.getAnimations().forEach((animation) => animation.cancel());
+}
+
+function refreshOnboardingPosition() {
+  if (onboardingIndex < 0) return;
+  window.cancelAnimationFrame(onboardingPositionFrame);
+  onboardingPositionFrame = window.requestAnimationFrame(() => {
+    const step = ONBOARDING_STEPS[onboardingIndex];
+    const target = step ? $(step.selector) : null;
+    if (step && target) positionOnboarding(step, target);
+  });
 }
 
 function setStage(stage) {
@@ -543,6 +1568,7 @@ function setStage(stage) {
   });
   const position = $("#stagePosition");
   if (position) position.textContent = `${activeIndex + 1} / ${stageOrder.length}`;
+  renderCyberPetContext();
 }
 
 function moveStage(direction) {
@@ -550,13 +1576,125 @@ function moveStage(direction) {
   setStage(stageOrder[(currentIndex + direction + stageOrder.length) % stageOrder.length]);
 }
 
-function setExperienceFilters({ scope = "all", dimension = "all", source = "all" } = {}) {
-  currentScopeFilter = scope;
-  currentDimensionFilter = dimension;
+function setExperienceFilters({ dimension = "all", dimensions = null, source = "all", time = "all", sort = "relevance" } = {}) {
   currentSourceFilter = source;
-  $$('[data-scope-filter]').forEach((item) => item.classList.toggle("active", item.dataset.scopeFilter === scope));
-  $$('[data-dimension-filter]').forEach((item) => item.classList.toggle("active", item.dataset.dimensionFilter === dimension));
+  const availableDimensions = EXPERIENCE_DIMENSIONS_BY_SOURCE[source] || EXPERIENCE_DIMENSIONS_BY_SOURCE.all;
+  const requestedDimensions = Array.isArray(dimensions) ? dimensions : dimension === "all" ? [] : [dimension];
+  currentDimensionFilters.clear();
+  requestedDimensions.filter((item) => availableDimensions.includes(item)).forEach((item) => currentDimensionFilters.add(item));
+  currentTimeFilter = source === "official" ? "all" : time;
+  currentExperienceSort = sort;
+  updateDimensionFilterButtons();
   $$('[data-source-filter]').forEach((item) => item.classList.toggle("active", item.dataset.sourceFilter === source));
+  $$('[data-time-filter]').forEach((item) => item.classList.toggle("active", item.dataset.timeFilter === time));
+  const sortSelect = $("#experienceSort");
+  if (sortSelect) sortSelect.value = sort;
+  updateExperienceFilterUi();
+}
+
+function formatContentDate(value) {
+  if (!value) return "时间待补充";
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+}
+
+function matchesContentTime(value) {
+  if (currentTimeFilter === "all") return true;
+  if (!value) return false;
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return false;
+  const cutoff = new Date();
+  cutoff.setHours(0, 0, 0, 0);
+  if (currentTimeFilter === "6m") cutoff.setMonth(cutoff.getMonth() - 6);
+  if (currentTimeFilter === "1y") cutoff.setFullYear(cutoff.getFullYear() - 1);
+  if (currentTimeFilter === "3y") cutoff.setFullYear(cutoff.getFullYear() - 3);
+  return date >= cutoff;
+}
+
+function updateExperienceFilterUi() {
+  const dimensionLabels = { all: "全部", "课程学习": "课程学习", "宿舍生活": "宿舍生活", "设施布局": "设施布局", "社团活动": "社团活动", "校园氛围": "校园氛围", "城市环境": "城市环境", "就业去向": "就业去向" };
+  const sourceLabels = { all: "全部", official: "官方信息", student: "在读学生", expert: "教师 / 从业者" };
+  const timeLabels = { all: "不限", "6m": "近半年", "1y": "近一年", "3y": "近三年" };
+  const dimensionSummary = $("#dimensionFilterSummary");
+  const sourceSummary = $("#sourceFilterSummary");
+  const timeSummary = $("#timeFilterSummary");
+  if (dimensionSummary) {
+    const selectedDimensions = [...currentDimensionFilters];
+    dimensionSummary.textContent = selectedDimensions.length === 0 ? "全部" : selectedDimensions.length === 1 ? dimensionLabels[selectedDimensions[0]] : `已选 ${selectedDimensions.length} 项`;
+  }
+  if (sourceSummary) sourceSummary.textContent = sourceLabels[currentSourceFilter] || "全部";
+  if (timeSummary) timeSummary.textContent = currentSourceFilter === "official" ? "不适用" : timeLabels[currentTimeFilter] || "不限";
+  const timeFilterTrigger = $("#timeFilterTrigger");
+  if (timeFilterTrigger) {
+    timeFilterTrigger.disabled = currentSourceFilter === "official";
+    timeFilterTrigger.setAttribute("aria-disabled", String(currentSourceFilter === "official"));
+  }
+  syncDimensionFilterAvailability();
+
+  const selected = [];
+  if (currentSearch.trim()) selected.push({ key: "keyword", label: `关键词：${currentSearch.trim()}` });
+  if (currentSchoolSearch.trim()) selected.push({ key: "school", label: `学校：${currentSchoolSearch.trim()}` });
+  if (currentMajorSearch.trim()) selected.push({ key: "major", label: `专业：${currentMajorSearch.trim()}` });
+  if (currentExperienceRegion !== "all") selected.push({ key: "region", label: `地区：${regionSelectionLabel(currentExperienceRegion)}` });
+  currentDimensionFilters.forEach((dimension) => selected.push({ key: "dimension", value: dimension, label: dimensionLabels[dimension] }));
+  if (currentSourceFilter !== "all") selected.push({ key: "source", label: sourceLabels[currentSourceFilter] });
+  if (currentTimeFilter !== "all") selected.push({ key: "time", label: timeLabels[currentTimeFilter] });
+  if (currentExperienceSort === "newest") selected.push({ key: "sort", label: "最新发布" });
+  if ($("#sameSchoolToggle")?.checked) selected.push({ key: "same-school", label: "同高中优先" });
+  const selectedFilters = $("#experienceSelectedFilters");
+  if (selectedFilters) {
+    selectedFilters.innerHTML = selected.length
+      ? selected.map((item) => `<button class="filter-selected-tag" type="button" data-clear-filter-key="${item.key}"${item.value ? ` data-filter-value="${escapeHtml(item.value)}"` : ""} title="移除${escapeHtml(item.label)}">${escapeHtml(item.label)}<i data-lucide="x"></i></button>`).join("")
+      : `<span class="filter-empty-label">当前未添加筛选条件</span>`;
+  }
+  const activeFilterCount = $("#activeFilterCount");
+  if (activeFilterCount) activeFilterCount.textContent = String(selected.length);
+  const clearButton = $("#clearExperienceFilters");
+  if (clearButton) clearButton.disabled = selected.length === 0;
+  syncAdvancedExperienceFilterPanels();
+  hydrateIcons();
+}
+
+function syncDimensionFilterAvailability() {
+  const availableDimensions = EXPERIENCE_DIMENSIONS_BY_SOURCE[currentSourceFilter] || EXPERIENCE_DIMENSIONS_BY_SOURCE.all;
+  $$('[data-dimension-filter]').forEach((button) => {
+    const dimension = button.dataset.dimensionFilter;
+    button.hidden = dimension !== "all" && !availableDimensions.includes(dimension);
+  });
+}
+
+function updateDimensionFilterButtons() {
+  $$('[data-dimension-filter]').forEach((button) => {
+    const dimension = button.dataset.dimensionFilter;
+    const active = dimension === "all" ? currentDimensionFilters.size === 0 : currentDimensionFilters.has(dimension);
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function syncAdvancedExperienceFilterPanels() {
+  const panel = $("#advancedExperienceFilters");
+  if (!panel || panel.hidden) return;
+  const activeSection = panel.dataset.activeSection || "all";
+  $$('[data-filter-section-panel]').forEach((sectionPanel) => {
+    const isTimePanel = sectionPanel.dataset.filterSectionPanel === "time";
+    const matchesSection = activeSection === "all" || sectionPanel.dataset.filterSectionPanel === activeSection;
+    sectionPanel.hidden = !matchesSection || (isTimePanel && currentSourceFilter === "official");
+  });
+}
+
+function toggleAdvancedExperienceFilters(section) {
+  const panel = $("#advancedExperienceFilters");
+  if (!panel || (section === "time" && currentSourceFilter === "official")) return;
+  const shouldOpen = panel.hidden || panel.dataset.activeSection !== section;
+  panel.hidden = !shouldOpen;
+  panel.dataset.activeSection = shouldOpen ? section : "";
+  $$('[data-filter-section]').forEach((button) => {
+    button.setAttribute("aria-expanded", String(shouldOpen && button.dataset.filterSection === section));
+  });
+  $("#toggleAdvancedFilters")?.classList.toggle("open", shouldOpen);
+  syncAdvancedExperienceFilterPanels();
 }
 
 function runStageSearch(slide) {
@@ -564,8 +1702,13 @@ function runStageSearch(slide) {
   currentSearch = input?.value.trim() || "";
   currentSchoolSearch = "";
   currentMajorSearch = "";
+  currentExperienceRegion = "all";
+  currentExperienceRegionSearch = "";
+  currentExperienceRegionLetter = "";
+  currentExperienceRegionOpen = false;
   setExperienceFilters();
   switchView("experience");
+  switchExperienceContentTab("experience");
 }
 
 function runStageTask(task) {
@@ -578,11 +1721,8 @@ function runStageTask(task) {
     $("#questionInputPreview")?.focus();
     return;
   }
+  const institutionTasks = ["school", "major", "admission", "progression"];
   const taskFilters = {
-    school: { scope: "school" },
-    major: { scope: "major" },
-    admission: { scope: "school", source: "official" },
-    progression: { scope: "school", source: "official" },
     course: { dimension: "课程学习" },
     career: { dimension: "就业去向" },
     expert: { source: "expert" },
@@ -592,19 +1732,249 @@ function runStageTask(task) {
   currentSearch = "";
   currentSchoolSearch = "";
   currentMajorSearch = "";
+  if (institutionTasks.includes(task)) {
+    currentInstitutionRegion = "all";
+    currentInstitutionRegionSearch = "";
+    currentInstitutionRegionLetter = "";
+    currentInstitutionRegionOpen = false;
+  } else {
+    currentExperienceRegion = "all";
+    currentExperienceRegionSearch = "";
+    currentExperienceRegionLetter = "";
+    currentExperienceRegionOpen = false;
+  }
   setExperienceFilters(taskFilters[task] || {});
   switchView("experience");
+  switchExperienceContentTab(institutionTasks.includes(task) ? "institution" : "experience");
+  if (task === "school") $("#institutionSchoolSearch")?.focus();
+  if (task === "major") $("#institutionMajorSearch")?.focus();
+}
+
+function makeRegionSelection(province = "", city = "") {
+  if (city) return `city:${province}|${city}`;
+  return province ? `province:${province}` : "all";
+}
+
+function parseRegionSelection(selection) {
+  if (!selection || selection === "all") return { province: "", city: "" };
+  if (selection.startsWith("city:")) {
+    const [province = "", city = ""] = selection.slice(5).split("|");
+    return { province, city };
+  }
+  return { province: selection.startsWith("province:") ? selection.slice(9) : selection, city: "" };
+}
+
+function regionSelectionLabel(selection) {
+  const { province, city } = parseRegionSelection(selection);
+  return city ? `${province} / ${city}` : province;
+}
+
+function majorCategoryForName(name = "") {
+  const program = institutions.flatMap((item) => item.majorPrograms || []).find((item) => item.name === name);
+  return program?.category || MAJOR_CATEGORY_BY_NAME[name] || "";
+}
+
+function libraryMajorOptions(library) {
+  const entries = library === "institution"
+    ? institutions.flatMap((institution) => (institution.majorPrograms || []).map((program) => ({ name: program.name, category: program.category || majorCategoryForName(program.name), school: institution.school })))
+    : experiences.filter((item) => (item.source === "student" || item.source === "expert") && item.major).map((item) => ({ name: item.major, category: majorCategoryForName(item.major), school: item.school }));
+  const grouped = new Map();
+  entries.forEach((item) => {
+    if (!grouped.has(item.name)) grouped.set(item.name, { name: item.name, category: item.category, schools: new Set(), count: 0 });
+    const option = grouped.get(item.name);
+    option.count += 1;
+    if (item.school) option.schools.add(item.school);
+  });
+  return [...grouped.values()].sort((a, b) => a.category.localeCompare(b.category, "zh-CN") || a.name.localeCompare(b.name, "zh-CN"));
+}
+
+function libraryMajorUi(library) {
+  if (library === "institution") return { query: currentInstitutionMajorSearch, category: currentInstitutionMajorCategory, open: currentInstitutionMajorOpen };
+  return { query: currentMajorSearch, category: currentExperienceMajorCategory, open: currentExperienceMajorOpen };
+}
+
+function renderLibraryMajorPicker(library) {
+  const prefix = library === "institution" ? "institution" : "experience";
+  const panel = $(`#${prefix}MajorPanel`);
+  const categoriesContainer = $(`#${prefix}MajorCategories`);
+  const optionsContainer = $(`#${prefix}MajorOptions`);
+  const input = $(`#${prefix}MajorSearch`);
+  const toggle = $(`[data-major-toggle="${library}"]`);
+  const picker = $(`[data-major-picker="${library}"]`);
+  if (!panel || !categoriesContainer || !optionsContainer || !input || !toggle || !picker) return;
+  const { query, category, open } = libraryMajorUi(library);
+  const options = libraryMajorOptions(library);
+  const categoryCounts = new Map(MAJOR_CATEGORIES.map((item) => [item, options.filter((option) => option.category === item).length]));
+  const keyword = query.trim().toLowerCase();
+  const visibleOptions = options.filter((option) => (!category || option.category === category) && (!keyword || option.name.toLowerCase().includes(keyword)));
+  panel.hidden = !open;
+  picker.classList.toggle("open", open);
+  toggle.classList.toggle("open", open);
+  input.setAttribute("aria-expanded", String(open));
+  if (input.value !== query) input.value = query;
+  categoriesContainer.innerHTML = MAJOR_CATEGORIES.map((item) => {
+    const active = category === item;
+    return `<button class="major-category-button${active ? " active" : ""}" type="button" data-major-category="${escapeHtml(item)}" data-major-library="${library}" aria-pressed="${active}"><span>${escapeHtml(item)}</span><small>${categoryCounts.get(item) || 0}</small></button>`;
+  }).join("");
+  const emptyText = category ? `${category}在当前${library === "institution" ? "院校样本" : "经验样本"}中暂无数据` : "未找到匹配的专业";
+  optionsContainer.innerHTML = visibleOptions.length ? visibleOptions.map((option) => {
+    const meta = library === "institution" ? `${option.schools.size} 所样本院校开设` : `${option.count} 条相关经验`;
+    return `<button class="major-option-button" type="button" data-major-option="${escapeHtml(option.name)}" data-major-library="${library}"><span><strong>${escapeHtml(option.name)}</strong><small>${escapeHtml(option.category || "门类待补充")}</small></span><em>${meta}</em></button>`;
+  }).join("") : `<div class="major-picker-empty"><strong>${escapeHtml(emptyText)}</strong><span>更多专业数据将在接入可靠资料后补充</span></div>`;
+}
+
+function normalizeProvinceName(value = "") {
+  return String(value).replace(/(壮族自治区|回族自治区|维吾尔自治区|特别行政区|自治区|省|市)$/u, "");
+}
+
+function normalizeCityName(value = "") {
+  return String(value).replace(/(自治州|综合实验区|地区|新区|市|盟|区|县)$/u, "");
+}
+
+function provinceForCity(city = "") {
+  const normalizedCity = normalizeCityName(city);
+  return Object.keys(REGION_CITIES).find((province) => {
+    if (normalizeProvinceName(province) === normalizedCity) return true;
+    return REGION_CITIES[province].some((item) => normalizeCityName(item) === normalizedCity);
+  }) || "";
+}
+
+function isCityLevelRegion(value = "") {
+  return /(市|自治州|地区|盟)$/u.test(value);
+}
+
+function isMunicipality(value = "") {
+  return MUNICIPALITIES.has(value);
+}
+
+function matchesRegionSelection(item, selection) {
+  if (!selection || selection === "all") return true;
+  const selected = parseRegionSelection(selection);
+  const itemCity = item.city || "";
+  if (selected.city) return normalizeCityName(itemCity) === normalizeCityName(selected.city);
+  const itemProvince = item.province || provinceForCity(itemCity);
+  return itemProvince === selected.province || normalizeProvinceName(itemCity) === normalizeProvinceName(selected.province);
+}
+
+function regionTypeLabel(province, city = "") {
+  if (city) {
+    if (city.endsWith("自治州")) return "州";
+    if (city.endsWith("地区")) return "地";
+    if (city.endsWith("盟")) return "盟";
+    if (city.endsWith("区") || city.endsWith("县")) return "区";
+    return "市";
+  }
+  if (province === "海外") return "外";
+  if (province.endsWith("特别行政区")) return "特";
+  if (province.endsWith("自治区")) return "区";
+  if (province.endsWith("市")) return "直";
+  return "省";
+}
+
+function regionWholeAreaLabel(province = "") {
+  if (province.endsWith("特别行政区")) return "全特别行政区";
+  if (province.endsWith("自治区")) return "全自治区";
+  if (province.endsWith("市")) return "全市";
+  if (province === "海外") return "全部海外地区";
+  return "全省";
+}
+
+function libraryRegionUi(library) {
+  if (library === "institution") {
+    return { selection: currentInstitutionRegion, query: currentInstitutionRegionSearch, letter: currentInstitutionRegionLetter, open: currentInstitutionRegionOpen };
+  }
+  return { selection: currentExperienceRegion, query: currentExperienceRegionSearch, letter: currentExperienceRegionLetter, open: currentExperienceRegionOpen };
+}
+
+function renderLibraryRegionPicker(library) {
+  const isInstitution = library === "institution";
+  const prefix = isInstitution ? "institution" : "experience";
+  const lettersContainer = $(`#${prefix}RegionLetters`);
+  const optionsContainer = $(`#${prefix}RegionOptions`);
+  const searchInput = $(`#${prefix}RegionSearch`);
+  const panel = $(`#${prefix}RegionPanel`);
+  const toggle = $(`[data-region-toggle="${library}"]`);
+  const allButton = $(`[data-library-region="${library}"][data-region-province=""][data-region-city=""]`);
+  if (!lettersContainer || !optionsContainer || !panel || !toggle) return;
+  const { selection, query, letter, open } = libraryRegionUi(library);
+  const selected = parseRegionSelection(selection);
+  const availableLetters = new Set(Object.values(REGION_INITIAL_BY_PROVINCE));
+  panel.hidden = !open;
+  toggle.classList.toggle("open", open);
+  toggle.setAttribute("aria-expanded", String(open));
+  if (searchInput) {
+    const displayValue = query || regionSelectionLabel(selection);
+    if (searchInput.value !== displayValue) searchInput.value = displayValue;
+    searchInput.setAttribute("aria-expanded", String(open));
+  }
+  if (allButton) {
+    const active = selection === "all";
+    allButton.classList.toggle("active", active);
+    allButton.setAttribute("aria-pressed", String(active));
+  }
+  lettersContainer.innerHTML = REGION_LETTERS.map((item) => {
+    const disabled = !availableLetters.has(item);
+    const active = letter === item;
+    return `<button class="region-letter-button${active ? " active" : ""}" type="button" data-region-letter="${item}" data-region-library="${library}" aria-pressed="${active}"${disabled ? " disabled" : ""}>${item}</button>`;
+  }).join("");
+
+  const keyword = query.trim();
+  let results = [];
+  if (keyword) {
+    Object.entries(REGION_CITIES).forEach(([province, cities]) => {
+      if (province.includes(keyword)) results.push({ province, city: "" });
+      cities.filter((city) => isCityLevelRegion(city) && city.includes(keyword)).forEach((city) => results.push({ province, city }));
+    });
+    results = results.slice(0, 24);
+  } else if (letter) {
+    results = Object.keys(REGION_CITIES)
+      .filter((province) => REGION_INITIAL_BY_PROVINCE[province] === letter)
+      .map((province) => ({ province, city: "" }));
+  } else {
+    results = Object.keys(REGION_CITIES)
+      .sort((a, b) => REGION_INITIAL_BY_PROVINCE[a].localeCompare(REGION_INITIAL_BY_PROVINCE[b]) || a.localeCompare(b, "zh-CN"))
+      .map((province) => ({ province, city: "" }));
+  }
+
+  const resultButton = ({ province, city }, compact = false) => {
+    const value = makeRegionSelection(province, city);
+    const active = selection === value;
+    return `<button class="region-result-button${compact ? " compact" : ""}${active ? " active" : ""}" type="button" data-library-region="${library}" data-region-province="${escapeHtml(province)}" data-region-city="${escapeHtml(city)}" aria-pressed="${active}"><strong>${escapeHtml(city || province)}</strong>${city ? `<small>${escapeHtml(province)}</small>` : ""}</button>`;
+  };
+  let resultButtons = "";
+  if (keyword) {
+    resultButtons = `<div class="region-search-results">${results.map((item) => resultButton(item)).join("")}</div>`;
+  } else {
+    const groupedResults = REGION_LETTERS.map((initial) => {
+      const provinces = results.filter((item) => REGION_INITIAL_BY_PROVINCE[item.province] === initial);
+      if (!provinces.length) return "";
+      return `<section class="region-province-group"><b>${initial}</b><div>${provinces.map((item) => resultButton(item, true)).join("")}</div></section>`;
+    }).join("");
+    const popularCities = !letter ? `<section class="region-popular-section"><span>热门城市</span><div>${POPULAR_REGIONS.map((item) => {
+      const active = selection === makeRegionSelection(item.province, item.city);
+      return `<button class="region-popular-button${active ? " active" : ""}" type="button" data-library-region="${library}" data-region-province="${escapeHtml(item.province)}" data-region-city="${escapeHtml(item.city)}"${item.city ? "" : " data-region-scope-all"} aria-pressed="${active}">${escapeHtml(item.label)}</button>`;
+    }).join("")}</div></section>` : "";
+    resultButtons = `${popularCities}<div class="region-province-groups">${groupedResults}</div>`;
+  }
+
+  const showSelectedProvinceCities = selected.province && !isMunicipality(selected.province) && !keyword && (!letter || REGION_INITIAL_BY_PROVINCE[selected.province] === letter);
+  const cityOptions = showSelectedProvinceCities ? `<div class="region-city-panel"><div class="region-city-heading"><strong>${escapeHtml(selected.province)}</strong><span>城市</span></div><div class="region-city-options"><button class="region-city-button${selected.city ? "" : " active"}" type="button" data-library-region="${library}" data-region-province="${escapeHtml(selected.province)}" data-region-city="" data-region-scope-all aria-pressed="${String(!selected.city)}">${escapeHtml(regionWholeAreaLabel(selected.province))}</button>${(REGION_CITIES[selected.province] || []).filter(isCityLevelRegion).map((city) => `<button class="region-city-button${selected.city === city ? " active" : ""}" type="button" data-library-region="${library}" data-region-province="${escapeHtml(selected.province)}" data-region-city="${escapeHtml(city)}" aria-pressed="${String(selected.city === city)}">${escapeHtml(city)}</button>`).join("")}</div></div>` : "";
+  optionsContainer.hidden = false;
+  optionsContainer.innerHTML = `${results.length ? resultButtons : `<div class="region-no-results">未找到匹配地区</div>`}${cityOptions}`;
+}
+
+function renderExperienceInstitutionSummary(item) {
+  const institution = institutions.find((school) => school.school === item.school);
+  if (!institution) {
+    return `<div class="experience-institution-summary pending"><div class="experience-institution-heading"><span><i data-lucide="landmark"></i>院校摘要</span><strong>${escapeHtml(item.school || "未命名学校")}</strong></div><div class="experience-institution-meta"><span><i data-lucide="map-pin"></i>${escapeHtml(item.city || "地区待补充")}</span><span class="experience-institution-pending">院校资料待补充</span></div></div>`;
+  }
+  const identityTags = Array.isArray(institution.identityTags) ? institution.identityTags.map((tag) => `<span class="experience-institution-tag">${escapeHtml(tag)}</span>`).join("") : "";
+  return `<div class="experience-institution-summary"><div class="experience-institution-heading"><span><i data-lucide="landmark"></i>院校摘要</span><strong>${escapeHtml(institution.school)}</strong></div><div class="experience-institution-meta"><span><i data-lucide="map-pin"></i>${escapeHtml(institution.city || item.city || "地区待补充")}</span><span>${escapeHtml(institution.type || "院校类型待补充")}</span></div>${identityTags ? `<div class="experience-institution-tags">${identityTags}</div>` : ""}</div>`;
 }
 
 function renderExperiences() {
   const grid = $("#experienceGrid");
   if (!grid) return;
-  const institutionSection = $(".institution-section");
-  const experienceSection = $(".experience-section");
-  const showInstitutions = currentSourceFilter === "all" || currentSourceFilter === "data" || currentSourceFilter === "official";
-  const showExperiences = currentSourceFilter === "all" || currentSourceFilter === "student" || currentSourceFilter === "expert";
-  institutionSection?.classList.toggle("hidden", !showInstitutions);
-  experienceSection?.classList.toggle("hidden", !showExperiences);
   const experienceSectionCopy = {
     all: { kicker: "经验与职业视角", heading: "来自学生、教师与从业者的真实补充", empty: "当前筛选下暂无匹配的经验或职业视角内容" },
     student: { kicker: "学生经验", heading: "来自在读学生的真实经历", empty: "当前筛选下暂无匹配的在读学生经验" },
@@ -618,60 +1988,82 @@ function renderExperiences() {
   const query = currentSearch.trim().toLowerCase();
   const schoolQuery = currentSchoolSearch.trim().toLowerCase();
   const majorQuery = currentMajorSearch.trim().toLowerCase();
+  const institutionSchoolQuery = currentInstitutionSchoolSearch.trim().toLowerCase();
+  const institutionMajorQuery = currentInstitutionMajorSearch.trim().toLowerCase();
+  const experienceItems = experiences.filter((item) => item.source === "student" || item.source === "expert");
+  renderLibraryMajorPicker("institution");
+  renderLibraryMajorPicker("experience");
+  renderLibraryRegionPicker("institution");
+  renderLibraryRegionPicker("experience");
   const sameSchool = $("#sameSchoolToggle")?.checked;
   const matchesFilters = (item) => {
     const dimensions = Array.isArray(item.dimensions) ? item.dimensions : [];
     const itemTags = Array.isArray(item.tags) ? item.tags.join("") : "";
-    const schoolText = `${item.school || ""}${item.city || ""}`.toLowerCase();
+    const schoolText = (item.school || "").toLowerCase();
     const majorText = (item.major || "").toLowerCase();
     const schoolMatches = !schoolQuery || schoolText.includes(schoolQuery);
     const majorMatches = !majorQuery || majorText.includes(majorQuery);
-    const matchesScope = currentScopeFilter === "school" ? schoolMatches : currentScopeFilter === "major" ? majorMatches : currentScopeFilter === "both" ? schoolMatches && majorMatches : schoolMatches && majorMatches;
-    const matchesDimension = currentDimensionFilter === "all" || dimensions.includes(currentDimensionFilter);
+    const matchesDimension = currentDimensionFilters.size === 0 || dimensions.some((dimension) => currentDimensionFilters.has(dimension));
     const matchesSource = currentSourceFilter === "all" || item.source === currentSourceFilter;
     const matchesSearch = !query || `${item.school || ""}${item.major || ""}${item.city || ""}${item.text || ""}${itemTags}${dimensions.join("")}`.toLowerCase().includes(query);
-    return matchesScope && matchesDimension && matchesSource && matchesSearch;
+    const regionMatches = matchesRegionSelection(item, currentExperienceRegion);
+    return schoolMatches && majorMatches && regionMatches && matchesDimension && matchesSource && matchesSearch && matchesContentTime(item.publishedAt);
   };
-  const filtered = experiences.filter((item) => (item.source === "student" || item.source === "expert") && matchesFilters(item));
+  const filtered = experienceItems.filter(matchesFilters);
   const filteredInstitutions = institutions.filter((item) => {
-    const dimensions = Array.isArray(item.dimensions) ? item.dimensions : [];
-    const schoolText = `${item.school || ""}${item.city || ""}`.toLowerCase();
-    const majorText = (item.majors || []).join("").toLowerCase();
-    const schoolMatches = !schoolQuery || schoolText.includes(schoolQuery);
-    const majorMatches = !majorQuery || majorText.includes(majorQuery);
-    const matchesScope = currentScopeFilter === "school" ? schoolMatches : currentScopeFilter === "major" ? majorMatches : currentScopeFilter === "both" ? schoolMatches && majorMatches : schoolMatches && majorMatches;
-    const matchesDimension = currentDimensionFilter === "all" || dimensions.includes(currentDimensionFilter);
-    const matchesSource = currentSourceFilter === "all" || currentSourceFilter === "data" || currentSourceFilter === "official";
-    const matchesSearch = !query || `${item.school}${item.city}${item.type}${item.intro}${item.majors.join("")}${item.highlights.join("")}`.toLowerCase().includes(query);
-    return matchesScope && matchesDimension && matchesSource && matchesSearch;
+    const schoolText = (item.school || "").toLowerCase();
+    const majorText = [...(item.majors || []), ...(item.majorPrograms || []).map((program) => program.name)].join("").toLowerCase();
+    const schoolMatches = !institutionSchoolQuery || schoolText.includes(institutionSchoolQuery);
+    const majorMatches = !institutionMajorQuery || majorText.includes(institutionMajorQuery);
+    const regionMatches = matchesRegionSelection(item, currentInstitutionRegion);
+    return schoolMatches && majorMatches && regionMatches;
   });
   const institutionGrid = $("#institutionGrid");
   if (institutionGrid) {
-    institutionGrid.innerHTML = filteredInstitutions.length ? filteredInstitutions.map(renderInstitutionCard).join("") : `<div class="empty-state institution-empty"><i data-lucide="building-2"></i><p>当前筛选下暂无匹配的院校信息</p></div>`;
+    const institutionEmptyText = currentInstitutionRegion === "all" ? "当前筛选下暂无匹配的院校信息" : `${regionSelectionLabel(currentInstitutionRegion)}暂无匹配的院校信息`;
+    institutionGrid.innerHTML = filteredInstitutions.length ? filteredInstitutions.map(renderInstitutionCard).join("") : `<div class="empty-state institution-empty"><i data-lucide="building-2"></i><p>${escapeHtml(institutionEmptyText)}</p></div>`;
     $("#institutionResultNote") && ($("#institutionResultNote").textContent = `${filteredInstitutions.length} 所学校`);
   }
+  const clearInstitutionFilters = $("#clearInstitutionFilters");
+  if (clearInstitutionFilters) clearInstitutionFilters.disabled = !currentInstitutionSchoolSearch.trim() && !currentInstitutionMajorSearch.trim() && !currentInstitutionRegionSearch.trim() && currentInstitutionRegion === "all";
   $("#experienceResultNote") && ($("#experienceResultNote").textContent = `${filtered.length} 条内容`);
-  const ordered = sameSchool ? [...filtered].sort((a, b) => ((a.school || "").includes("师范") ? -1 : 0) - ((b.school || "").includes("师范") ? -1 : 0)) : filtered;
+  const ordered = [...filtered].sort((a, b) => {
+    if (sameSchool) {
+      const schoolPriority = Number((b.school || "").includes("师范")) - Number((a.school || "").includes("师范"));
+      if (schoolPriority) return schoolPriority;
+    }
+    return currentExperienceSort === "newest" ? String(b.publishedAt || "").localeCompare(String(a.publishedAt || "")) : 0;
+  });
   const favorites = userFavorites();
   const sourceLabels = { student: { cls: "level-student", icon: "user-check", text: "在读认证" }, official: { cls: "level-official", icon: "landmark", text: "官方信息" }, data: { cls: "level-data", icon: "database", text: "客观数据" }, expert: { cls: "level-expert", icon: "users", text: "教师/从业者" } };
+  const experienceEmptyText = currentExperienceRegion === "all" ? sectionCopy.empty : `${regionSelectionLabel(currentExperienceRegion)}暂无匹配的经验内容`;
   grid.innerHTML = ordered.length ? ordered.map((item) => {
     const src = sourceLabels[item.source] || sourceLabels.student;
     const saved = favorites.includes(item.id);
     const tagsHtml = Array.isArray(item.tags) ? item.tags.map((tag) => `<span class="content-tag">${tag}</span>`).join("") : "";
     const dimensionsHtml = Array.isArray(item.dimensions) ? item.dimensions.map((dimension) => `<span class="content-tag">${dimension}</span>`).join("") : "";
     const sourceDetail = item.sourceUrl ? `<a class="source-link" href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>查看来源 · ${item.sourceName}</a>` : `<span class="source-link source-link-muted"><i data-lucide="shield-check"></i>平台认证记录 · ${item.level || "身份已核验"}</span>`;
+    const publishedAt = `<time class="experience-published-at" datetime="${item.publishedAt || ""}"><i data-lucide="clock-3"></i>发布于 ${formatContentDate(item.publishedAt)}</time>`;
     const valueHtml = item.value ? `<div class="source-value"><strong>${item.value}</strong><small>来源内容摘要</small></div>` : "";
     const titleHtml = item.title ? `<h3 class="experience-card-title">${item.title}</h3>` : "";
-    return `<article class="experience-card">
+    const institutionSummary = renderExperienceInstitutionSummary(item);
+    return `<article class="experience-card" onclick="saveHistory('${item.id}')">
       <div class="experience-top"><span class="school-avatar">${(item.school || "").slice(0, 1)}</span><div class="experience-school"><strong>${item.school || "未命名学校"}</strong><small>${item.major || "未分类专业"} · ${item.city || "未标注城市"}</small></div><span class="source-level-tag ${src.cls}">${src.text}</span></div>
       <div class="experience-divider"></div>
-      ${valueHtml}${titleHtml}
+      ${institutionSummary}${valueHtml}${titleHtml}
       <p>${item.text || ""}</p>
       <div class="tag-row">${dimensionsHtml}${tagsHtml}</div>
-      <div class="experience-card-footer">${sourceDetail}<button class="save-experience ${saved ? "saved" : ""}" data-favorite="${item.id}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入我的候选"}</button></div>
+      <div class="experience-card-footer"><div class="experience-source-meta">${sourceDetail}${publishedAt}</div><div class="experience-card-actions"><button class="save-experience ${saved ? "saved" : ""}" data-favorite="${item.id}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入我的候选"}</button></div></div>
     </article>`;
-  }).join("") : `<div class="empty-state"><i data-lucide="search-x"></i><p>${sectionCopy.empty}</p><button class="quiet-button" data-clear-search>清空筛选</button></div>`;
+  }).join("") : `<div class="empty-state"><i data-lucide="search-x"></i><p>${escapeHtml(experienceEmptyText)}</p><button class="quiet-button" data-clear-search>清空筛选</button></div>`;
+  updateExperienceFilterUi();
   hydrateIcons();
+}
+
+function renderQuestionAnswers(item) {
+  const answers = Array.isArray(item.answers) ? item.answers : (demoQuestions.includes(item) ? getDemoAnswers(item.title) : []);
+  if (!answers.length) return "";
+  return `<div class="question-answers">${answers.map((answer) => `<div class="answer-card"><div class="answer-author">${escapeHtml(answer.author || "")}</div><div class="answer-content">${escapeHtml(answer.text || "")}</div></div>`).join("")}</div>`;
 }
 
 function renderQuestions() {
@@ -679,10 +2071,10 @@ function renderQuestions() {
   const list = $("#questionList");
   if (!list) return;
   if (!user) {
-    list.innerHTML = demoQuestions.map((item) => `<article class="question-list-item"><header><strong>${escapeHtml(item.title)}</strong><span class="question-status ${item.waiting ? "waiting" : ""}">${escapeHtml(item.status)}</span></header><p>${escapeHtml(item.meta)}</p></article>`).join("");
+    list.innerHTML = demoQuestions.map((item) => `<article class="question-list-item"><header><strong>${escapeHtml(item.title)}</strong><span class="question-status ${item.waiting ? "waiting" : ""}">${escapeHtml(item.status)}</span></header><p>${escapeHtml(item.meta)}</p>${renderQuestionAnswers(item)}</article>`).join("");
   } else {
     const mine = read(STORE.questions, []).filter((item) => item.userId === user.id);
-    list.innerHTML = mine.length ? mine.map((item) => `<article class="question-list-item"><header><strong>${escapeHtml(item.title)}</strong><span class="question-status ${item.status === "已回答" ? "" : "waiting"}">${escapeHtml(item.status)}</span></header><p>${escapeHtml(item.meta || `${item.topic || "未分类"} · 发布于 ${new Date(item.createdAt).toLocaleDateString("zh-CN")}`)}</p></article>`).join("") : `<p>你还没有发布问题</p>`;
+    list.innerHTML = mine.length ? mine.map((item) => `<article class="question-list-item"><header><strong>${escapeHtml(item.title)}</strong><span class="question-status ${item.status === "已回答" ? "" : "waiting"}">${escapeHtml(item.status)}</span></header><p>${escapeHtml(item.meta || `${item.topic || "未分类"} · 发布于 ${new Date(item.createdAt).toLocaleDateString("zh-CN")}`)}</p>${renderQuestionAnswers(item)}</article>`).join("") : `<p>你还没有发布问题</p>`;
   }
   $("#questionsCount") && ($("#questionsCount").textContent = user ? read(STORE.questions, []).filter((item) => item.userId === user.id).length : "示例");
   hydrateIcons();
@@ -698,7 +2090,7 @@ function renderInstitutionCard(item) {
     <div class="institution-highlights">${highlightHtml}</div>
     <div class="institution-card-block"><span>重点关注专业</span><div class="tag-row">${majorHtml}</div></div>
     <div class="institution-evidence"><span><i data-lucide="database"></i>客观数据已整理</span><span><i data-lucide="landmark"></i>官方资料已整理</span></div>
-    <div class="institution-card-footer"><span class="institution-note">平台摘要 · 来源可核验</span><div class="institution-card-actions"><button class="text-button" data-school-detail="${item.id}">全面了解 <i data-lucide="arrow-up-right"></i></button><button class="save-experience ${saved ? "saved" : ""}" data-favorite="school-${item.id}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入候选"}</button></div></div>
+    <div class="institution-card-footer"><span class="institution-note"><i data-lucide="clock-3"></i>资料更新于 ${item.updatedAt || "时间待补充"} · 来源可核验</span><div class="institution-card-actions"><button class="text-button" data-school-detail="${item.id}">全面了解 <i data-lucide="arrow-up-right"></i></button><button class="save-experience ${saved ? "saved" : ""}" data-favorite="school-${item.id}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入候选"}</button></div></div>
   </article>`;
 }
 
@@ -1325,10 +2717,57 @@ function renderFamily() {
 
 function renderTrust() {
   const user = currentUser();
-  const status = user ? (read(STORE.verification, {})[user.id] || {}).status : null;
   const card = $("#verificationContent");
   if (!card) return;
-  card.innerHTML = `<div class="verification-status"><span class="status-icon"><i data-lucide="shield-check"></i></span><div><span>当前身份</span><strong>${user ? `${escapeHtml(user.role)} · ${escapeHtml(status ? status : "未认证")}` : "未登录"}</strong></div></div>`;
+  const verification = user ? (read(STORE.verification, {})[user.id] || {}) : {};
+  const status = verification.status || "未认证";
+  const isVerified = ["已认证", "认证通过"].includes(status);
+  const isPending = status === "申请中";
+  const completedSteps = !user ? 0 : (isVerified ? 3 : (isPending ? 2 : 1));
+  const progress = [0, 34, 67, 100][completedSteps];
+  const stateClass = isVerified ? "is-verified" : (isPending ? "is-pending" : "");
+  const stateLabel = !user ? "未登录" : (isVerified ? "认证有效" : (isPending ? "审核中" : "待开始"));
+  const publicLabel = isVerified
+    ? (verification.publicLabel || verification.label || [user.school, user.major, user.graduationYear].filter(Boolean).join(" · ") || `${user.role} · 身份已核验`)
+    : "认证后显示学校 · 专业 · 年份";
+  const currentIdentity = user ? `${user.role} · ${isVerified ? "已认证" : status}` : "访客 · 未登录";
+  const step = (index, label) => `<span class="${completedSteps >= index ? "done" : ""}"><i data-lucide="${completedSteps >= index ? "check" : "circle"}"></i>${label}</span>`;
+  let action = `<button class="primary-button full-button verification-action" type="button" data-start-verify><i data-lucide="badge-check"></i>开始认证</button>`;
+  let footnote = `<p class="verify-footnote"><i data-lucide="lock-keyhole"></i>后台实名，前台匿名；材料不会在前台公开</p>`;
+
+  if (!user) {
+    action = `<button class="primary-button full-button verification-action" type="button" data-open-account><i data-lucide="log-in"></i>登录后认证</button>`;
+  } else if (isPending) {
+    action = `<div class="verify-notice pending"><span><i data-lucide="circle"></i></span><div><strong>认证申请审核中</strong><small>审核完成前继续保持未认证状态</small></div></div>`;
+    footnote = `<p class="verify-footnote"><i data-lucide="lock-keyhole"></i>提交于 ${escapeHtml(formatProfileDate(verification.submittedAt || new Date()))} · 材料仅用于后台核验</p>`;
+  } else if (isVerified) {
+    action = `<div class="verify-notice"><span><i data-lucide="shield-check"></i></span><div><strong>认证标签已生效</strong><small>现在可以发布带有认证来源的回答</small></div></div>`;
+    footnote = `<p class="verify-footnote"><i data-lucide="lock-keyhole"></i>完成认证于 ${escapeHtml(formatProfileDate(verification.verifiedAt || verification.submittedAt || new Date()))} · 前台保持匿名</p>`;
+  }
+
+  card.classList.toggle("is-unverified-card", !isVerified && !isPending);
+  card.classList.toggle("is-pending-card", isPending);
+  card.classList.toggle("is-verified-card", isVerified);
+  card.style.setProperty("--verification-progress", `${progress}%`);
+  card.innerHTML = `
+    <div class="credential-top">
+      <div><span>YINLU VERIFIED ID</span><h2>引路可信身份卡</h2></div>
+      <span class="status-icon"><i data-lucide="badge-check"></i></span>
+    </div>
+    <div class="credential-status ${stateClass}">
+      <span>当前状态</span><strong>${escapeHtml(currentIdentity)}</strong><b><i data-lucide="${isVerified ? "check" : "circle"}"></i>${escapeHtml(stateLabel)}</b>
+    </div>
+    <div class="credential-fields">
+      <div><span>${isVerified ? "前台认证标签" : "前台显示"}</span><strong>${escapeHtml(publicLabel)}</strong></div>
+      <div><span>${isVerified ? "隐私状态" : "后台核验"}</span><strong>${isVerified ? "实名信息仅后台可见" : "实名材料 · 身份证明"}</strong></div>
+    </div>
+    <div class="verify-progress">
+      <div class="progress-title"><span>认证进度</span><strong>${completedSteps} / 3</strong></div>
+      <div class="progress-track"><span></span></div>
+      <div class="verify-steps">${step(1, "确认身份")}${step(2, "提交材料")}${step(3, "等待核验")}</div>
+    </div>
+    ${action}
+    ${footnote}`;
   hydrateIcons();
 }
 
@@ -1546,7 +2985,7 @@ function removeProfileAvatar() {
 function submitQuestion() {
   if (!requireAuth("登录后才能发布匿名问题")) return;
   const input = $("#questionInput"); const value = input?.value.trim() || ""; if (value.length < 8) { showToast("请把问题写得再具体一点"); input?.focus(); return; }
-  const user = currentUser(); const all = read(STORE.questions, []); all.unshift({ id: uid("question"), userId: user.id, title: value, topic: $("#questionTopic")?.value || "未分类", stage: $("#questionStage")?.value || "高考志愿", status: "等待回答", createdAt: new Date().toISOString() }); write(STORE.questions, all);
+  const user = currentUser(); const all = read(STORE.questions, []); all.unshift({ id: uid("question"), userId: user.id, title: value, topic: $("#questionTopic")?.value || "未分类", stage: $("#questionStage")?.value || "高考志愿", status: "等待回答", createdAt: new Date().toISOString(), answers: [] }); write(STORE.questions, all);
   input.value = ""; closeModal("questionModal"); renderQuestions(); showToast("匿名问题已发布，正在匹配认证回答者");
 }
 
@@ -1568,7 +3007,8 @@ function submitInlineQuestion() {
     topic: $("#questionTopicPreview")?.value || "未分类",
     stage: $("#questionStagePreview")?.value || "高考志愿",
     status: "等待回答",
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    answers: []
   });
   write(STORE.questions, all);
   input.value = "";
@@ -1693,8 +3133,133 @@ function switchQaTab(name) {
 
 // 事件委托保留，但同时安全绑定核心按钮以避免空引用错误
 document.addEventListener("click", (event) => {
+  const petAvatar = event.target.closest("#cyberPetAvatarMenu [data-pet-avatar]");
+  if (petAvatar) {
+    setCyberPetAvatar(petAvatar.dataset.petAvatar, { notify: true });
+    setCyberPetAvatarMenu(false);
+    if (event.detail === 0) $("#cyberPetToggle")?.focus();
+    return;
+  }
+  const petAction = event.target.closest("[data-pet-action]");
+  if (petAction) { handleCyberPetAction(petAction.dataset.petAction); return; }
   const experienceLayout = event.target.closest("[data-experience-layout]");
   if (experienceLayout) { applyExperienceLayout(experienceLayout.dataset.experienceLayout, { notify: true }); return; }
+  const experienceContentTab = event.target.closest("[data-experience-content-tab]");
+  if (experienceContentTab) { switchExperienceContentTab(experienceContentTab.dataset.experienceContentTab); return; }
+  const regionToggle = event.target.closest("[data-region-toggle]");
+  if (regionToggle) {
+    const library = regionToggle.dataset.regionToggle;
+    if (library === "institution") {
+      currentInstitutionRegionOpen = !currentInstitutionRegionOpen;
+      currentInstitutionMajorOpen = false;
+    } else {
+      currentExperienceRegionOpen = !currentExperienceRegionOpen;
+      currentExperienceMajorOpen = false;
+    }
+    renderLibraryRegionPicker(library);
+    renderLibraryMajorPicker(library);
+    if ((library === "institution" ? currentInstitutionRegionOpen : currentExperienceRegionOpen)) {
+      window.setTimeout(() => $(`#${library}RegionSearch`)?.focus(), 0);
+    }
+    return;
+  }
+  const regionLetter = event.target.closest("[data-region-letter]");
+  if (regionLetter) {
+    const library = regionLetter.dataset.regionLibrary;
+    if (library === "institution") {
+      currentInstitutionRegionLetter = regionLetter.dataset.regionLetter;
+      currentInstitutionRegionSearch = "";
+      currentInstitutionRegionOpen = true;
+    } else {
+      currentExperienceRegionLetter = regionLetter.dataset.regionLetter;
+      currentExperienceRegionSearch = "";
+      currentExperienceRegionOpen = true;
+    }
+    renderLibraryRegionPicker(library);
+    return;
+  }
+  const libraryRegion = event.target.closest("[data-library-region]");
+  if (libraryRegion) {
+    const library = libraryRegion.dataset.libraryRegion;
+    const province = libraryRegion.dataset.regionProvince || "";
+    const city = libraryRegion.dataset.regionCity || "";
+    const selection = makeRegionSelection(province, city);
+    const shouldClose = Boolean(city || isMunicipality(province) || libraryRegion.hasAttribute("data-region-scope-all") || !province);
+    if (library === "institution") {
+      currentInstitutionRegion = selection;
+      currentInstitutionRegionSearch = "";
+      currentInstitutionRegionLetter = province ? REGION_INITIAL_BY_PROVINCE[province] || "" : "";
+      currentInstitutionRegionOpen = !shouldClose;
+    } else {
+      currentExperienceRegion = selection;
+      currentExperienceRegionSearch = "";
+      currentExperienceRegionLetter = province ? REGION_INITIAL_BY_PROVINCE[province] || "" : "";
+      currentExperienceRegionOpen = !shouldClose;
+    }
+    renderExperiences();
+    return;
+  }
+  const majorToggle = event.target.closest("[data-major-toggle]");
+  if (majorToggle) {
+    const library = majorToggle.dataset.majorToggle;
+    if (library === "institution") {
+      currentInstitutionMajorOpen = !currentInstitutionMajorOpen;
+      currentInstitutionRegionOpen = false;
+    } else {
+      currentExperienceMajorOpen = !currentExperienceMajorOpen;
+      currentExperienceRegionOpen = false;
+    }
+    renderLibraryMajorPicker(library);
+    renderLibraryRegionPicker(library);
+    if (library === "institution" ? currentInstitutionMajorOpen : currentExperienceMajorOpen) window.setTimeout(() => $(`#${library}MajorSearch`)?.focus(), 0);
+    return;
+  }
+  const majorCategory = event.target.closest("[data-major-category]");
+  if (majorCategory) {
+    const library = majorCategory.dataset.majorLibrary;
+    const category = majorCategory.dataset.majorCategory;
+    if (library === "institution") {
+      currentInstitutionMajorCategory = currentInstitutionMajorCategory === category ? "" : category;
+      currentInstitutionMajorOpen = true;
+    } else {
+      currentExperienceMajorCategory = currentExperienceMajorCategory === category ? "" : category;
+      currentExperienceMajorOpen = true;
+    }
+    renderLibraryMajorPicker(library);
+    return;
+  }
+  const majorOption = event.target.closest("[data-major-option]");
+  if (majorOption) {
+    const library = majorOption.dataset.majorLibrary;
+    const value = majorOption.dataset.majorOption;
+    if (library === "institution") {
+      currentInstitutionMajorSearch = value;
+      currentInstitutionMajorOpen = false;
+      currentInstitutionMajorCategory = majorCategoryForName(value);
+    } else {
+      currentMajorSearch = value;
+      currentExperienceMajorOpen = false;
+      currentExperienceMajorCategory = majorCategoryForName(value);
+    }
+    renderExperiences();
+    return;
+  }
+  if ((currentInstitutionRegionOpen || currentExperienceRegionOpen || currentInstitutionMajorOpen || currentExperienceMajorOpen) && !event.target.closest(".library-region-index") && !event.target.closest(".library-major-picker")) {
+    currentInstitutionRegionOpen = false;
+    currentExperienceRegionOpen = false;
+    currentInstitutionMajorOpen = false;
+    currentExperienceMajorOpen = false;
+    renderLibraryRegionPicker("institution");
+    renderLibraryRegionPicker("experience");
+    renderLibraryMajorPicker("institution");
+    renderLibraryMajorPicker("experience");
+  }
+  const calendarShift = event.target.closest("[data-calendar-shift]");
+  if (calendarShift) { shiftDecisionCalendar(Number(calendarShift.dataset.calendarShift)); return; }
+  const calendarDate = event.target.closest("[data-calendar-date]");
+  if (calendarDate) { selectDecisionDate(calendarDate.dataset.calendarDate); return; }
+  const deleteDecision = event.target.closest("[data-delete-decision-event]");
+  if (deleteDecision) { deleteDecisionEvent(deleteDecision.dataset.deleteDecisionEvent); return; }
   const nav = event.target.closest("[data-view]"); if (nav) { switchView(nav.dataset.view); return; }
   const targetView = event.target.closest("[data-view-target]"); if (targetView) { switchView(targetView.dataset.viewTarget); return; }
   const schoolDetail = event.target.closest("[data-school-detail]"); if (schoolDetail) {
@@ -1762,7 +3327,7 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("[data-start-verify]")) { requestVerification(); return; }
   if (event.target.closest("[data-report-comment]")) { showToast("已记录举报，正式版本将进入内容审核流程"); return; }
   if (event.target.closest("[data-share-candidates]")) { showToast("候选清单分享功能将在正式后端版本开放"); return; }
-  if (event.target.closest("[data-clear-search]")) { currentSearch = ""; $$("[data-stage-search]").forEach((input) => { input.value = ""; }); renderExperiences(); return; }
+  if (event.target.closest("[data-clear-search]")) { $("#clearExperienceFilters")?.click(); return; }
   const authTab = event.target.closest("[data-auth-tab]"); if (authTab) { $$(".auth-tab").forEach((tab) => tab.classList.toggle("active", tab === authTab)); $("#loginForm").classList.toggle("hidden"); $("#registerForm").classList.toggle("hidden"); return; }
   const qaTab = event.target.closest("[data-qa-tab]"); if (qaTab) { switchQaTab(qaTab.dataset.qaTab); return; }
 });
@@ -1781,6 +3346,15 @@ document.addEventListener("input", (event) => {
 });
 
 document.addEventListener("change", (event) => {
+  if (event.target.id === "cyberPetReduceMotion") {
+    setCyberPetMotionReduced(event.target.checked);
+    showToast(event.target.checked ? "已减少宠物动态效果" : "已恢复宠物动态效果");
+    return;
+  }
+  if (event.target.id === "decisionEventDate") {
+    selectDecisionDate(event.target.value);
+    return;
+  }
   if (event.target.matches("[data-select-school-candidate]")) {
     toggleSchoolCandidateSelection(event.target.dataset.selectSchoolCandidate, event.target.checked);
     return;
@@ -1803,6 +3377,18 @@ document.addEventListener("change", (event) => {
 });
 
 document.addEventListener("submit", (event) => {
+  if (event.target.id === "cyberPetComposer") {
+    submitCyberPetQuestion(event);
+    return;
+  }
+  if (event.target.id === "cyberPetReport") {
+    submitCyberPetReport(event);
+    return;
+  }
+  if (event.target.id === "decisionEventForm") {
+    addDecisionEvent(event);
+    return;
+  }
   if (event.target.id === "candidateMajorSearchForm") {
     event.preventDefault();
     applyMajorSearch(new FormData(event.target).get("major") || "");
@@ -1814,10 +3400,21 @@ document.addEventListener("submit", (event) => {
 // 安全绑定核心交互（检查元素存在后绑定）
 const menuButton = $("#menuButton"); if (menuButton) menuButton.addEventListener("click", () => $("#sidebar").classList.toggle("open"));
 const accountButton = $("#accountButton"); if (accountButton) accountButton.addEventListener("click", showAccount);
+const onboardingReplayButton = $("#onboardingReplayButton"); if (onboardingReplayButton) onboardingReplayButton.addEventListener("click", () => startOnboarding({ force: true }));
 const notifyButton = $("#notifyButton"); if (notifyButton) notifyButton.addEventListener("click", () => showToast(currentUser() ? "暂无新的认证回答" : "登录后可查看你的通知"));
+const decisionCalendarButton = $("#decisionCalendarButton"); if (decisionCalendarButton) decisionCalendarButton.addEventListener("click", openDecisionCalendar);
+const cyberPetToggle = $("#cyberPetToggle"); if (cyberPetToggle) cyberPetToggle.addEventListener("click", () => {
+  if (cyberPetSuppressClick) { cyberPetSuppressClick = false; return; }
+  setCyberPetAvatarMenu(false);
+  setCyberPetOpen($("#cyberPetPanel")?.hidden !== false);
+});
+const cyberPetClose = $("#cyberPetClose"); if (cyberPetClose) cyberPetClose.addEventListener("click", () => setCyberPetOpen(false));
 const themeButton = $("#themeButton"); if (themeButton) themeButton.addEventListener("click", (event) => { event.stopPropagation(); setThemeMenu(themeButton.getAttribute("aria-expanded") !== "true"); });
 $$('[data-theme-option]').forEach((button) => button.addEventListener("click", () => { applyTheme(button.dataset.themeOption, { persist: true, notify: true }); setThemeMenu(false); }));
 document.addEventListener("click", (event) => { if (!event.target.closest(".theme-control")) setThemeMenu(false); });
+document.addEventListener("pointerdown", (event) => {
+  if (!event.target.closest("#cyberPetAvatarMenu") && !event.target.closest("#cyberPetToggle")) setCyberPetAvatarMenu(false);
+});
 const sameSchoolToggle = $("#sameSchoolToggle"); if (sameSchoolToggle) sameSchoolToggle.addEventListener("change", renderExperiences);
 const submitQuestionBtn = $("#submitQuestion"); if (submitQuestionBtn) submitQuestionBtn.addEventListener("click", submitQuestion);
 const inviteFamilyBtn = $("#inviteFamily"); if (inviteFamilyBtn) inviteFamilyBtn.addEventListener("click", generateFamilyInvite);
@@ -1857,40 +3454,174 @@ if (stageCarousel) {
   }, { passive: true });
 }
 $$('[data-dimension-filter]').forEach((button) => button.addEventListener("click", () => {
-  currentDimensionFilter = button.dataset.dimensionFilter;
-  $$('[data-dimension-filter]').forEach((item) => item.classList.toggle("active", item === button));
+  const dimension = button.dataset.dimensionFilter;
+  if (dimension === "all") currentDimensionFilters.clear();
+  else if (currentDimensionFilters.has(dimension)) currentDimensionFilters.delete(dimension);
+  else currentDimensionFilters.add(dimension);
+  updateDimensionFilterButtons();
   renderExperiences();
 }));
 $$('[data-source-filter]').forEach((button) => button.addEventListener("click", () => {
   currentSourceFilter = button.dataset.sourceFilter;
+  const availableDimensions = EXPERIENCE_DIMENSIONS_BY_SOURCE[currentSourceFilter] || EXPERIENCE_DIMENSIONS_BY_SOURCE.all;
+  [...currentDimensionFilters].filter((dimension) => !availableDimensions.includes(dimension)).forEach((dimension) => currentDimensionFilters.delete(dimension));
+  if (currentSourceFilter === "official") currentTimeFilter = "all";
   $$('[data-source-filter]').forEach((item) => item.classList.toggle("active", item === button));
+  updateDimensionFilterButtons();
+  $$('[data-time-filter]').forEach((item) => item.classList.toggle("active", item.dataset.timeFilter === currentTimeFilter));
   renderExperiences();
 }));
-$$('[data-scope-filter]').forEach((button) => button.addEventListener("click", () => {
-  currentScopeFilter = button.dataset.scopeFilter;
-  $$('[data-scope-filter]').forEach((item) => item.classList.toggle("active", item === button));
+$$('[data-time-filter]').forEach((button) => button.addEventListener("click", () => {
+  currentTimeFilter = button.dataset.timeFilter;
+  $$('[data-time-filter]').forEach((item) => item.classList.toggle("active", item === button));
   renderExperiences();
 }));
 const experienceSchoolSearch = $("#experienceSchoolSearch"); if (experienceSchoolSearch) experienceSchoolSearch.addEventListener("input", (event) => { currentSchoolSearch = event.target.value; renderExperiences(); });
-const experienceMajorSearch = $("#experienceMajorSearch"); if (experienceMajorSearch) experienceMajorSearch.addEventListener("input", (event) => { currentMajorSearch = event.target.value; renderExperiences(); });
+const experienceMajorSearch = $("#experienceMajorSearch"); if (experienceMajorSearch) {
+  experienceMajorSearch.addEventListener("focus", () => { currentExperienceMajorOpen = true; currentExperienceRegionOpen = false; renderLibraryMajorPicker("experience"); renderLibraryRegionPicker("experience"); });
+  experienceMajorSearch.addEventListener("input", (event) => { currentMajorSearch = event.target.value; currentExperienceMajorCategory = ""; currentExperienceMajorOpen = true; renderExperiences(); });
+  experienceMajorSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); $("#experienceMajorOptions [data-major-option]")?.click(); } });
+}
+const institutionSchoolSearch = $("#institutionSchoolSearch"); if (institutionSchoolSearch) institutionSchoolSearch.addEventListener("input", (event) => { currentInstitutionSchoolSearch = event.target.value; renderExperiences(); });
+const institutionMajorSearch = $("#institutionMajorSearch"); if (institutionMajorSearch) {
+  institutionMajorSearch.addEventListener("focus", () => { currentInstitutionMajorOpen = true; currentInstitutionRegionOpen = false; renderLibraryMajorPicker("institution"); renderLibraryRegionPicker("institution"); });
+  institutionMajorSearch.addEventListener("input", (event) => { currentInstitutionMajorSearch = event.target.value; currentInstitutionMajorCategory = ""; currentInstitutionMajorOpen = true; renderExperiences(); });
+  institutionMajorSearch.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); $("#institutionMajorOptions [data-major-option]")?.click(); } });
+}
+const institutionRegionSearch = $("#institutionRegionSearch"); if (institutionRegionSearch) {
+  institutionRegionSearch.addEventListener("focus", () => {
+    currentInstitutionRegionOpen = true;
+    currentInstitutionMajorOpen = false;
+    renderLibraryRegionPicker("institution");
+    renderLibraryMajorPicker("institution");
+    if (currentInstitutionRegion !== "all") window.setTimeout(() => institutionRegionSearch.select(), 0);
+  });
+  institutionRegionSearch.addEventListener("input", (event) => {
+    currentInstitutionRegionSearch = event.target.value;
+    currentInstitutionRegion = "all";
+    currentInstitutionRegionLetter = "";
+    currentInstitutionRegionOpen = true;
+    renderExperiences();
+  });
+  institutionRegionSearch.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    $("#institutionRegionOptions [data-library-region]")?.click();
+  });
+}
+const experienceRegionSearch = $("#experienceRegionSearch"); if (experienceRegionSearch) {
+  experienceRegionSearch.addEventListener("focus", () => {
+    currentExperienceRegionOpen = true;
+    currentExperienceMajorOpen = false;
+    renderLibraryRegionPicker("experience");
+    renderLibraryMajorPicker("experience");
+    if (currentExperienceRegion !== "all") window.setTimeout(() => experienceRegionSearch.select(), 0);
+  });
+  experienceRegionSearch.addEventListener("input", (event) => {
+    currentExperienceRegionSearch = event.target.value;
+    currentExperienceRegion = "all";
+    currentExperienceRegionLetter = "";
+    currentExperienceRegionOpen = true;
+    renderExperiences();
+  });
+  experienceRegionSearch.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    $("#experienceRegionOptions [data-library-region]")?.click();
+  });
+}
+const clearInstitutionFilters = $("#clearInstitutionFilters"); if (clearInstitutionFilters) clearInstitutionFilters.addEventListener("click", () => {
+  currentInstitutionSchoolSearch = "";
+  currentInstitutionMajorSearch = "";
+  currentInstitutionRegion = "all";
+  currentInstitutionRegionSearch = "";
+  currentInstitutionRegionLetter = "";
+  currentInstitutionRegionOpen = false;
+  currentInstitutionMajorCategory = "";
+  currentInstitutionMajorOpen = false;
+  if (institutionSchoolSearch) institutionSchoolSearch.value = "";
+  if (institutionMajorSearch) institutionMajorSearch.value = "";
+  renderExperiences();
+});
+const experienceSort = $("#experienceSort"); if (experienceSort) experienceSort.addEventListener("change", (event) => { currentExperienceSort = event.target.value; renderExperiences(); });
+$$('[data-filter-section]').forEach((button) => button.addEventListener("click", () => toggleAdvancedExperienceFilters(button.dataset.filterSection)));
+const experienceSelectedFilters = $("#experienceSelectedFilters"); if (experienceSelectedFilters) experienceSelectedFilters.addEventListener("click", (event) => {
+  const tag = event.target.closest("[data-clear-filter-key]");
+  if (!tag) return;
+  const key = tag.dataset.clearFilterKey;
+  if (key === "keyword") { currentSearch = ""; $$('[data-stage-search]').forEach((input) => { input.value = ""; }); }
+  if (key === "school") { currentSchoolSearch = ""; if (experienceSchoolSearch) experienceSchoolSearch.value = ""; }
+  if (key === "major") { currentMajorSearch = ""; currentExperienceMajorCategory = ""; if (experienceMajorSearch) experienceMajorSearch.value = ""; }
+  if (key === "region") currentExperienceRegion = "all";
+  if (key === "dimension") currentDimensionFilters.delete(tag.dataset.filterValue);
+  if (key === "source") currentSourceFilter = "all";
+  if (key === "time") currentTimeFilter = "all";
+  if (key === "sort") currentExperienceSort = "relevance";
+  if (key === "same-school" && sameSchoolToggle) sameSchoolToggle.checked = false;
+  setExperienceFilters({ dimensions: [...currentDimensionFilters], source: currentSourceFilter, time: currentTimeFilter, sort: currentExperienceSort });
+  renderExperiences();
+});
 const clearExperienceFilters = $("#clearExperienceFilters"); if (clearExperienceFilters) clearExperienceFilters.addEventListener("click", () => {
+  currentSearch = "";
   currentSchoolSearch = "";
   currentMajorSearch = "";
-  currentDimensionFilter = "all";
-  currentSourceFilter = "all";
-  currentScopeFilter = "all";
+  currentExperienceRegion = "all";
+  currentExperienceRegionSearch = "";
+  currentExperienceRegionLetter = "";
+  currentExperienceRegionOpen = false;
+  currentExperienceMajorCategory = "";
+  currentExperienceMajorOpen = false;
+  $$('[data-stage-search]').forEach((input) => { input.value = ""; });
   if (experienceSchoolSearch) experienceSchoolSearch.value = "";
   if (experienceMajorSearch) experienceMajorSearch.value = "";
-  $$('[data-dimension-filter]').forEach((item) => item.classList.toggle("active", item.dataset.dimensionFilter === "all"));
-  $$('[data-source-filter]').forEach((item) => item.classList.toggle("active", item.dataset.sourceFilter === "all"));
-  $$('[data-scope-filter]').forEach((item) => item.classList.toggle("active", item.dataset.scopeFilter === "all"));
+  if (sameSchoolToggle) sameSchoolToggle.checked = false;
+  setExperienceFilters();
   renderExperiences();
 });
 
-document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeModal("questionModal"); closeModal("accountModal"); setThemeMenu(false); } });
+document.addEventListener("keydown", (event) => {
+  const onboardingOverlay = $("#onboardingOverlay");
+  if (onboardingIndex >= 0 || (onboardingOverlay && !onboardingOverlay.hidden)) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      finishOnboarding({ showComplete: false });
+    } else if (["Enter", "ArrowRight"].includes(event.key) && !event.target.closest("button")) {
+      event.preventDefault();
+      advanceOnboarding();
+    }
+    return;
+  }
+  if (event.key === "Escape") {
+    currentInstitutionRegionOpen = false;
+    currentExperienceRegionOpen = false;
+    renderLibraryRegionPicker("institution");
+    renderLibraryRegionPicker("experience");
+    closeModal("questionModal");
+    closeModal("accountModal");
+    closeModal("decisionCalendarModal");
+    setCyberPetOpen(false);
+    setCyberPetAvatarMenu(false);
+    setThemeMenu(false);
+  }
+});
+window.addEventListener("resize", refreshOnboardingPosition);
+window.addEventListener("scroll", refreshOnboardingPosition, true);
+window.addEventListener("scroll", scheduleBackToTopUpdate, { passive: true });
+window.addEventListener("resize", scheduleBackToTopUpdate);
+$("#backToTopButton")?.addEventListener("click", scrollCurrentPageToTop);
 
 applyTheme(localStorage.getItem(STORE.theme) || document.documentElement.dataset.theme || "apple");
 applyExperienceLayout(localStorage.getItem(STORE.experienceLayout) || "horizontal", { persist: false });
-setStage(currentStage); updateAccountHeader(); hydrateIcons();
+renderDecisionCountdown(); renderDecisionCalendar();
+setCyberPetAvatar(read(STORE.petAvatar, "egret"), { persist: true });
+setCyberPetMotionReduced(read(STORE.petMotion, window.matchMedia("(prefers-reduced-motion: reduce)").matches), { persist: false });
+restoreCyberPetPosition(); initializeCyberPetDrag(); initializeCyberPetAvatarInteractions(); setCyberPetTab("tools"); renderCyberPetContext();
+window.addEventListener("resize", () => {
+  const pet = $("#cyberPet");
+  if (pet) setCyberPetPosition(pet.getBoundingClientRect().left, pet.getBoundingClientRect().top);
+});
+setStage(currentStage); updateAccountHeader(); updateOnboardingReplayButton(); hydrateIcons();
 switchQaTab("ask");
+updateBackToTopButton();
 if (!currentUser() && !localStorage.getItem("yinlu_guest_seen")) window.setTimeout(showAccount, 500);
+else scheduleOnboarding(900);
