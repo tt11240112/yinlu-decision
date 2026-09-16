@@ -1,0 +1,261 @@
+/**
+ * 常驻小助手（电子宠物）
+ * 原 styles.css 第 1726-1981 行（机械切分，内容未改动）
+ * 建议维护：G1 前端组
+ */
+/* 常驻小助手 */
+.visually-hidden {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cyber-pet {
+  width: 82px;
+  height: 92px;
+  position: fixed;
+  left: 24px;
+  bottom: 44px;
+  z-index: 90;
+}
+
+.cyber-pet-toggle {
+  width: 82px;
+  height: 92px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  color: white;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+}
+
+.cyber-pet-toggle:active { cursor: grabbing; }
+.cyber-pet-toggle:hover { transform: translateY(-4px) scale(1.045); }
+.cyber-pet-toggle:focus-visible { outline: 3px solid color-mix(in srgb, var(--theme-action, var(--blue)) 34%, transparent); outline-offset: 3px; }
+.cyber-pet-mascot { width: 80px; height: 90px; display: block; object-fit: contain; pointer-events: none; user-select: none; filter: drop-shadow(0 8px 8px rgba(18, 49, 58, .2)); transform-origin: 50% 76%; }
+.cyber-pet-presence { width: 10px; height: 10px; position: absolute; right: 3px; bottom: 7px; border: 2px solid white; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 2px rgba(11, 48, 72, .13); }
+.cyber-pet-bubbles, .cyber-pet-glint { position: absolute; inset: 0; pointer-events: none; }
+.cyber-pet-bubbles { opacity: 0; }
+.cyber-pet-bubbles i { width: 9px; height: 9px; position: absolute; right: 6px; bottom: 37px; border: 1.5px solid rgba(78, 177, 170, .68); border-radius: 50%; background: rgba(255,255,255,.45); opacity: 0; }
+.cyber-pet-bubbles i:nth-child(2) { width: 6px; height: 6px; right: 1px; bottom: 46px; }
+.cyber-pet-bubbles i:nth-child(3) { width: 5px; height: 5px; right: 13px; bottom: 50px; }
+.cyber-pet-glint::before, .cyber-pet-glint::after { content: ""; position: absolute; opacity: 0; transform: scale(.4) rotate(45deg); }
+.cyber-pet-glint::before { width: 10px; height: 10px; right: 10px; top: 17px; background: linear-gradient(90deg, transparent 42%, #ffd265 42% 58%, transparent 58%), linear-gradient(transparent 42%, #ffd265 42% 58%, transparent 58%); }
+.cyber-pet-glint::after { width: 6px; height: 6px; left: 9px; top: 32px; border-radius: 50%; background: rgba(255, 209, 101, .72); }
+
+.cyber-pet-panel {
+  width: min(410px, calc(100vw - 24px));
+  height: min(566px, calc(100vh - 24px));
+  position: fixed;
+  right: auto;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(76,116,121,.22);
+  border-radius: 12px;
+  color: var(--ink);
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 24px 62px rgba(20,55,65,.22), 0 4px 11px rgba(28,64,72,.08);
+  -webkit-backdrop-filter: blur(20px) saturate(125%);
+  backdrop-filter: blur(20px) saturate(125%);
+}
+
+.cyber-pet-panel[hidden], .cyber-pet-report[hidden], .cyber-pet-avatar-menu[hidden], .cyber-pet-tab-panel[hidden] { display: none; }
+
+.cyber-pet-header { min-height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 7px 10px 7px 14px; border-bottom: 1px solid rgba(83,124,126,.11); background: linear-gradient(90deg, color-mix(in srgb, var(--theme-soft, #edf8f5) 76%, white), rgba(255,255,255,.96)); cursor: grab; touch-action: none; user-select: none; }
+.cyber-pet-header:active { cursor: grabbing; }
+.cyber-pet-identity { min-width: 0; display: flex; align-items: center; gap: 10px; }
+.cyber-pet-header-mascot { width: 47px; height: 49px; position: relative; display: grid; flex: 0 0 47px; place-items: center; }
+.cyber-pet-header-mascot img { width: 47px; height: 47px; display: block; object-fit: contain; pointer-events: none; }
+.cyber-pet-identity > div { min-width: 0; }
+.cyber-pet-identity strong, .cyber-pet-identity small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cyber-pet-identity strong { font-size: 13px; }
+.cyber-pet-identity small { margin-top: 2px; color: var(--muted); font-size: 9px; }
+.cyber-pet-status { width: 8px; height: 8px; position: absolute; right: 0; bottom: 3px; border: 2px solid rgba(255,255,255,.95); border-radius: 50%; background: #56b2a2; box-shadow: 0 0 0 1px rgba(23,65,84,.1); }
+.cyber-pet-header .icon-button { width: 31px; height: 31px; color: #657c80; background: rgba(255,255,255,.66); }
+.cyber-pet-header .icon-button:hover { color: var(--ink); background: white; }
+
+.cyber-pet-tabs { min-height: 43px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 6px 8px; border-bottom: 1px solid rgba(83,124,126,.1); background: #f8fbfa; }
+.cyber-pet-tabs button { min-width: 0; border: 0; border-radius: 7px; color: #7b8d90; background: transparent; font-size: 9px; font-weight: 800; }
+.cyber-pet-tabs button:hover { color: var(--ink); background: rgba(255,255,255,.9); }
+.cyber-pet-tabs button[aria-selected="true"] { color: color-mix(in srgb, var(--theme-action, #287e72) 72%, #176a61); background: color-mix(in srgb, var(--theme-soft, #e3f3ef) 78%, white); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--theme-action, #4ca093) 18%, transparent); }
+.cyber-pet-tabs button:focus-visible { outline: 2px solid color-mix(in srgb, var(--theme-action, var(--blue)) 38%, transparent); outline-offset: -2px; }
+
+.cyber-pet-context { min-height: 45px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid rgba(83,124,126,.1); background: #fbfdfd; }
+.cyber-pet-context span { color: #7d8d90; font-size: 8px; }
+.cyber-pet-context strong { overflow: hidden; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.cyber-pet-context b { padding: 4px 7px; border-radius: 5px; color: #3f8c80; background: #e7f5f2; font-size: 8px; white-space: nowrap; }
+
+.cyber-pet-tab-panel { flex: 1; min-height: 0; overflow-y: auto; padding: 14px; scrollbar-width: thin; scrollbar-color: rgba(85,126,129,.22) transparent; }
+.cyber-pet-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.cyber-pet-actions button { min-width: 0; min-height: 112px; display: grid; grid-template-columns: 38px minmax(0, 1fr); grid-template-rows: 24px 18px; align-content: center; column-gap: 9px; padding: 12px; border: 1px solid rgba(75,117,120,.14); border-radius: 8px; color: var(--ink); background: rgba(255,255,255,.94); box-shadow: 0 5px 15px rgba(44,80,82,.06); text-align: left; }
+.cyber-pet-actions button:hover { border-color: color-mix(in srgb, var(--theme-action, var(--blue)) 34%, transparent); background: white; transform: translateY(-2px); }
+.cyber-pet-action-icon { width: 36px; height: 36px; grid-row: 1 / 3; display: grid; place-items: center; align-self: center; border-radius: 8px; }
+.cyber-pet-action-icon svg { width: 17px; height: 17px; }
+.cyber-pet-action-icon.blue { color: #2e829f; background: #e2f2f7; }
+.cyber-pet-action-icon.pink { color: #c65e77; background: #fae8ed; }
+.cyber-pet-action-icon.mint { color: #2e8b7a; background: #e2f4ee; }
+.cyber-pet-action-icon.yellow { color: #a87417; background: #fff2cf; }
+.cyber-pet-actions strong, .cyber-pet-actions small { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cyber-pet-actions strong { align-self: end; font-size: 10px; }
+.cyber-pet-actions small { align-self: start; color: #849295; font-size: 8px; }
+.cyber-pet-recent { width: 100%; min-height: 47px; display: grid; grid-template-columns: auto minmax(0, 1fr) 14px; align-items: center; gap: 8px; margin-top: 10px; padding: 0 11px; border: 0; border-radius: 8px; color: var(--ink); background: #f4f8f7; text-align: left; }
+.cyber-pet-recent > span { color: #819194; font-size: 8px; }
+.cyber-pet-recent > span i { width: 6px; height: 6px; display: inline-block; margin-right: 5px; border-radius: 50%; background: #58b2a3; }
+.cyber-pet-recent strong { overflow: hidden; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.cyber-pet-recent > svg { width: 13px; color: #9aa8aa; }
+
+.cyber-pet-messages { height: 238px; display: grid; align-content: start; gap: 10px; overflow-y: auto; padding: 0; }
+.cyber-pet-message { width: fit-content; max-width: 86%; padding: 10px 11px; border: 0; border-radius: 8px; color: #48666d; background: #edf4f3; box-shadow: none; font-size: 10px; line-height: 1.62; }
+.cyber-pet-message.user { justify-self: end; color: white; background: color-mix(in srgb, var(--theme-action, #55aa9c) 74%, #4a9f91); }
+.cyber-pet-chat-prompts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.cyber-pet-chat-prompts button { min-height: 38px; border: 1px solid rgba(75,150,140,.18); border-radius: 7px; color: #347f73; background: #eef8f5; font-size: 9px; font-weight: 800; }
+.cyber-pet-chat-prompts button:hover { border-color: #69b8aa; background: white; }
+
+.cyber-pet-stage-reminder { padding: 12px 13px; border: 1px solid rgba(76,151,140,.16); border-radius: 8px; background: #eef8f5; }
+.cyber-pet-stage-reminder > div { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.cyber-pet-stage-reminder span { flex: 0 0 auto; color: #3d8e82; font-size: 8px; font-weight: 800; }
+.cyber-pet-stage-reminder strong { overflow: hidden; font-size: 9px; text-overflow: ellipsis; white-space: nowrap; }
+.cyber-pet-stage-reminder p { margin: 8px 0 0; color: #6d8184; font-size: 9px; line-height: 1.6; }
+.cyber-pet-next-step { margin-top: 10px; padding: 14px; border-left: 3px solid #ef8588; border-radius: 0 8px 8px 0; background: #fff8f3; }
+.cyber-pet-next-step > span { color: #d16b70; font-size: 8px; font-weight: 900; }
+.cyber-pet-next-step h3 { margin: 7px 0 6px; font-size: 15px; }
+.cyber-pet-next-step p { margin: 0; color: #6f8184; font-size: 9px; line-height: 1.62; }
+.cyber-pet-next-step > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin-top: 11px; }
+.cyber-pet-next-step button { min-height: 36px; border: 1px solid rgba(74,151,140,.18); border-radius: 7px; color: #347e73; background: white; font-size: 9px; font-weight: 800; }
+.cyber-pet-next-step button:hover { border-color: #67b7a9; background: #f8fffd; }
+.cyber-pet-plan-note { display: flex; align-items: center; gap: 7px; margin-top: 11px; color: #849396; font-size: 8px; }
+.cyber-pet-plan-note i { width: 7px; height: 7px; border-radius: 50%; background: #ffd064; }
+
+.cyber-pet-report { position: absolute; left: 14px; right: 14px; bottom: 91px; z-index: 6; display: grid; gap: 8px; padding: 12px; border: 1px solid rgba(90,126,129,.2); border-radius: 8px; background: rgba(255,255,255,.98); box-shadow: 0 14px 38px rgba(28,64,72,.17); }
+.cyber-pet-report label { font-size: 9px; font-weight: 800; }
+.cyber-pet-report textarea { width: 100%; min-height: 82px; padding: 9px; resize: vertical; border: 1px solid rgba(109,145,161,.22); border-radius: 6px; color: var(--ink); background: white; font: inherit; font-size: 10px; }
+.cyber-pet-report > div { display: flex; justify-content: flex-end; gap: 7px; }
+.cyber-pet-report .quiet-button, .cyber-pet-report .primary-button { min-height: 32px; padding: 0 10px; font-size: 9px; }
+
+.cyber-pet-composer { min-height: 54px; display: grid; grid-template-columns: minmax(0, 1fr) 36px; align-items: center; gap: 7px; padding: 8px 10px 8px 14px; border-top: 1px solid rgba(83,124,126,.12); background: #fbfdfd; }
+.cyber-pet-composer input { min-width: 0; height: 36px; padding: 0 11px; border: 1px solid rgba(83,124,126,.2); border-radius: 7px; color: var(--ink); background: white; font: inherit; font-size: 9px; outline: 0; }
+.cyber-pet-composer input:focus { border-color: var(--theme-action, var(--blue)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-action, var(--blue)) 12%, transparent); }
+.cyber-pet-composer .icon-button { width: 36px; height: 36px; color: white; background: color-mix(in srgb, var(--theme-action, #54ad9f) 72%, #3c9a8c); }
+.cyber-pet-composer .icon-button:hover { color: white; background: var(--theme-action, #438f84); }
+
+.cyber-pet-footer { min-height: 39px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 14px; border-top: 1px solid rgba(83,124,126,.1); background: #f7faf9; }
+.cyber-pet-report-trigger { min-width: 0; min-height: 30px; display: flex; align-items: center; gap: 6px; padding: 0; border: 0; color: #77888a; background: transparent; font-size: 8px; }
+.cyber-pet-report-trigger:hover { color: var(--ink); }
+.cyber-pet-report-trigger svg { width: 13px; color: #d39d38; }
+.cyber-pet-motion-setting { display: flex; flex: 0 0 auto; align-items: center; gap: 7px; color: #60777b; font-size: 8px; cursor: pointer; }
+.cyber-pet-motion-setting input { width: 1px; height: 1px; position: absolute; opacity: 0; pointer-events: none; }
+.cyber-pet-motion-switch { width: 26px; height: 15px; position: relative; display: block; border-radius: 999px; background: #d4e1df; box-shadow: inset 0 0 0 1px rgba(53,95,98,.08); }
+.cyber-pet-motion-switch::after { content: ""; width: 11px; height: 11px; position: absolute; left: 2px; top: 2px; border-radius: 50%; background: white; box-shadow: 0 1px 3px rgba(34,70,74,.22); }
+.cyber-pet-motion-setting input:checked + .cyber-pet-motion-switch { background: #65b5a7; }
+.cyber-pet-motion-setting input:checked + .cyber-pet-motion-switch::after { transform: translateX(11px); }
+.cyber-pet-motion-setting input:focus-visible + .cyber-pet-motion-switch { outline: 2px solid color-mix(in srgb, var(--theme-action, var(--blue)) 42%, transparent); outline-offset: 2px; }
+
+.cyber-pet-avatar-menu {
+  width: 278px;
+  position: fixed;
+  z-index: 410;
+  overflow: hidden;
+  padding: 6px;
+  border: 1px solid rgba(82,123,127,.2);
+  border-radius: 12px;
+  color: var(--ink);
+  background: rgba(255,255,255,.97);
+  box-shadow: 0 18px 48px rgba(26,61,70,.2), 0 2px 7px rgba(26,61,70,.08);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+.cyber-pet-avatar-menu > div { min-height: 39px; display: flex; align-items: center; justify-content: space-between; padding: 3px 8px 7px; border-bottom: 1px solid rgba(82,123,127,.1); }
+.cyber-pet-avatar-menu > div strong { font-size: 11px; }
+.cyber-pet-avatar-menu > div small { color: #829295; font-size: 8px; }
+.cyber-pet-avatar-menu > button { width: 100%; min-height: 52px; display: grid; grid-template-columns: 42px minmax(0, 1fr) 22px; align-items: center; gap: 9px; padding: 5px 8px; border: 0; border-bottom: 1px solid rgba(82,123,127,.08); border-radius: 0; color: var(--ink); background: transparent; text-align: left; }
+.cyber-pet-avatar-menu > button:last-child { border-bottom: 0; }
+.cyber-pet-avatar-menu > button:hover, .cyber-pet-avatar-menu > button:focus-visible { border-radius: 8px; background: #f1f8f6; outline: 0; }
+.cyber-pet-avatar-menu > button.active { border: 1px solid rgba(78,176,161,.28); border-radius: 8px; background: #edf8f5; }
+.cyber-pet-avatar-menu img { width: 40px; height: 40px; object-fit: contain; }
+.cyber-pet-avatar-menu button > span { min-width: 0; }
+.cyber-pet-avatar-menu button strong, .cyber-pet-avatar-menu button small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cyber-pet-avatar-menu button strong { font-size: 10px; }
+.cyber-pet-avatar-menu button small { margin-top: 2px; color: #7b8c8e; font-size: 8px; }
+.cyber-pet-avatar-menu button > svg { width: 17px; color: #54b3a3; opacity: 0; }
+.cyber-pet-avatar-menu button.active > svg { opacity: 1; }
+
+@media (max-width: 540px) {
+  .cyber-pet { width: 72px; height: 82px; left: 14px; bottom: 42px; }
+  .cyber-pet-toggle { width: 72px; height: 82px; }
+  .cyber-pet-mascot { width: 70px; height: 80px; }
+  .cyber-pet.panel-open .cyber-pet-toggle { opacity: 0; pointer-events: none; }
+  .cyber-pet-panel { width: calc(100vw - 24px); height: min(566px, calc(100vh - 24px)); }
+  .cyber-pet-actions button { min-height: 94px; padding: 9px; }
+  .cyber-pet-messages { height: 208px; }
+  .cyber-pet-avatar-menu { width: min(278px, calc(100vw - 24px)); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cyber-pet-toggle, .cyber-pet-mascot, .cyber-pet-avatar-menu, .cyber-pet-motion-switch::after { transition: transform .2s ease, opacity .2s ease, box-shadow .2s ease; }
+  .cyber-pet.avatar-changing:not(.motion-reduced) .cyber-pet-mascot { animation: cyber-pet-avatar-change .42s ease-out 1 !important; }
+  .cyber-pet:not(.dragging):not(.motion-reduced) .cyber-pet-mascot { animation: cyber-pet-egret-idle 4.2s ease-in-out infinite; }
+  .cyber-pet[data-pet-avatar="deer"]:not(.dragging):not(.motion-reduced) .cyber-pet-mascot { animation-name: cyber-pet-deer-idle; animation-duration: 4.8s; }
+  .cyber-pet[data-pet-avatar="koi"]:not(.dragging):not(.motion-reduced) .cyber-pet-mascot { animation-name: cyber-pet-koi-idle; animation-duration: 3.8s; }
+  .cyber-pet[data-pet-avatar="sheep"]:not(.dragging):not(.motion-reduced) .cyber-pet-mascot { animation-name: cyber-pet-sheep-idle; animation-duration: 4.4s; }
+  .cyber-pet[data-pet-avatar="turtle"]:not(.dragging):not(.motion-reduced) .cyber-pet-mascot { animation-name: cyber-pet-turtle-idle; animation-duration: 5s; }
+  .cyber-pet[data-pet-avatar="egret"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-mascot,
+  .cyber-pet[data-pet-avatar="egret"].pet-expressing:not(.motion-reduced) .cyber-pet-mascot { animation: cyber-pet-egret-greet .78s ease-in-out 1; }
+  .cyber-pet[data-pet-avatar="deer"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-mascot,
+  .cyber-pet[data-pet-avatar="deer"].pet-expressing:not(.motion-reduced) .cyber-pet-mascot { animation: cyber-pet-deer-greet .72s ease-in-out 1; }
+  .cyber-pet[data-pet-avatar="koi"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-mascot,
+  .cyber-pet[data-pet-avatar="koi"].pet-expressing:not(.motion-reduced) .cyber-pet-mascot { animation: cyber-pet-koi-greet .82s ease-in-out 1; }
+  .cyber-pet[data-pet-avatar="sheep"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-mascot,
+  .cyber-pet[data-pet-avatar="sheep"].pet-expressing:not(.motion-reduced) .cyber-pet-mascot { animation: cyber-pet-sheep-greet .88s ease-in-out 1; }
+  .cyber-pet[data-pet-avatar="turtle"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-mascot,
+  .cyber-pet[data-pet-avatar="turtle"].pet-expressing:not(.motion-reduced) .cyber-pet-mascot { animation: cyber-pet-turtle-greet .9s ease-in-out 1; }
+  .cyber-pet[data-pet-avatar="koi"]:not(.motion-reduced) .cyber-pet-bubbles { opacity: 1; }
+  .cyber-pet[data-pet-avatar="koi"]:not(.motion-reduced) .cyber-pet-bubbles i { animation: cyber-pet-bubble 4.8s ease-out infinite; }
+  .cyber-pet[data-pet-avatar="koi"]:not(.motion-reduced) .cyber-pet-bubbles i:nth-child(2) { animation-delay: 1.5s; }
+  .cyber-pet[data-pet-avatar="koi"]:not(.motion-reduced) .cyber-pet-bubbles i:nth-child(3) { animation-delay: 3s; }
+  .cyber-pet[data-pet-avatar="koi"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-bubbles i { animation-duration: 1.8s; }
+  .cyber-pet[data-pet-avatar="deer"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-glint::before,
+  .cyber-pet[data-pet-avatar="turtle"]:not(.motion-reduced) .cyber-pet-toggle:hover .cyber-pet-glint::before,
+  .cyber-pet.pet-expressing:not(.motion-reduced) .cyber-pet-glint::before { animation: cyber-pet-glint .75s ease-out 1; }
+  .cyber-pet-presence { animation: cyber-pet-pulse 2.6s ease-in-out infinite; }
+}
+
+.cyber-pet.motion-reduced .cyber-pet-mascot,
+.cyber-pet.motion-reduced .cyber-pet-presence,
+.cyber-pet.motion-reduced .cyber-pet-bubbles i,
+.cyber-pet.motion-reduced .cyber-pet-glint::before,
+.cyber-pet.motion-reduced .cyber-pet-glint::after { animation: none !important; }
+.cyber-pet.motion-reduced .cyber-pet-bubbles, .cyber-pet.motion-reduced .cyber-pet-glint { display: none; }
+.cyber-pet.motion-reduced .cyber-pet-toggle:hover { transform: translateY(-1px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cyber-pet-mascot, .cyber-pet-presence, .cyber-pet-bubbles i, .cyber-pet-glint::before, .cyber-pet-glint::after { animation: none !important; }
+  .cyber-pet-toggle, .cyber-pet-mascot, .cyber-pet-avatar-menu, .cyber-pet-motion-switch::after { transition: none !important; }
+  .cyber-pet-toggle:hover { transform: translateY(-1px); }
+  .cyber-pet-bubbles, .cyber-pet-glint { display: none; }
+}
+
+@keyframes cyber-pet-egret-idle { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-1.5deg); } }
+@keyframes cyber-pet-deer-idle { 0%,100% { transform: translateY(0) rotate(0); } 45% { transform: translateY(-2px) rotate(1deg); } 55% { transform: translateY(-2px) rotate(-1deg); } }
+@keyframes cyber-pet-koi-idle { 0%,100% { transform: translateX(-1px) translateY(0) rotate(-1deg); } 50% { transform: translateX(3px) translateY(-2px) rotate(1.5deg); } }
+@keyframes cyber-pet-sheep-idle { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-3px) rotate(1deg); } }
+@keyframes cyber-pet-turtle-idle { 0%,100% { transform: translateY(0) rotate(0); } 35% { transform: translateY(-1px) rotate(-1deg); } 70% { transform: translateY(-2px) rotate(1deg); } }
+@keyframes cyber-pet-egret-greet { 0%,100% { transform: translateY(0) rotate(0) scale(1); } 35% { transform: translateY(-8px) rotate(-7deg) scale(1.08); } 65% { transform: translateY(-4px) rotate(4deg) scale(1.04); } }
+@keyframes cyber-pet-deer-greet { 0%,100% { transform: translateY(0) rotate(0) scale(1); } 30% { transform: translateY(-7px) rotate(6deg) scale(1.07); } 58% { transform: translateY(-3px) rotate(-5deg) scale(1.04); } }
+@keyframes cyber-pet-koi-greet { 0%,100% { transform: translateX(0) rotate(0) scale(1); } 30% { transform: translateX(8px) translateY(-4px) rotate(6deg) scale(1.08); } 62% { transform: translateX(-3px) translateY(-2px) rotate(-4deg) scale(1.04); } }
+@keyframes cyber-pet-sheep-greet { 0%,100% { transform: translateY(0) rotate(0) scale(1); } 28% { transform: translateY(-7px) rotate(-5deg) scale(1.07); } 52% { transform: translateY(-2px) rotate(5deg) scale(1.04); } 72% { transform: translateY(-4px) rotate(-2deg) scale(1.03); } }
+@keyframes cyber-pet-turtle-greet { 0%,100% { transform: translateX(0) rotate(0) scale(1); } 32% { transform: translateX(6px) translateY(-3px) rotate(3deg) scale(1.06); } 58% { transform: translateX(-2px) rotate(-3deg) scale(1.03); } }
+@keyframes cyber-pet-avatar-change { 0% { opacity: .2; transform: scale(.72) translateY(5px); } 62% { opacity: 1; transform: scale(1.09) translateY(-3px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes cyber-pet-bubble { 0% { opacity: 0; transform: translate(0,0) scale(.55); } 24% { opacity: .88; } 100% { opacity: 0; transform: translate(7px,-34px) scale(1.15); } }
+@keyframes cyber-pet-glint { 0% { opacity: 0; transform: scale(.35) rotate(45deg); } 42% { opacity: 1; transform: scale(1.2) rotate(45deg); } 100% { opacity: 0; transform: scale(.45) rotate(45deg); } }
+@keyframes cyber-pet-pulse { 0%,100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal) 28%, transparent); } 50% { box-shadow: 0 0 0 6px transparent; } }
+

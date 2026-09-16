@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320">
+  <style>
+    .pet-eye { transform-box: fill-box; transform-origin: center; animation: pet-blink 7.2s infinite; }
+    @keyframes pet-blink { 0%, 43%, 45%, 72%, 74%, 100% { transform: scaleY(1); } 44%, 73% { transform: scaleY(.08); } }
+    @media (prefers-reduced-motion: reduce) { .pet-eye { animation: none; } }
+  </style><defs><linearGradient id="zg" x1="64" y1="62" x2="290" y2="269" gradientUnits="userSpaceOnUse"><stop stop-color="#A5DEC0"/><stop offset="1" stop-color="#4DA58D"/></linearGradient><filter id="zs" x="-30%" y="-35%" width="170%" height="190%"><feDropShadow dx="0" dy="11" stdDeviation="9" flood-color="#36574E" flood-opacity=".17"/></filter></defs><g filter="url(#zs)">
+<path d="M64 138c-37-5-59 10-55 34 4 22 32 30 67 18l-12-52Zm232 0c37-5 59 10 55 34-4 22-32 30-67 18l12-52ZM113 235c-28 15-37 38-20 52 16 14 39 0 54-30l-34-22Zm134 0c28 15 37 38 20 52-16 14-39 0-54-30l34-22Z" fill="#69B89B"/>
+<path d="M79 171c0-68 44-113 101-113s101 45 101 113c0 70-38 113-101 113S79 241 79 171Z" fill="url(#zg)"/><path d="M103 168c0-50 31-84 77-84s77 34 77 84c0 54-29 88-77 88s-77-34-77-88Z" fill="#F5DB8D"/>
+<path d="M180 85v171M105 169h150M124 112l112 112m0-112L124 224" stroke="#73B394" stroke-width="7" opacity=".78"/>
+<path d="M264 98c31-4 55 15 53 41-2 28-29 47-63 38l10-79Z" fill="#71C0A3"/><path class="pet-eye" d="M279 125c2-8 13-8 15 0 1 9-3 14-8 14s-9-5-7-14Z" fill="#2E4C57"/><path d="M278 151c8 5 16 5 24 0" fill="none" stroke="#4E6A69" stroke-width="4" stroke-linecap="round"/>
+<circle cx="180" cy="169" r="24" fill="#FFF8E4"/><path d="M180 153v32m-16-16h32" stroke="#ED8583" stroke-width="6" stroke-linecap="round"/><path d="M66 295c45 13 87 12 126-3 34-13 69-14 105-3" fill="none" stroke="#8173CC" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 17"/>
+</g></svg>

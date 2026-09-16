@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320">
+  <style>
+    .pet-eye { transform-box: fill-box; transform-origin: center; animation: pet-blink 7.2s infinite; }
+    @keyframes pet-blink { 0%, 43%, 45%, 72%, 74%, 100% { transform: scaleY(1); } 44%, 73% { transform: scaleY(.08); } }
+    @media (prefers-reduced-motion: reduce) { .pet-eye { animation: none; } }
+  </style><defs><linearGradient id="ww" x1="83" y1="58" x2="262" y2="264" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#E9E1F4"/></linearGradient><filter id="ws" x="-30%" y="-35%" width="170%" height="190%"><feDropShadow dx="0" dy="11" stdDeviation="9" flood-color="#4E4C62" flood-opacity=".16"/></filter></defs><g filter="url(#ws)">
+<circle cx="127" cy="106" r="36" fill="url(#ww)"/><circle cx="160" cy="84" r="40" fill="url(#ww)"/><circle cx="199" cy="89" r="40" fill="url(#ww)"/><circle cx="230" cy="113" r="35" fill="url(#ww)"/><circle cx="180" cy="126" r="69" fill="url(#ww)"/>
+<path d="M115 113c-27-17-52-6-48 15 4 22 33 27 55 10l-7-25Zm130 0c27-17 52-6 48 15-4 22-33 27-55 10l7-25Z" fill="#C7A58D"/><path d="M132 127c2-37 20-58 48-58s46 21 48 58c2 39-18 68-48 68s-50-29-48-68Z" fill="#D5B49B"/>
+<path class="pet-eye" d="M151 128c2-8 12-8 14 0 1 9-3 14-7 14-5 0-9-5-7-14Zm44 0c2-8 12-8 14 0 1 9-3 14-7 14-5 0-9-5-7-14Z" fill="#334A57"/><path d="M171 151c5-4 13-4 18 0-2 7-6 10-9 10s-7-3-9-10Z" fill="#725E66"/><path d="M166 171c9 7 19 7 28 0" fill="none" stroke="#71656B" stroke-width="4" stroke-linecap="round"/>
+<path d="M66 238h228l-35 60H101l-35-60Z" fill="#65B9AE"/><path d="M180 204v77" stroke="#866F62" stroke-width="7" stroke-linecap="round"/><path d="m183 208 76 58h-76v-58Z" fill="#FFD36C"/><path d="m177 217-62 49h62v-49Z" fill="#F08A88"/><path d="M88 274c56 19 119 19 188 0" fill="none" stroke="#E9F8F5" stroke-width="7" stroke-linecap="round"/>
+</g></svg>

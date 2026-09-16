@@ -1,0 +1,290 @@
+/**
+ * 信任与认证
+ * 原 styles.css 第 3322-3606 行（机械切分，内容未改动）
+ * 建议维护：G3 安全组
+ */
+/* V5 信任与认证：可信身份卡与认证原则 */
+#view-trust .trust-dashboard {
+  grid-template-columns: minmax(0, 1.1fr) minmax(350px, .9fr);
+  gap: 22px;
+}
+#view-trust .verification-card,
+#view-trust .trust-principles { border-radius: 8px; }
+#view-trust .verification-card {
+  position: relative;
+  overflow: hidden;
+  padding: 31px 27px 27px;
+  background: linear-gradient(
+    138deg,
+    color-mix(in srgb, var(--theme-amber-soft) 52%, white) 0%,
+    color-mix(in srgb, var(--theme-card-bg, white) 96%, white) 54%,
+    white 100%
+  );
+  border: 1px solid var(--theme-action);
+  box-shadow: 0 13px 32px color-mix(in srgb, var(--theme-action) 7%, rgba(75, 95, 126, .06));
+  min-height: 540px;
+}
+#view-trust .verification-card::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  height: 4px;
+  background: var(--theme-action);
+}
+#view-trust .verification-card.is-verified-card {
+  background: linear-gradient(
+    138deg,
+    color-mix(in srgb, var(--theme-teal-soft) 56%, white) 0%,
+    white 52%,
+    color-mix(in srgb, var(--theme-amber-soft) 50%, white) 100%
+  );
+  border-color: var(--theme-action);
+  min-height: 572px;
+}
+#view-trust .verification-card.is-verified-card::before,
+#view-trust .verification-card.is-pending-card::before { display: block; }
+#view-trust .verification-card.is-pending-card {
+  background: linear-gradient(
+    138deg,
+    color-mix(in srgb, var(--theme-amber-soft) 62%, white),
+    white 52%,
+    color-mix(in srgb, var(--theme-teal-soft) 30%, white)
+  );
+}
+#view-trust .verification-card::after {
+  content: "YL";
+  position: absolute;
+  right: -7px;
+  bottom: -34px;
+  color: color-mix(in srgb, var(--navy) 4%, transparent);
+  font-size: 160px;
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+.credential-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--theme-control) 27%, #cbdadd);
+}
+.credential-top > div > span {
+  color: #4f8f85;
+  font-size: 9px;
+  font-weight: 900;
+}
+.credential-top h2 {
+  margin: 7px 0 0;
+  color: var(--navy);
+  font-size: 22px;
+}
+.credential-top .status-icon {
+  width: 43px;
+  height: 43px;
+  color: white;
+  background: var(--navy);
+  box-shadow: 0 8px 19px color-mix(in srgb, var(--navy) 15%, transparent);
+}
+#view-trust .is-verified-card .status-icon {
+  background: var(--navy);
+  box-shadow: 0 8px 19px color-mix(in srgb, var(--navy) 15%, transparent);
+}
+.credential-status {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 5px;
+  margin-top: 19px;
+  padding: 14px;
+  background: rgba(255, 255, 255, .75);
+  border: 1px solid rgba(255, 255, 255, .96);
+  border-radius: 7px;
+  box-shadow: 0 5px 14px rgba(97, 91, 120, .045);
+}
+.credential-status > span,
+.credential-status > strong { display: block; }
+.credential-status > span { color: var(--muted); font-size: 9px; }
+.credential-status > strong { color: var(--navy); font-size: 14px; }
+.credential-status > b {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 9px;
+  color: #a1642c;
+  background: #fff0dc;
+  border-radius: 99px;
+  font-size: 9px;
+}
+.credential-status > b svg { width: 12px; }
+.credential-status.is-verified > b {
+  color: color-mix(in srgb, var(--theme-control) 76%, #27816a);
+  background: color-mix(in srgb, var(--theme-teal-soft) 76%, white);
+}
+.credential-status.is-pending > b {
+  color: #9b6b2e;
+  background: #fff1da;
+}
+.credential-fields {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 10px;
+}
+.credential-fields > div {
+  min-width: 0;
+  padding: 12px;
+  background: rgba(255, 255, 255, .69);
+  border: 1px solid rgba(255, 255, 255, .96);
+  border-radius: 7px;
+}
+.credential-fields span,
+.credential-fields strong { display: block; }
+.credential-fields span { color: #75858e; font-size: 9px; }
+.credential-fields strong {
+  margin-top: 5px;
+  color: color-mix(in srgb, var(--ink) 78%, var(--theme-control));
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+#view-trust .verify-progress {
+  position: relative;
+  z-index: 1;
+  margin-top: 38px;
+  padding: 0;
+}
+#view-trust .progress-title { color: #71838c; }
+#view-trust .progress-title strong { color: var(--theme-control); }
+#view-trust .progress-track {
+  height: 6px;
+  margin: 10px 0 14px;
+  background: rgba(255, 255, 255, .72);
+}
+#view-trust .progress-track span {
+  width: var(--verification-progress, 0%);
+  background: var(--theme-control);
+}
+#view-trust .is-verified-card .progress-track span {
+  background: var(--theme-action);
+}
+#view-trust .verify-steps {
+  position: relative;
+  z-index: 1;
+  color: #8599a2;
+  font-size: 9px;
+}
+#view-trust .verify-steps span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+#view-trust .verify-steps svg { width: 11px; }
+#view-trust .verify-steps .done { color: color-mix(in srgb, var(--theme-control) 78%, #397e6d); }
+.verification-action {
+  position: relative;
+  z-index: 1;
+  min-height: 42px;
+  margin-top: 40px;
+}
+.verification-action[disabled] {
+  color: #7b8d96;
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid rgba(135, 155, 163, .24);
+  box-shadow: none;
+  cursor: default;
+}
+.verify-notice {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  padding: 13px 15px;
+  color: #326d5e;
+  background: rgba(239, 255, 249, .82);
+  border: 1px solid color-mix(in srgb, var(--theme-control) 34%, #cce9df);
+  border-radius: 7px;
+}
+.verify-notice.pending {
+  color: #805e2d;
+  background: rgba(255, 248, 230, .86);
+  border-color: #eedcb5;
+}
+.verify-notice > span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  color: white;
+  background: var(--navy);
+  border-radius: 50%;
+}
+.verify-notice.pending > span { color: #9c6c30; background: #fff0cf; }
+.verify-notice > span svg { width: 17px; }
+.verify-notice strong,
+.verify-notice small { display: block; }
+.verify-notice strong { font-size: 12px; }
+.verify-notice small {
+  margin-top: 4px;
+  color: #67887e;
+  font-size: 9px;
+}
+.verify-notice.pending small { color: #8c795d; }
+.verify-footnote {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 12px 0 0;
+  color: #718a82;
+  font-size: 9px;
+  text-align: center;
+}
+.verify-footnote svg { width: 13px; }
+#view-trust .trust-principles {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--theme-card-bg, white) 94%, var(--theme-teal-soft)),
+    color-mix(in srgb, var(--theme-card-bg, white) 91%, var(--theme-blue-soft))
+  );
+  border: 1px solid color-mix(in srgb, var(--theme-control) 14%, var(--line));
+  border-top: 4px solid color-mix(in srgb, var(--theme-control) 52%, white);
+  box-shadow: 0 8px 23px rgba(63, 99, 125, .055);
+}
+#view-trust .trust-principles h2 { font-size: 19px; }
+#view-trust .principle-number {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  color: color-mix(in srgb, var(--theme-control) 78%, #3c9981);
+  background: color-mix(in srgb, var(--theme-teal-soft) 52%, white);
+  border-radius: 50%;
+  font-size: 11px;
+}
+#view-trust .principle:nth-of-type(2) .principle-number {
+  color: color-mix(in srgb, var(--theme-control) 48%, #5874b8);
+  background: color-mix(in srgb, var(--theme-blue-soft) 50%, white);
+}
+#view-trust .principle:nth-of-type(3) .principle-number {
+  color: color-mix(in srgb, var(--theme-action) 62%, #d06582);
+  background: color-mix(in srgb, var(--theme-red-soft) 50%, white);
+}
+

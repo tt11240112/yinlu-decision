@@ -1,0 +1,33 @@
+# 操作系统垃圾文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# Node 相关（本项目不用，但防止有人误跑 npm install）
+node_modules/
+dist/
+dist-single/
+package-lock.json
+yarn.lock
+
+# 临时与日志
+*.log
+*.tmp
+.tmp/
+.cache/
+
+# 构建中间产物（保留最终单文件版，它在上级目录，不在这个仓库里）
+.check.js
+
+# Python
+__pycache__/
+*.pyc
+
+# 备份
+*.bak
+*.backup

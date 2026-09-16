@@ -1,0 +1,129 @@
+/**
+ * 问答中心双栏工作台
+ * 原 styles.css 第 2907-3030 行（机械切分，内容未改动）
+ * 建议维护：G2 业务组
+ */
+/* Q1 问答中心：双栏工作台 */
+#view-questions.active {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "header tabs"
+    "content content";
+  column-gap: 28px;
+  align-items: end;
+}
+#view-questions > .page-header {
+  grid-area: header;
+  margin: 4px 0 24px;
+  padding-bottom: 23px;
+  border-bottom: 1px solid var(--line);
+}
+#view-questions > .page-header h1 {
+  margin-top: 8px;
+  font-size: 36px;
+}
+#view-questions > .auth-tabs {
+  grid-area: tabs;
+  align-self: end;
+  display: flex;
+  gap: 4px;
+  margin: 0 0 24px;
+  padding: 4px;
+  background: #eef4f6;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+#view-questions > .auth-tabs .auth-tab {
+  min-width: 104px;
+  padding: 9px 15px;
+  color: #6b8293;
+  border: 0;
+  border-radius: 6px;
+}
+#view-questions > .auth-tabs .auth-tab::after { display: none; }
+#view-questions > .auth-tabs .auth-tab.active {
+  color: var(--theme-action-text, white);
+  background: var(--theme-action, var(--blue));
+  box-shadow: 0 5px 14px var(--theme-action-shadow, rgba(62, 120, 178, .20));
+}
+#view-questions > .qa-section { grid-area: content; }
+#view-questions .question-layout {
+  grid-template-columns: minmax(0, 1.18fr) minmax(350px, .82fr);
+  gap: 22px;
+  align-items: start;
+}
+#view-questions .question-list-panel {
+  padding: 26px 27px;
+  border-radius: 8px;
+  box-shadow: 0 9px 24px rgba(63, 99, 125, .07);
+}
+#view-questions .question-list-panel:first-child {
+  border-top: 4px solid var(--theme-action, var(--blue));
+}
+#view-questions .question-list-panel:nth-child(2) {
+  background: color-mix(in srgb, var(--theme-card-bg, white) 88%, var(--paper));
+  border-top: 4px solid var(--teal);
+}
+#view-questions textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 118px;
+  padding: 13px 14px;
+  resize: vertical;
+  color: var(--ink);
+  background: #f9fbfc;
+  border: 1px solid #cbdde5;
+  border-radius: 7px;
+  outline: 0;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.75;
+}
+#view-questions textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 13%, transparent);
+}
+#view-questions textarea::placeholder { color: #91a4b1; }
+#view-questions .modal-fields select { background: #f9fbfc; }
+#view-questions .question-list-item {
+  border-left: 3px solid var(--teal);
+  box-shadow: 0 4px 11px rgba(59, 93, 116, .035);
+}
+#view-questions .question-list-item:nth-child(2) { border-left-color: var(--amber); }
+#view-questions .question-list-item:nth-child(3) { border-left-color: var(--theme-action, var(--blue)); }
+
+@media (max-width: 820px) {
+  #view-questions.active {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "header"
+      "tabs"
+      "content";
+    column-gap: 0;
+  }
+  #view-questions > .page-header {
+    margin-bottom: 14px;
+    padding-bottom: 18px;
+  }
+  #view-questions > .auth-tabs {
+    width: max-content;
+    margin: 0 0 20px;
+  }
+  #view-questions .question-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  #view-questions > .page-header h1 { font-size: 30px; }
+  #view-questions > .auth-tabs { width: 100%; }
+  #view-questions > .auth-tabs .auth-tab {
+    min-width: 0;
+    flex: 1;
+  }
+  #view-questions .question-list-panel { padding: 20px 18px; }
+  #view-questions textarea { min-height: 132px; }
+}
+
