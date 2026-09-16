@@ -64,15 +64,38 @@ out = out.replace(moduleTagRe, '');
 out = out.replace('</body>', () => `<script>\n${appjs}\n</script>\n</body>`);
 
 // 4) 把引用的 .svg 图片转成 base64 内联（否则双击打开时图标会 404）
-const svgRefs = [...out.matchAll(/(src|href)="(\.\/[^"?]+\.svg)(?:\?[^"]*)?"/gi)];
+//
+// 【坑】以前这里写的是 /(src|href)="(\.\/...)" /，只认 HTML 的等号写法。
+// 但 js/10-feature-pet.js 里是对象属性写法：src: "./pet-t-egret-guide.svg?v=20260815"
+// —— 用的是【冒号】。结果 5 个电子宠物头像一个都没被内联，演示时全是空白图。
+// 所以正则要同时支持：src= / href= / src: / href:，以及单引号、双引号、?v= 版本号。
+const svgRefRe = /\b(src|href)\s*[:=]\s*(["'])(\.\/[^"'`?]+\.svg)(?:\?[^"']*)?\2/gi;
+
+const attrStrings = new Set();
+for (const m of out.matchAll(svgRefRe)) attrStrings.add(m[0]);
+
 let inlined = 0;
-for (const m of svgRefs) {
-  const rel = m[2].replace(/^\.\//, '');
+const missing = [];
+for (const attrStr of attrStrings) {
+  const pm = attrStr.match(/(["'])(\.\/[^"'`?]+\.svg)/);
+  if (!pm) continue;
+  const quote = pm[1];
+  const rel = pm[2].replace(/^\.\//, '');
   const file = path.join(ROOT, rel);
-  if (!fs.existsSync(file)) continue;
+  if (!fs.existsSync(file)) {
+    missing.push(rel);
+    continue;
+  }
   const b64 = fs.readFileSync(file).toString('base64');
-  out = out.split(m[0]).join(`${m[1]}="data:image/svg+xml;base64,${b64}"`);
+  const replacement = attrStr.replace(
+    /(["'])(\.\/[^"'`?]+\.svg)(?:\?[^"']*)?\1/,
+    `${quote}data:image/svg+xml;base64,${b64}${quote}`
+  );
+  out = out.split(attrStr).join(replacement);
   inlined++;
+}
+if (missing.length) {
+  console.log('     ⚠️ 引用了但文件不存在：' + missing.join(', '));
 }
 
 // 5) 去掉 favicon 的 link（已内联或不需要）
