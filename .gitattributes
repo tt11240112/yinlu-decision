@@ -1,0 +1,15 @@
+# 强制统一换行符，避免 Windows(CRLF) / Mac(LF) 混用产生满屏无意义的 diff
+#
+# 背景：以前出现过一次事故 —— Windows 上 Git 默认 core.autocrlf=true，
+# 签出时把 LF 转成 CRLF，导致 tools/build-index.js 里以 \n 结尾的正则全部失配，
+# 生成的 index.html 一个 CSS 都没引进去。
+# 虽然脚本现在已经做了 \r?\n 兼容，但统一 eol 能让 diff 保持干净，强烈建议保留本文件。
+
+* text=auto eol=lf
+
+# 二进制资源不做任何换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
