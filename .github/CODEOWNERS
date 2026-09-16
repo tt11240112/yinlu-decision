@@ -1,0 +1,105 @@
+# CODEOWNERS —— 文件级"地契"
+#
+# 作用：谁的文件谁说了算。别人改了你的文件，GitHub 会自动把你的名字
+#       加进 Reviewers，你不点头，这个 PR 就合不进去。
+#
+# ⚠️ 队长明天要做的唯一一件事：
+#    把下面 8 个占位符换成队友的真实 GitHub 用户名（不带尖括号）。
+#    用 VS Code 打开本文件，Ctrl+H 全局替换即可。
+#
+#    占位符          对应角色        换成谁
+#    <USER_G1A>      前端 A 角       计科
+#    <USER_G1B>      前端 B 角       计科
+#    <USER_G2A>      业务 A 角       计科
+#    <USER_G2B>      业务 B 角       计科
+#    <USER_G3A>      安全 A 角       网安  ← 必须是网安专业
+#    <USER_G3B>      安全 B 角       网安  ← 必须是网安专业
+#    <USER_G4A>      数据 A 角       计科
+#    <USER_G4B>      后端 B 角       计科
+#
+# 格式说明： 文件路径    @用户名
+# 一行一个规则，不分先后；越靠下的规则优先级越高。
+# ============================================================================
+
+
+# ---------------------------------------------------------------- G0 队长 ----
+# 队长只锁构建脚本和仓库配置，不锁业务代码（避免队长成为瓶颈）
+/tools/                 @tt11240112
+/template/              @tt11240112
+/.github/               @tt11240112
+/.gitignore             @tt11240112
+/.gitattributes         @tt11240112
+/index.html             @tt11240112
+README.md               @tt11240112
+
+
+# ------------------------------------------------------- G1 前端交互组 ------
+# A 角：框架 / 工具层（改这里会影响全站，所以给最稳的人）
+js/04-core-utils.js         <USER_G1A>
+js/08-core-ui.js            <USER_G1A>
+js/11-core-router.js        <USER_G1A>
+js/12-feature-onboarding.js <USER_G1A>
+js/22-events-menu.js        <USER_G1A>
+js/24-events-keyboard.js    <USER_G1A>
+css/01-base.css             <USER_G1A>
+css/06-buttons-nav.css      <USER_G1A>
+css/10-onboarding.css       <USER_G1A>
+
+# B 角：视觉 / 组件层
+js/06-feature-profile.js    <USER_G1B>
+js/07-feature-theme.js      <USER_G1B>
+js/09-feature-calendar.js   <USER_G1B>
+js/10-feature-pet.js        <USER_G1B>
+js/20-events-click.js       <USER_G1B>
+js/23-events-buttons.js     <USER_G1B>
+css/04-theme-core.css       <USER_G1B>
+css/05-theme-palettes.css   <USER_G1B>
+css/07-pet.css              <USER_G1B>
+css/08-calendar.css         <USER_G1B>
+css/15-float.css            <USER_G1B>
+
+
+# ------------------------------------------------------- G2 业务逻辑组 ------
+# A 角：高考 / 院校 / 筛选
+js/13-feature-filters.js    <USER_G2A>
+js/14-feature-picker.js     <USER_G2A>
+js/15-feature-render.js     <USER_G2A>
+css/03-filters.css          <USER_G2A>
+css/09-card-layout.css      <USER_G2A>
+
+# B 角：问答 / 账户 / 表单
+js/16-feature-compare.js    <USER_G2B>
+js/18-feature-actions.js    <USER_G2B>
+js/19-feature-qa-tab.js     <USER_G2B>
+js/21-events-form.js        <USER_G2B>
+css/02-account.css          <USER_G2B>
+css/11-qa.css               <USER_G2B>
+css/12-login.css            <USER_G2B>
+css/13-answer.css           <USER_G2B>
+
+
+# ------------------------------------------- G3 安全可信组（网安专业）------
+# ⚠️ 这两个人必须是网安专业的，这是全队唯一抄不走的护城河
+# A 角：密码学 / 凭证 / 信任展示
+js/05-core-security.js      <USER_G3A>
+js/17-feature-trust.js      <USER_G3A>
+js/26-family-override.js    <USER_G3A>
+css/14-trust.css            <USER_G3A>
+
+# B 角：风控 / 合规 / 测试（暂不锁现有文件，负责新增安全模块与文档）
+/docs/                      @tt11240112 <USER_G3B>
+
+
+# --------------------------------------------------- G4 数据与后端组 ------
+# A 角：数据资产
+js/01-data-experiences.js   <USER_G4A>
+js/02-data-institutions.js  <USER_G4A>
+
+# B 角：后端 / 部署（负责未来所有服务端代码）
+/server/                    <USER_G4B>
+/api/                       <USER_G4B>
+
+
+# ------------------------------------------------------------ 兜底规则 ----
+# 任何没有在上面的文件，默认由队长兜底审核
+*                       @tt11240112
