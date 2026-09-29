@@ -4,6 +4,12 @@
  * 建议维护:G2 业务组
  * —— P5 增强:回答功能(2026-09-28)
  */
+/*
+ * 问答 Tab
+ * 原 app.js 第 3147-3156 行(机械切分,内容未改动)
+ * 建议维护:G2 业务组
+ * —— P5 增强:回答功能 + 采纳功能(2026-09-28/29)
+ */
 function switchQaTab(name) {
   const ask = $("#qaAskSection");
   const answer = $("#qaAnswerSection");
@@ -14,7 +20,7 @@ function switchQaTab(name) {
   if (active === "answer") renderAnswerHistory();
 }
 
-/* ===== 以下为 P5 新增:回答功能(js/19 后加载,覆盖 js/15 中的同名函数)===== */
+/* ===== 以下为 P5 新增:回答功能 + 采纳功能(js/19 后加载,覆盖 js/15 中的同名函数)===== */
 
 function renderAnswerHistory() {
   const list = $("#answerList");
@@ -37,10 +43,21 @@ function renderAnswerHistory() {
     : `<div class="qa-empty"><i data-lucide="lock-keyhole"></i><p>登录后即可回答问题</p></div>`;
 
   const historyHtml = history.length
-    ? history.map((item) => `<article class="question-list-item">
-        <header><strong>${escapeHtml(item.title)}</strong><span class="question-status">${escapeHtml(item.status || "已回答")}</span></header>
-        <p>${escapeHtml(item.content || item.meta || (item.topic ? `${item.topic} · 已完成回答` : "已完成回答"))}</p>
-      </article>`).join("")
+    ? history.map((item) => {
+        const q = questions.find((x) => x.id === item.questionId);
+        const isMine = user && q && q.userId === user.id;
+        const adopted = isMine && q.adoptedAnswerId === item.id;
+        const adoptBtn = isMine
+          ? (adopted
+              ? `<span class="question-status" style="color:#10b59f;">已采纳</span>`
+              : `<button class="quiet-button" data-adopt-answer="${item.id}" style="margin-top:6px;">采纳此回答</button>`)
+          : "";
+        return `<article class="question-list-item">
+          <header><strong>${escapeHtml(item.title)}</strong><span class="question-status">${escapeHtml(item.status || "已回答")}</span></header>
+          <p>${escapeHtml(item.content || item.meta || "已回答")}</p>
+          ${adoptBtn}
+        </article>`;
+      }).join("")
     : `<div class="qa-empty"><i data-lucide="message-square-off"></i><p>你还没有回答过问题</p><span>完成认证后，可以从问题池选择自己真正经历过的问题。</span></div>`;
 
   list.innerHTML = poolHtml +
@@ -73,8 +90,23 @@ function submitAnswer(questionId) {
   showToast("回答已发布");
 }
 
+function adoptAnswer(answerId) {
+  if (!currentUser()) { showToast("登录后才能采纳"); return; }
+  const answer = read(STORE.answers, []).find((a) => a.id === answerId);
+  if (!answer) return;
+  const question = read(STORE.questions, []).find((q) => q.id === answer.questionId);
+  if (!question) return;
+  if (question.userId !== currentUser().id) { showToast("只有提问者可以采纳回答"); return; }
+  write(STORE.questions, read(STORE.questions, []).map((q) => q.id === question.id ? { ...q, adoptedAnswerId: answerId } : q));
+  renderAnswerHistory();
+  showToast("已采纳该回答");
+}
+
 document.addEventListener("click", (event) => {
   const submit = event.target.closest("[data-answer-submit]");
-  if (submit) submitAnswer(submit.dataset.answerSubmit);
+  if (submit) { submitAnswer(submit.dataset.answerSubmit); return; }
+  const adopt = event.target.closest("[data-adopt-answer]");
+  if (adopt) { adoptAnswer(adopt.dataset.adoptAnswer); return; }
 });
+
 
