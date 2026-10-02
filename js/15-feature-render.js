@@ -28,8 +28,7 @@ function renderExperiences() {
   const query = currentSearch.trim().toLowerCase();
   const schoolQuery = currentSchoolSearch.trim().toLowerCase();
   const majorQuery = currentMajorSearch.trim().toLowerCase();
-  const institutionSchoolQuery = currentInstitutionSchoolSearch.trim().toLowerCase();
-  const institutionMajorQuery = currentInstitutionMajorSearch.trim().toLowerCase();
+  ensureP4InstitutionFilters();
   const experienceItems = experiences.filter((item) => item.source === "student" || item.source === "expert");
   renderLibraryMajorPicker("institution");
   renderLibraryMajorPicker("experience");
@@ -42,30 +41,23 @@ function renderExperiences() {
     const schoolText = (item.school || "").toLowerCase();
     const majorText = (item.major || "").toLowerCase();
     const schoolMatches = !schoolQuery || schoolText.includes(schoolQuery);
-    const majorMatches = !majorQuery || majorText.includes(majorQuery);
+    const majorMatches = (!majorQuery || majorText.includes(majorQuery)) && (!currentExperienceMajorCategory || majorCategoryForName(item.major) === currentExperienceMajorCategory);
     const matchesDimension = currentDimensionFilters.size === 0 || dimensions.some((dimension) => currentDimensionFilters.has(dimension));
     const matchesSource = currentSourceFilter === "all" || item.source === currentSourceFilter;
-    const matchesSearch = !query || `${escapeHtml(item.school || "")}${escapeHtml(item.major || "")}${escapeHtml(item.city || "")}${escapeHtml(item.text || "")}${itemTags}${dimensions.join("")}`.toLowerCase().includes(query);
+    const matchesSearch = !query || `${item.school || ""}${item.major || ""}${item.city || ""}${item.text || ""}${itemTags}${dimensions.join("")}`.toLowerCase().includes(query);
     const regionMatches = matchesRegionSelection(item, currentExperienceRegion);
     return schoolMatches && majorMatches && regionMatches && matchesDimension && matchesSource && matchesSearch && matchesContentTime(item.publishedAt);
   };
   const filtered = experienceItems.filter(matchesFilters);
-  const filteredInstitutions = institutions.filter((item) => {
-    const schoolText = (item.school || "").toLowerCase();
-    const majorText = [...(item.majors || []), ...(item.majorPrograms || []).map((program) => program.name)].join("").toLowerCase();
-    const schoolMatches = !institutionSchoolQuery || schoolText.includes(institutionSchoolQuery);
-    const majorMatches = !institutionMajorQuery || majorText.includes(institutionMajorQuery);
-    const regionMatches = matchesRegionSelection(item, currentInstitutionRegion);
-    return schoolMatches && majorMatches && regionMatches;
-  });
+  const filteredInstitutions = p4OrderedInstitutions(institutions.filter(p4MatchesInstitution));
   const institutionGrid = $("#institutionGrid");
   if (institutionGrid) {
-    const institutionEmptyText = currentInstitutionRegion === "all" ? "当前筛选下暂无匹配的院校信息" : `${regionSelectionLabel(currentInstitutionRegion)}暂无匹配的院校信息`;
-    institutionGrid.innerHTML = filteredInstitutions.length ? filteredInstitutions.map(renderInstitutionCard).join("") : `<div class="empty-state institution-empty"><i data-lucide="building-2"></i><p>${escapeHtml(institutionEmptyText)}</p></div>`;
+    const institutionEmptyText = p4HasAdmissionFilter() && !institutions.some((school) => p4AdmissionRecords(school).length) ? "录取数据待补充，暂时无法按科类或批次查询。这不代表这些学校不招生。" : currentInstitutionRegion === "all" ? "当前筛选下暂无匹配的院校信息" : `${regionSelectionLabel(currentInstitutionRegion)}暂无匹配的院校信息`;
+    institutionGrid.innerHTML = filteredInstitutions.length ? filteredInstitutions.map(renderInstitutionCard).join("") : `<div class="empty-state institution-empty"><i data-lucide="building-2"></i><p>${escapeHtml(institutionEmptyText)}</p><button class="quiet-button" type="button" data-p4-clear-institutions>清空院校筛选</button></div>`;
     $("#institutionResultNote") && ($("#institutionResultNote").textContent = `${filteredInstitutions.length} 所学校`);
   }
   const clearInstitutionFilters = $("#clearInstitutionFilters");
-  if (clearInstitutionFilters) clearInstitutionFilters.disabled = !currentInstitutionSchoolSearch.trim() && !currentInstitutionMajorSearch.trim() && !currentInstitutionRegionSearch.trim() && currentInstitutionRegion === "all";
+  if (clearInstitutionFilters) clearInstitutionFilters.disabled = !currentInstitutionSchoolSearch.trim() && !currentInstitutionMajorSearch.trim() && !currentInstitutionRegionSearch.trim() && currentInstitutionRegion === "all" && !currentInstitutionMajorCategory && p4InstitutionFilters.level === "all" && !p4HasAdmissionFilter() && p4InstitutionFilters.sort === "relevance";
   $("#experienceResultNote") && ($("#experienceResultNote").textContent = `${filtered.length} 条内容`);
   const ordered = [...filtered].sort((a, b) => {
     if (sameSchool) {
@@ -115,6 +107,7 @@ function renderQuestions() {
 }
 
 function renderInstitutionCard(item) {
+  item = p4InstitutionView(item);
   const saved = userFavorites().includes(`school-${item.id}`);
   const majorHtml = item.majors.map((major) => `<span class="content-tag">${escapeHtml(major)}</span>`).join("");
   const highlightHtml = item.highlights.map((highlight) => `<span class="institution-highlight">${escapeHtml(highlight)}</span>`).join("");
@@ -123,14 +116,14 @@ function renderInstitutionCard(item) {
     <p class="institution-intro">${escapeHtml(item.intro)}</p>
     <div class="institution-highlights">${highlightHtml}</div>
     <div class="institution-card-block"><span>重点关注专业</span><div class="tag-row">${majorHtml}</div></div>
-    <div class="institution-evidence"><span><i data-lucide="database"></i>客观数据已整理</span><span><i data-lucide="landmark"></i>官方资料已整理</span></div>
-    <div class="institution-card-footer"><span class="institution-note"><i data-lucide="clock-3"></i>资料更新于 ${escapeHtml(item.updatedAt || "时间待补充")} · 来源可核验</span><div class="institution-card-actions"><button class="text-button" data-school-detail="${escapeHtml(item.id)}">全面了解 <i data-lucide="arrow-up-right"></i></button><button class="save-experience ${saved ? "saved" : ""}" data-favorite="school-${escapeHtml(item.id)}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入候选"}</button></div></div>
+    <div class="institution-evidence"><span><i data-lucide="database"></i>${p4AdmissionRecords(item).length ? "已收录带来源的录取记录" : "录取数据待补充"}</span><span><i data-lucide="landmark"></i>${item.officialUrl ? "可前往官网核验" : "官方入口待补充"}</span></div>
+    <div class="institution-card-footer"><span class="institution-note"><i data-lucide="clock-3"></i>资料更新于 ${escapeHtml(item.updatedAt || "时间待补充")}</span><div class="institution-card-actions"><button class="text-button" data-school-detail="${escapeHtml(item.id)}">全面了解 <i data-lucide="arrow-up-right"></i></button><button class="save-experience ${saved ? "saved" : ""}" data-favorite="school-${escapeHtml(item.id)}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入候选"}</button></div></div>
   </article>`;
 }
 
 function renderSchoolComment(comment) {
   return `<article class="school-comment">
-    <header><span class="comment-avatar"><i data-lucide="user-round-check"></i></span><div><strong>本校认证学生</strong><small>${escapeHtml(comment.grade || "年级已核验")} · ${escapeHtml(comment.major || "专业已核验")}</small></div><button class="icon-button comment-report" data-report-comment aria-label="举报评论" title="举报评论"><i data-lucide="flag"></i></button></header>
+    <header><span class="comment-avatar"><i data-lucide="user-round-check"></i></span><div><strong>${comment.date === "示例内容" ? "示例评论（非真实认证）" : "学生补充"}</strong><small>${escapeHtml(comment.grade || "年级已核验")} · ${escapeHtml(comment.major || "专业已核验")}</small></div><button class="icon-button comment-report" data-report-comment aria-label="举报评论" title="举报评论"><i data-lucide="flag"></i></button></header>
     <p>${escapeHtml(comment.text)}</p>
     <footer><span class="content-tag">${escapeHtml(comment.dimension || "校园体验")}</span><time>${escapeHtml(comment.date || "近期")}</time></footer>
   </article>`;
@@ -163,56 +156,63 @@ function renderSchoolCommentSection(item) {
 function renderMajorPrograms(item, query = "") {
   const list = Array.isArray(item.majorPrograms) ? item.majorPrograms : [];
   const keyword = query.trim().toLowerCase();
-  const filtered = list.filter((program) => !keyword || `${program.name}${program.school}${program.category}${program.note}`.toLowerCase().includes(keyword));
+  const filtered = list.filter((program) => !keyword || `${program.name || ""}${program.school || ""}${program.category || ""}${program.note || ""}`.toLowerCase().includes(keyword));
   return filtered.length ? filtered.map((program) => {
     const favoriteId = majorCandidateId(item.id, program.name);
     const saved = userFavorites().includes(favoriteId);
     const sourceLink = program.officialUrl ? `<a class="major-program-source-link" href="${safeExternalHref(program.officialUrl)}" target="_blank" rel="noopener noreferrer" aria-label="查看${escapeHtml(item.school)}${escapeHtml(program.school)}官网：${escapeHtml(program.name)}"><i data-lucide="landmark"></i>查看学院官网<i data-lucide="external-link"></i></a>` : `<span class="major-program-source-link pending-source"><i data-lucide="landmark"></i>官方链接待补充</span>`;
-    const content = `<div class="major-program-title"><span class="major-program-icon"><i data-lucide="book-open"></i></span><div><strong>${escapeHtml(program.name)}</strong><small>${escapeHtml(program.school)}</small></div></div><div class="major-program-meta"><span>${escapeHtml(program.level)}</span><span>${escapeHtml(program.category)}</span></div><p>${escapeHtml(program.note)}</p><div class="major-program-actions">${sourceLink}<button class="save-experience ${saved ? "saved" : ""}" type="button" data-favorite="${escapeHtml(favoriteId)}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入候选专业"}</button></div>`;
+    const content = `<div class="major-program-title"><span class="major-program-icon"><i data-lucide="book-open"></i></span><div><strong>${escapeHtml(program.name)}</strong><small>${escapeHtml(program.school || "学院待补充")}</small></div></div><div class="major-program-meta"><span>${escapeHtml(program.level || "层次待补充")}</span><span>${escapeHtml(program.category || "门类待补充")}</span></div><p>${escapeHtml(program.note)}</p><div class="major-program-actions">${sourceLink}<button class="save-experience ${saved ? "saved" : ""}" type="button" data-favorite="${escapeHtml(favoriteId)}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入候选专业"}</button></div>`;
     return `<article class="major-program-item${program.officialUrl ? "" : " pending"}" aria-label="${escapeHtml(item.school)} ${escapeHtml(program.name)}">${content}</article>`;
   }).join("") : `<div class="major-program-empty"><i data-lucide="search-x"></i><p>没有找到匹配的专业</p></div>`;
 }
 
 function renderAdmissionResources(item) {
-  return item.admissionResources.map((resource) => `<a class="admission-resource-card" href="${safeExternalHref(resource.url)}" target="_blank" rel="noopener noreferrer"><span class="admission-resource-icon"><i data-lucide="${escapeHtml(resource.icon)}"></i></span><div><span class="admission-resource-type">${escapeHtml(resource.sourceType)}</span><strong>${escapeHtml(resource.title)}</strong><p>${escapeHtml(resource.description)}</p><small>${escapeHtml(resource.year)} · ${escapeHtml(resource.sourceName)}</small></div><span class="admission-resource-status ${resource.status === "待接入" ? "pending" : ""}">${escapeHtml(resource.status)}</span><i data-lucide="arrow-up-right"></i></a>`).join("");
+  return p4Array(item.admissionResources).map((resource) => `<a class="admission-resource-card" href="${safeExternalHref(resource.url)}" target="_blank" rel="noopener noreferrer"><span class="admission-resource-icon"><i data-lucide="${escapeHtml(resource.icon)}"></i></span><div><span class="admission-resource-type">${escapeHtml(resource.sourceType)}</span><strong>${escapeHtml(resource.title)}</strong><p>${escapeHtml(resource.description)}</p><small>${escapeHtml(resource.year)} · ${escapeHtml(resource.sourceName)}</small></div><span class="admission-resource-status ${resource.status === "待接入" ? "pending" : ""}">${escapeHtml(resource.status)}</span><i data-lucide="arrow-up-right"></i></a>`).join("");
 }
 
 function renderLatestUpdates(item) {
   const updates = Array.isArray(item.latestUpdates) ? item.latestUpdates : [];
   const updateCards = updates.map((update) => `<article class="latest-update-card"><div class="latest-update-meta"><span>${escapeHtml(update.type)}</span><time>${escapeHtml(update.date)}</time></div><h3>${escapeHtml(update.title)}</h3><p>${escapeHtml(update.summary)}</p><footer><div><span>${escapeHtml(update.publisher)}</span><small>${escapeHtml(update.status)}</small></div><a href="${safeExternalHref(update.url)}" target="_blank" rel="noopener noreferrer" aria-label="前往${escapeHtml(update.publisher)}核验${escapeHtml(update.title)}">前往官网核验<i data-lucide="arrow-up-right"></i></a></footer></article>`).join("");
-  return `<article class="detail-panel latest-updates-panel school-detail-anchor" id="school-updates"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="newspaper"></i>最新资讯</span><h2>政策变化先核对发布时间</h2></div><span class="source-level-tag level-official">官方发布入口</span></div><p>集中查看可能随年份变化的学校政策。当前为前端结构示例，接入具体通知前不展示未经核验的发布日期和政策结论。</p><div class="latest-update-list">${updateCards}</div><div class="latest-update-note"><i data-lucide="history"></i><span>正式接入后，每条资讯保留发布单位、发布日期与原始页面，旧政策不覆盖，便于比较历年变化。</span></div></article>`;
+  return `<article class="detail-panel latest-updates-panel school-detail-anchor" id="school-updates"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="newspaper"></i>最新资讯</span><h2>政策变化先核对发布时间</h2></div><span class="source-level-tag level-official">官方发布入口</span></div><p>集中查看可能随年份变化的学校政策。当前为前端结构示例，接入具体通知前不展示未经核验的发布日期和政策结论。</p><div class="latest-update-list">${updateCards || '<p class="detail-empty">最新资讯待补充</p>'}</div><div class="latest-update-note"><i data-lucide="history"></i><span>正式接入后，每条资讯保留发布单位、发布日期与原始页面，旧政策不覆盖，便于比较历年变化。</span></div></article>`;
 }
 
 function renderCampusSection(item) {
+  item = p4InstitutionView(item);
   const campusCards = item.campusDetails.map((campus) => `<article class="campus-card"><header><span class="campus-icon"><i data-lucide="school"></i></span><div><strong>${escapeHtml(campus.name)}</strong><small>${escapeHtml(campus.location)}</small></div><span>${escapeHtml(campus.status)}</span></header><dl><div><dt>学院分布</dt><dd>${escapeHtml(campus.colleges)}</dd></div><div><dt>交通参考</dt><dd>${escapeHtml(campus.transport)}</dd></div></dl></article>`).join("");
   const cityCards = item.cityReferences.map((reference) => `<article class="city-reference-card"><i data-lucide="${escapeHtml(reference.icon)}"></i><span>${escapeHtml(reference.label)}</span><strong>${escapeHtml(reference.value)}</strong><small>${escapeHtml(reference.note)}</small></article>`).join("");
   const mediaCards = item.campusMedia.map((media) => `<a class="campus-media-card" href="${safeExternalHref(media.url)}" target="_blank" rel="noopener noreferrer"><span class="campus-media-preview"><i data-lucide="${escapeHtml(media.icon)}"></i></span><div><strong>${escapeHtml(media.title)}</strong><p>${escapeHtml(media.description)}</p><span>${escapeHtml(media.status)}</span></div><i data-lucide="arrow-up-right"></i></a>`).join("");
-  return `<article class="detail-panel campus-panel school-detail-anchor" id="school-campus"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="map-pin"></i>校园与城市</span><h2>先确认校区，再判断生活环境</h2></div><span class="source-level-tag level-institution">平台整理</span></div><p>${escapeHtml(item.campusSummary)}</p><section class="campus-subsection"><div class="campus-subsection-heading"><div><strong>校区概览</strong><small>学院和交通安排以学校最新发布为准</small></div><span>${item.campusDetails.length} 个校区条目</span></div><div class="campus-grid">${campusCards}</div></section><section class="campus-subsection"><div class="campus-subsection-heading"><div><strong>${escapeHtml(item.city)}城市参考</strong><small>不填写未经核实的时间和费用数字</small></div></div><div class="city-reference-grid">${cityCards}</div></section><section class="campus-subsection"><div class="campus-subsection-heading"><div><strong>校园媒体</strong><small>仅接入学校官方或明确授权的素材</small></div><span>来源：${escapeHtml(item.officialSource)}</span></div><div class="campus-media-grid">${mediaCards}</div></section><div class="admission-disclaimer"><i data-lucide="clock-3"></i><span>校园资料更新：${item.updatedAt}。具体校区、宿舍和交通安排需按专业及当年通知确认。</span></div></article>`;
+  return `<article class="detail-panel campus-panel school-detail-anchor" id="school-campus"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="map-pin"></i>校园与城市</span><h2>先确认校区，再判断生活环境</h2></div><span class="source-level-tag level-institution">平台整理</span></div><p>${escapeHtml(item.campusSummary)}</p><section class="campus-subsection"><div class="campus-subsection-heading"><div><strong>校区概览</strong><small>学院和交通安排以学校最新发布为准</small></div><span>${item.campusDetails.length} 个校区条目</span></div><div class="campus-grid">${campusCards || '<p class="detail-empty">校区资料待补充</p>'}</div></section><section class="campus-subsection"><div class="campus-subsection-heading"><div><strong>${escapeHtml(item.city)}城市参考</strong><small>不填写未经核实的时间和费用数字</small></div></div><div class="city-reference-grid">${cityCards || '<p class="detail-empty">城市资料待补充</p>'}</div></section><section class="campus-subsection"><div class="campus-subsection-heading"><div><strong>校园媒体</strong><small>仅接入学校官方或明确授权的素材</small></div><span>来源：${escapeHtml(item.officialSource)}</span></div><div class="campus-media-grid">${mediaCards || '<p class="detail-empty">校园媒体待补充</p>'}</div></section><div class="admission-disclaimer"><i data-lucide="clock-3"></i><span>校园资料更新：${escapeHtml(item.updatedAt)}。具体校区、宿舍和交通安排需按专业及当年通知确认。</span></div></article>`;
 }
 
 function renderSchoolDetail() {
   const panel = $("#schoolDetailContent");
-  const item = institutions.find((school) => school.id === currentSchoolDetail) || institutions[0];
-  if (!panel || !item) return;
+  if (!panel) return;
+  const rawItem = institutions.find((school) => school.id === currentSchoolDetail);
+  if (!rawItem) {
+    panel.innerHTML = '<div class="empty-state"><p>该院校资料不存在或已移除。</p><button class="quiet-button" data-view-target="experience">返回院校列表</button></div>';
+    return;
+  }
+  const item = p4InstitutionView(rawItem);
   const saved = userFavorites().includes(`school-${item.id}`);
   const returnCopy = currentSchoolReturnView === "compare" ? "返回我的候选" : "返回院校与经验";
   const schoolCommentSection = renderSchoolCommentSection(item);
   const latestUpdatesSection = renderLatestUpdates(item);
   const campusSection = renderCampusSection(item);
-  panel.innerHTML = `<div class="school-detail-topbar"><button class="quiet-button" data-view-target="${escapeHtml(currentSchoolReturnView)}"><i data-lucide="arrow-left"></i>${escapeHtml(returnCopy)}</button><div class="school-detail-top-actions"><a class="quiet-button" href="${escapeHtml(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>学校官网</a><button class="primary-button" data-favorite="school-${escapeHtml(item.id)}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入我的候选"}</button></div></div>
+  panel.innerHTML = `<div class="school-detail-topbar"><button class="quiet-button" data-view-target="${escapeHtml(currentSchoolReturnView)}"><i data-lucide="arrow-left"></i>${escapeHtml(returnCopy)}</button><div class="school-detail-top-actions"><a class="quiet-button" href="${item.officialUrl ? safeExternalHref(item.officialUrl) : "#"}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>学校官网</a><button class="primary-button" data-favorite="school-${escapeHtml(item.id)}"><i data-lucide="${saved ? "bookmark-check" : "bookmark-plus"}"></i>${saved ? "已加入候选" : "加入我的候选"}</button></div></div>
     <header class="school-profile-header"><div class="institution-mark school-profile-mark">${escapeHtml(item.school.slice(0, 1))}</div><div class="school-profile-copy"><span class="section-kicker">学校详情 · 平台整理</span><h1>${escapeHtml(item.school)}</h1><p class="school-english-name">${escapeHtml(item.englishName)}</p><div class="school-profile-tags"><span><i data-lucide="map-pin"></i>${escapeHtml(item.city)}</span><span><i data-lucide="landmark"></i>${escapeHtml(item.type)}</span>${item.highlights.map((highlight) => `<span>${escapeHtml(highlight)}</span>`).join("")}</div></div></header>
     <nav class="school-section-nav" aria-label="学校详情目录"><button data-school-anchor="school-overview" class="active">学校概况</button><button data-school-anchor="school-updates">最新资讯</button><button data-school-anchor="school-majors">专业列表</button><button data-school-anchor="school-admission">招生录取</button><button data-school-anchor="school-campus">校园与城市</button><button data-school-anchor="school-progression">升学参考</button><button data-school-anchor="school-comments">本校评论</button></nav>
     <div class="school-detail-grid">
       <section class="school-detail-main">
-        <article class="detail-panel detail-overview school-detail-anchor" id="school-overview"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="notebook-tabs"></i>学校概况</span><h2>先建立整体认识</h2></div><span class="source-level-tag level-institution">平台整理</span></div><p>${escapeHtml(item.intro)}</p><dl class="school-facts"><div><dt>中文名称</dt><dd>${escapeHtml(item.school)}</dd></div><div><dt>英文名称</dt><dd>${escapeHtml(item.englishName)}</dd></div><div><dt>办学类型</dt><dd>${escapeHtml(item.type)}</dd></div><div><dt>办学层次</dt><dd>${escapeHtml(item.educationLevel)}</dd></div><div><dt>创办时间</dt><dd>${escapeHtml(item.founded)}</dd></div><div><dt>主要校区</dt><dd>${escapeHtml(item.campuses)}</dd></div></dl><div class="school-source-note"><span><i data-lucide="clock-3"></i>资料更新：${escapeHtml(item.updatedAt)}</span><a href="${escapeHtml(item.officialUrl)}" target="_blank" rel="noopener noreferrer">来源：${escapeHtml(item.officialSource)}<i data-lucide="external-link"></i></a></div></article>
+        <article class="detail-panel detail-overview school-detail-anchor" id="school-overview"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="notebook-tabs"></i>学校概况</span><h2>先建立整体认识</h2></div><span class="source-level-tag level-institution">平台整理</span></div><p>${escapeHtml(item.intro)}</p><dl class="school-facts"><div><dt>中文名称</dt><dd>${escapeHtml(item.school)}</dd></div><div><dt>英文名称</dt><dd>${escapeHtml(item.englishName)}</dd></div><div><dt>办学类型</dt><dd>${escapeHtml(item.type)}</dd></div><div><dt>办学层次</dt><dd>${escapeHtml(item.educationLevel)}</dd></div><div><dt>创办时间</dt><dd>${escapeHtml(item.founded)}</dd></div><div><dt>主要校区</dt><dd>${escapeHtml(item.campuses)}</dd></div></dl><div class="school-source-note"><span><i data-lucide="clock-3"></i>资料更新：${escapeHtml(item.updatedAt)}</span><a href="${item.officialUrl ? safeExternalHref(item.officialUrl) : "#"}" target="_blank" rel="noopener noreferrer">来源：${escapeHtml(item.officialSource)}<i data-lucide="external-link"></i></a></div></article>
         ${latestUpdatesSection}
-        <article class="detail-panel major-program-panel school-detail-anchor" id="school-majors"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="book-open"></i>专业列表</span><h2>查看专业与培养方向</h2></div><span class="source-level-tag level-official">官方信息</span></div><p>${escapeHtml(item.officialSummary)}</p><div class="major-program-search"><i data-lucide="search"></i><input id="schoolMajorSearch" type="search" placeholder="搜索专业名称、学院或学科门类" autocomplete="off"><span id="majorProgramCount">${item.majorPrograms.length} 个示例专业</span></div><div class="major-program-list" id="majorProgramList">${renderMajorPrograms(item)}</div><div class="major-program-foot"><span>当前为页面结构示例,完整目录以学校官方发布为准。</span><a class="source-link" href="${escapeHtml(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>查看 ${escapeHtml(item.officialSource)}</a></div></article>
-        <article class="detail-panel admission-panel school-detail-anchor" id="school-admission"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="graduation-cap"></i>招生与录取</span><h2>按年份和报考条件查资料</h2></div><span class="source-level-tag level-data">公开资料</span></div><p>${escapeHtml(item.admissionBrief)}</p><div class="admission-filter-bar"><label><span>年份</span><select id="admissionYear">${item.admissionYears.map((year) => `<option>${escapeHtml(year)}</option>`).join("")}</select></label><label><span>省份</span><select id="admissionProvince">${item.admissionProvinces.map((province) => `<option>${escapeHtml(province)}</option>`).join("")}</select></label><label><span>科类</span><select id="admissionSubject">${item.admissionSubjects.map((subject) => `<option>${escapeHtml(subject)}</option>`).join("")}</select></label></div><div class="admission-selection-note"><i data-lucide="filter"></i><span id="admissionSelectionNote">当前条件：${escapeHtml(item.admissionYears[0])} · ${escapeHtml(item.admissionProvinces[0])} · ${escapeHtml(item.admissionSubjects[0])}</span><small>前端结构示例,真实查询待数据接口接入</small></div><div class="admission-resource-list">${renderAdmissionResources(item)}</div><div class="admission-disclaimer"><i data-lucide="info"></i><span>${escapeHtml(item.dataSummary)}</span></div></article>
+        <article class="detail-panel major-program-panel school-detail-anchor" id="school-majors"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="book-open"></i>专业列表</span><h2>查看专业与培养方向</h2></div><span class="source-level-tag level-official">官方信息</span></div><p>${escapeHtml(item.officialSummary)}</p><div class="major-program-search"><i data-lucide="search"></i><input id="p4SchoolMajorSearch" type="search" placeholder="搜索专业名称、学院或学科门类" autocomplete="off"><span id="majorProgramCount">${item.majorPrograms.length} 个示例专业</span></div><div class="major-program-list" id="majorProgramList">${renderMajorPrograms(item)}</div><div class="major-program-foot"><span>当前为页面结构示例,完整目录以学校官方发布为准。</span><a class="source-link" href="${item.officialUrl ? safeExternalHref(item.officialUrl) : "#"}" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link"></i>查看 ${escapeHtml(item.officialSource)}</a></div></article>
+        <article class="detail-panel admission-panel school-detail-anchor" id="school-admission"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="graduation-cap"></i>招生与录取</span><h2>按年份和报考条件查资料</h2></div><span class="source-level-tag level-data">公开资料</span></div><p>${escapeHtml(item.admissionBrief)}</p><div class="admission-filter-bar"><label><span>年份</span><select id="admissionYear">${item.admissionYears.map((year) => `<option>${escapeHtml(year)}</option>`).join("")}</select></label><label><span>省份</span><select id="admissionProvince">${item.admissionProvinces.map((province) => `<option>${escapeHtml(province)}</option>`).join("")}</select></label><label><span>科类</span><select id="admissionSubject">${item.admissionSubjects.map((subject) => `<option>${escapeHtml(subject)}</option>`).join("")}</select></label></div><div class="admission-selection-note"><i data-lucide="filter"></i><span id="admissionSelectionNote">当前条件：${escapeHtml(item.admissionYears[0])} · ${escapeHtml(item.admissionProvinces[0])} · ${escapeHtml(item.admissionSubjects[0])}</span><small>按当前收录的录取记录查询，缺失数据不作推断</small></div><div id="p4AdmissionResults" aria-live="polite"></div><div class="admission-resource-list">${renderAdmissionResources(item)}</div><div class="admission-disclaimer"><i data-lucide="info"></i><span>${escapeHtml(item.dataSummary)}</span></div></article>
         ${campusSection}
         <article class="detail-panel progression-panel school-detail-anchor" id="school-progression"><div class="detail-panel-heading"><div><span class="subsection-kicker"><i data-lucide="trending-up"></i>升学参考</span><h2>保研率先看统计口径</h2></div><span class="source-level-tag level-data">待核验数据</span></div><p>${escapeHtml(item.careerSummary)}</p><div class="recommendation-summary"><div><span>保研率</span><strong>${escapeHtml(item.postgraduateRecommendation.value)}</strong><small>数据年份：${escapeHtml(item.postgraduateRecommendation.year)}</small></div><div><span>推免人数</span><strong>${escapeHtml(item.postgraduateRecommendation.recommendedCount)}</strong><small>需对应学校公示名单</small></div><div><span>毕业生统计范围</span><strong>${escapeHtml(item.postgraduateRecommendation.graduateScope)}</strong><small>需明确分母范围</small></div></div><dl class="recommendation-method"><div><dt>建议计算口径</dt><dd>${escapeHtml(item.postgraduateRecommendation.methodology)}</dd></div><div><dt>建议来源</dt><dd>${escapeHtml(item.postgraduateRecommendation.source)}</dd></div><div><dt>更新时间</dt><dd>${escapeHtml(item.postgraduateRecommendation.updatedAt)}</dd></div></dl><div class="admission-disclaimer warning"><i data-lucide="triangle-alert"></i><span>不同学院、专业和年份的推免情况可能不同,正式展示时必须保留原始来源与统计范围。</span></div></article>
       </section>
-      <aside class="school-detail-side"><section class="detail-source-panel"><span class="subsection-kicker"><i data-lucide="shield-check"></i>信息凭证</span><h2>每条摘要都有来源入口</h2><p>平台负责整理和解释,官方页面与公开数据用于核验具体细节。</p><a class="detail-source-row" href="${escapeHtml(item.officialUrl)}" target="_blank" rel="noopener noreferrer"><span class="source-icon official-icon"><i data-lucide="landmark"></i></span><span><strong>${escapeHtml(item.officialSource)}</strong><small>学校简介 · 招生简章 · 培养信息</small></span><i data-lucide="external-link"></i></a><a class="detail-source-row" href="${escapeHtml(item.dataUrl)}" target="_blank" rel="noopener noreferrer"><span class="source-icon data-icon"><i data-lucide="database"></i></span><span><strong>${escapeHtml(item.dataSource)}</strong><small>招生计划 · 专业目录 · 公开录取信息</small></span><i data-lucide="external-link"></i></a></section>${schoolCommentSection}</aside>
+      <aside class="school-detail-side"><section class="detail-source-panel"><span class="subsection-kicker"><i data-lucide="shield-check"></i>信息凭证</span><h2>每条摘要都有来源入口</h2><p>平台负责整理和解释,官方页面与公开数据用于核验具体细节。</p><a class="detail-source-row" href="${item.officialUrl ? safeExternalHref(item.officialUrl) : "#"}" target="_blank" rel="noopener noreferrer"><span class="source-icon official-icon"><i data-lucide="landmark"></i></span><span><strong>${escapeHtml(item.officialSource)}</strong><small>学校简介 · 招生简章 · 培养信息</small></span><i data-lucide="external-link"></i></a><a class="detail-source-row" href="${item.dataUrl ? safeExternalHref(item.dataUrl) : "#"}" target="_blank" rel="noopener noreferrer"><span class="source-icon data-icon"><i data-lucide="database"></i></span><span><strong>${escapeHtml(item.dataSource)}</strong><small>招生计划 · 专业目录 · 公开录取信息</small></span><i data-lucide="external-link"></i></a></section>${schoolCommentSection}</aside>
     </div>`;
+  renderP4AdmissionResults();
   hydrateIcons();
 }
 
@@ -225,3 +225,39 @@ function renderAnswerHistory() {
   hydrateIcons();
 }
 
+
+// 为展示层补缺省值，保留 P8 原始数据与对象身份，不回写数据文件。
+function p4InstitutionView(raw) {
+  const item = { ...raw };
+  const texts = ["school", "city", "type", "intro", "englishName", "educationLevel", "founded", "campuses", "updatedAt", "officialSummary", "admissionBrief", "dataSummary", "campusSummary", "careerSummary", "officialSource", "dataSource"];
+  texts.forEach((key) => { item[key] = p4Text(item[key]) || "资料待补充"; });
+  ["majors", "highlights", "identityTags", "admissionResources", "latestUpdates", "campusDetails", "cityReferences", "campusMedia"].forEach((key) => { item[key] = p4Array(item[key]); });
+  item.majorPrograms = p4Programs(raw);
+  if (!item.majors.length) item.majors = item.majorPrograms.map((program) => program.name).slice(0, 6);
+  item.postgraduateRecommendation = { ...raw.postgraduateRecommendation };
+  ["value", "year", "recommendedCount", "graduateScope", "methodology", "source", "updatedAt"].forEach((key) => {
+    item.postgraduateRecommendation[key] = p4Text(item.postgraduateRecommendation[key]) || "待接入可靠数据";
+  });
+  const records = p4AdmissionRecords(raw);
+  const unique = (values) => [...new Set(values.map(p4Text).filter(Boolean))];
+  item.admissionYears = ["不限", ...unique(records.map((row) => row.year)).sort().reverse()];
+  item.admissionProvinces = ["不限", ...unique(records.map((row) => normalizeProvinceName(row.province)))];
+  item.admissionSubjects = ["不限", ...unique(records.map((row) => row.subjectType))];
+  return item;
+}
+
+function renderP4AdmissionResults() {
+  const container = $("#p4AdmissionResults");
+  if (!container) return;
+  const item = institutions.find((school) => school.id === currentSchoolDetail);
+  const records = item ? p4AdmissionRecords(item) : [];
+  const selection = (id) => { const value = $(id)?.value; return !value || value === "不限" ? "all" : value; };
+  const filters = { year: selection("#admissionYear"), province: selection("#admissionProvince"), subject: selection("#admissionSubject"), batch: "all" };
+  const visible = records.filter((row) => p4MatchesAdmission(row, filters)).sort((a, b) => b.year - a.year);
+  const number = (value, positive = false) => Number.isInteger(value) && value >= (positive ? 1 : 0) ? escapeHtml(value) : "待补充";
+  if (!visible.length) {
+    container.innerHTML = `<p class="detail-empty">${records.length ? "当前年份、省份和科类组合暂无录取记录。" : "真实录取记录待补充。下方官网入口供查询核验，当前不展示录取概率或虚构分数。"}</p>`;
+    return;
+  }
+  container.innerHTML = `<p class="p4-filter-note">共 ${visible.length} 条记录；位次与分数须结合生源省份、年份、科类、批次及专业组理解。</p><div class="p4-admission-table-wrap" tabindex="0" role="region" aria-label="录取记录，可横向滚动"><table class="p4-admission-table"><caption>已收录的录取记录</caption><thead><tr><th>年份</th><th>生源省份</th><th>科类</th><th>批次</th><th>专业组 / 专业</th><th>最低分</th><th>最低位次</th><th>计划数</th><th>来源</th></tr></thead><tbody>${visible.map((row) => `<tr><td>${escapeHtml(row.year)}</td><td>${escapeHtml(row.province)}</td><td>${escapeHtml(row.subjectType)}</td><td>${escapeHtml(row.batch)}</td><td>${escapeHtml([row.groupCode, row.majorName].filter(Boolean).join(" / ") || "院校汇总")}</td><td>${number(row.minScore)}</td><td>${number(row.minRank, true)}</td><td>${number(row.planCount)}</td><td><a href="${safeExternalHref(row.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.sourceName || "查看来源")}</a></td></tr>`).join("")}</tbody></table></div>`;
+}

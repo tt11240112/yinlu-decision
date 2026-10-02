@@ -425,4 +425,13 @@
     text-align: left;
   }
 }
-+
+
+/* P4：录取表限于容器内滚动，避免撑宽移动端页面。 */
+#p4AdmissionResults { min-width: 0; margin: 16px 0; }
+.p4-admission-table-wrap { width: 100%; overflow-x: auto; margin-top: 12px; }
+.p4-admission-table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 12px; }
+.p4-admission-table caption { text-align: left; padding: 8px 0; color: var(--muted); }
+.p4-admission-table th, .p4-admission-table td { padding: 10px; border-bottom: 1px solid var(--line); text-align: left; }
+.p4-admission-table th { color: var(--navy); white-space: nowrap; }
+.p4-admission-table a { color: var(--teal); overflow-wrap: anywhere; }
+#view-experience.experience-layout-vertical .p4-institution-filters { grid-column: 1 / -1; }
