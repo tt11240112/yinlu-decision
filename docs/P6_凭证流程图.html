@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="MiKG2bX0gWQJUIVkCtTOF6">
+<head data-page-node-id="z5WqcI9nu0HfEzafJG0h1e">
+<meta charset="UTF-8" data-page-node-id="CHcVsB6eZxP7blDCVbRxp9">
+<title>引路 · 匿名凭证签发与验签流程图</title>
+<style>
+  body{margin:0;padding:32px;background:#ffffff;font-family:"Microsoft YaHei",system-ui,sans-serif;color:#1a1a1a;display:flex;justify-content:center;}
+  .wrap{max-width:760px;width:100%;}
+  h1{font-size:20px;font-weight:600;text-align:center;margin:0 0 4px;}
+  .sub{font-size:13px;color:#666;text-align:center;margin-bottom:24px;}
+  svg{width:100%;height:auto;display:block;}
+  .th{font-size:14px;font-weight:500;fill:#1a1a1a;}
+  .ts{font-size:12px;fill:#666;}
+  .lane{font-size:13px;font-weight:500;fill:#888;}
+  .node{fill:#E6F1FB;stroke:#185FA5;stroke-width:1;rx:8;}
+  .node-teal{fill:#E1F5EE;stroke:#0F6E56;stroke-width:1;}
+  .node-purple{fill:#EEEDFE;stroke:#534AB7;stroke-width:1;}
+  .arrow{stroke:#555;stroke-width:1.5;fill:none;}
+  .foot{font-size:12px;color:#999;text-align:center;margin-top:16px;}
+</style>
+</head>
+<body data-page-node-id="SmztVZsifVn6varobT5qcG">
+<div class="wrap" data-page-node-id="dDhmsFueesxRMmc2swiBjT">
+  <h1 data-page-node-id="wPYtM4lGlyM7ohgnWJmJMw">引路 · 匿名凭证签发与验签流程</h1>
+  <div class="sub" data-page-node-id="JtrycOSatXnJTg7M0EDO7D">后台实名核验 → Ed25519 匿名凭证 → 前台匿名展示 → 任何人可本地验签</div>
+  <svg viewBox="0 0 680 760" xmlns="http://www.w3.org/2000/svg" data-page-node-id="yRJIVkMW2Kksq4DoFBg0JF">
+    <defs data-page-node-id="AImDRNYv2ADYrcXfFzEDiR">
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" data-page-node-id="BUSZvByKtUFCFlCGyggO4E">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-page-node-id="cpMs22P6s8S3giELzTDU7Q"/>
+      </marker>
+    </defs>
+    <text class="lane" x="60" y="52" data-page-node-id="j8KB11pEH3JjrpotF0xDB6">用户侧</text>
+    <line x1="150" y1="58" x2="150" y2="716" stroke="#ddd" stroke-width="1" stroke-dasharray="4 4" data-page-node-id="hCykR488HMuWj28J22gQQG"/>
+    <text class="lane" x="540" y="52" data-page-node-id="2CMInpfb1FC38bybhEbc3n">平台侧</text>
+
+    <rect class="node" x="200" y="40" width="280" height="56" rx="8" data-page-node-id="sJKI05KLW6X7FokXsxHsto"/>
+    <text class="th" x="340" y="62" text-anchor="middle" data-page-node-id="AQY6YxZCbu78qcbgdANFBU">① 学生提交学籍证明</text>
+    <text class="ts" x="340" y="82" text-anchor="middle" data-page-node-id="xNFlgRvBpvoAajPTy5hemT">材料仅后台受理，页面不上传不公开</text>
+    <path class="arrow" d="M340 96 L340 130" marker-end="url(#ar)" data-page-node-id="eCzbTaGbzx9i3gbzOGt65T"/>
+
+    <rect class="node" x="200" y="136" width="280" height="56" rx="8" data-page-node-id="TSixLA45lUpEFtVCgrQKzt"/>
+    <text class="th" x="340" y="158" text-anchor="middle" data-page-node-id="tyz1DGMDO0Mja4yQ4kSGkL">② 后台人工核验学籍</text>
+    <text class="ts" x="340" y="178" text-anchor="middle" data-page-node-id="zKtndpYtvt210otnxwqD9S">与学校学籍信息比对，管理员审核</text>
+    <path class="arrow" d="M340 192 L340 226" marker-end="url(#ar)" data-page-node-id="pc0uu7DPNPLnnElJlpkOlv"/>
+
+    <rect class="node-teal" x="200" y="232" width="280" height="56" rx="8" data-page-node-id="sXlQzh3RkGizXDjo1FOiIU"/>
+    <text class="th" x="340" y="254" text-anchor="middle" data-page-node-id="dA7LWXwa8lCNmhVYW9XDI1">③ 签发匿名凭证（Ed25519）</text>
+    <text class="ts" x="340" y="274" text-anchor="middle" data-page-node-id="qgFoApmIxeDOQaZkO26Epg">私钥签名 · 只含「在校生」标记 · 不含姓名学号</text>
+    <path class="arrow" d="M340 288 L340 322" marker-end="url(#ar)" data-page-node-id="0DO4bPknnhJjv8IgmirilC"/>
+
+    <rect class="node-teal" x="200" y="328" width="280" height="56" rx="8" data-page-node-id="eDyUb5psmYCKiAt6WPJHuS"/>
+    <text class="th" x="340" y="350" text-anchor="middle" data-page-node-id="q8FSsUJfWzyQJCog3arRIh">④ 发帖附带凭证</text>
+    <text class="ts" x="340" y="370" text-anchor="middle" data-page-node-id="SFC08WsO9v2qt9uAP4YrY2">凭证绑定内容 SHA-256 摘要，篡改即失效</text>
+    <path class="arrow" d="M340 384 L340 418" marker-end="url(#ar)" data-page-node-id="zSimPiLE5pFnwOBtS76dwh"/>
+
+    <rect class="node" x="200" y="424" width="280" height="56" rx="8" data-page-node-id="1BRq3CcOszhFAHH3leblpm"/>
+    <text class="th" x="340" y="446" text-anchor="middle" data-page-node-id="uccH0GRJGZgurPgI49ylBw">⑤ 前台显示「已验证在校生」徽章</text>
+    <text class="ts" x="340" y="466" text-anchor="middle" data-page-node-id="Utuen3c5AelTN7O0MkrcWj">作者身份保持匿名，仅展示学校·专业·年级</text>
+    <path class="arrow" d="M340 480 L340 514" marker-end="url(#ar)" data-page-node-id="H6AEgB3AH4hu11pOGE7wC4"/>
+
+    <rect class="node-purple" x="200" y="520" width="280" height="56" rx="8" data-page-node-id="2hQdIHRFOqyYUt72K0VZ6U"/>
+    <text class="th" x="340" y="542" text-anchor="middle" data-page-node-id="fyeEwNj4q505ylJJwtoYAo">⑥ 任何人点击徽章验签</text>
+    <text class="ts" x="340" y="562" text-anchor="middle" data-page-node-id="XygLkIl9n23H4OxiWjFNJ1">浏览器用平台公钥本地校验签名 + 内容哈希</text>
+    <path class="arrow" d="M340 576 L340 610" marker-end="url(#ar)" data-page-node-id="3eok1HrCtImPSHsjhhLJRE"/>
+
+    <rect x="200" y="616" width="280" height="100" rx="8" fill="#F1EFE8" stroke="#888780" stroke-width="1" data-page-node-id="QpEooTcLdxs45WxafzEUWc"/>
+    <text class="th" x="340" y="646" text-anchor="middle" data-page-node-id="sFHioDmHBuob7CmrRyhuir">⑦ 验证结果</text>
+    <text class="ts" x="340" y="668" text-anchor="middle" data-page-node-id="ZbCCCKx6tqciQQyfREtTDn">签名有效且哈希一致 → 徽章可信</text>
+    <text class="ts" x="340" y="690" text-anchor="middle" data-page-node-id="6l3xtgjbIXDKXm1ERvwSPD">任一失败 → 内容被篡改或凭证系伪造</text>
+
+    <text class="ts" x="105" y="72" text-anchor="middle" data-page-node-id="SgjLwBjrB1QAbsTvI9XKpP">用户</text>
+    <text class="ts" x="105" y="168" text-anchor="middle" data-page-node-id="NdrWT6xluj8vWa28zRg2fm">管理员</text>
+    <text class="ts" x="105" y="264" text-anchor="middle" data-page-node-id="mVm0yTFwxH3t6X3IbXBUz5">签发服务</text>
+    <text class="ts" x="105" y="452" text-anchor="middle" data-page-node-id="EXqZxGIW8qxCEaYqvQaphU">访客</text>
+    <text class="ts" x="105" y="548" text-anchor="middle" data-page-node-id="poLW2eLNrk0RRM16j5HCt4">访客</text>
+    <text class="ts" x="105" y="668" text-anchor="middle" data-page-node-id="FbCc7HxXvERtHVVbg95wFG">本地</text>
+  </svg>
+  <div class="foot" data-page-node-id="3nx4lOKMmCLQF0Gf5llsbc">引路 · 可信的教育决策信息平台　|　G3 安全可信组 P6　|　2026-09</div>
+</div>
+</body>
+</html>
