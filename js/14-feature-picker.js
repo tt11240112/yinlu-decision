@@ -25,11 +25,20 @@ function runStageTask(task) {
   currentSchoolSearch = "";
   currentMajorSearch = "";
   if (institutionTasks.includes(task)) {
+    currentInstitutionSchoolSearch = "";
+    currentInstitutionMajorSearch = "";
+    currentInstitutionMajorCategory = "";
+    currentInstitutionMajorOpen = false;
+    resetP4InstitutionFilters();
+    const schoolInput = $("#institutionSchoolSearch");
+    if (schoolInput) schoolInput.value = "";
     currentInstitutionRegion = "all";
     currentInstitutionRegionSearch = "";
     currentInstitutionRegionLetter = "";
     currentInstitutionRegionOpen = false;
   } else {
+    currentExperienceMajorCategory = "";
+    currentExperienceMajorOpen = false;
     currentExperienceRegion = "all";
     currentExperienceRegionSearch = "";
     currentExperienceRegionLetter = "";
@@ -62,16 +71,17 @@ function regionSelectionLabel(selection) {
 }
 
 function majorCategoryForName(name = "") {
-  const program = institutions.flatMap((item) => item.majorPrograms || []).find((item) => item.name === name);
+  const program = institutions.flatMap((item) => p4Programs(item)).find((item) => item.name === name);
   return program?.category || MAJOR_CATEGORY_BY_NAME[name] || "";
 }
 
 function libraryMajorOptions(library) {
   const entries = library === "institution"
-    ? institutions.flatMap((institution) => (institution.majorPrograms || []).map((program) => ({ name: program.name, category: program.category || majorCategoryForName(program.name), school: institution.school })))
+    ? institutions.flatMap((institution) => p4Programs(institution).map((program) => ({ name: program.name, category: program.category || majorCategoryForName(program.name), school: institution.school })))
     : experiences.filter((item) => (item.source === "student" || item.source === "expert") && item.major).map((item) => ({ name: item.major, category: majorCategoryForName(item.major), school: item.school }));
   const grouped = new Map();
   entries.forEach((item) => {
+    if (!item.name) return;
     if (!grouped.has(item.name)) grouped.set(item.name, { name: item.name, category: item.category, schools: new Set(), count: 0 });
     const option = grouped.get(item.name);
     option.count += 1;
@@ -116,36 +126,40 @@ function renderLibraryMajorPicker(library) {
 }
 
 function normalizeProvinceName(value = "") {
-  return String(value).replace(/(壮族自治区|回族自治区|维吾尔自治区|特别行政区|自治区|省|市)$/u, "");
+  return String(value || "").trim().replace(/(壮族自治区|回族自治区|维吾尔自治区|特别行政区|自治区|省|市)$/u, "");
 }
 
 function normalizeCityName(value = "") {
-  return String(value).replace(/(自治州|综合实验区|地区|新区|市|盟|区|县)$/u, "");
+  return String(value || "").trim().replace(/(自治州|综合实验区|地区|新区|市|盟|区|县)$/u, "");
 }
 
 function provinceForCity(city = "") {
   const normalizedCity = normalizeCityName(city);
-  return Object.keys(REGION_CITIES).find((province) => {
+  if (!normalizedCity) return "";
+  // 只从省级名称或地级/省直管条目推断，避免将辽宁朝阳市误归到北京朝阳区。
+  const provinces = Object.keys(REGION_CITIES).filter((province) => {
     if (normalizeProvinceName(province) === normalizedCity) return true;
-    return REGION_CITIES[province].some((item) => normalizeCityName(item) === normalizedCity);
-  }) || "";
+    return !isMunicipality(province) && REGION_CITIES[province].some((item) => normalizeCityName(item) === normalizedCity);
+  });
+  return provinces.length === 1 ? provinces[0] : "";
 }
 
 function isCityLevelRegion(value = "") {
-  return /(市|自治州|地区|盟)$/u.test(value);
+  return Boolean(String(value || "").trim());
 }
 
 function isMunicipality(value = "") {
-  return MUNICIPALITIES.has(value);
+  return [...MUNICIPALITIES].some((name) => normalizeProvinceName(name) === normalizeProvinceName(value));
 }
 
 function matchesRegionSelection(item, selection) {
   if (!selection || selection === "all") return true;
   const selected = parseRegionSelection(selection);
-  const itemCity = item.city || "";
-  if (selected.city) return normalizeCityName(itemCity) === normalizeCityName(selected.city);
-  const itemProvince = item.province || provinceForCity(itemCity);
-  return itemProvince === selected.province || normalizeProvinceName(itemCity) === normalizeProvinceName(selected.province);
+  const itemCity = String(item.city || "").trim();
+  const itemProvince = String(item.province || provinceForCity(itemCity)).trim();
+  const provinceMatches = !selected.province || normalizeProvinceName(itemProvince) === normalizeProvinceName(selected.province);
+  if (!provinceMatches) return false;
+  return !selected.city || normalizeCityName(itemCity) === normalizeCityName(selected.city);
 }
 
 function regionTypeLabel(province, city = "") {
@@ -195,7 +209,7 @@ function renderLibraryRegionPicker(library) {
   toggle.classList.toggle("open", open);
   toggle.setAttribute("aria-expanded", String(open));
   if (searchInput) {
-    const displayValue = query || regionSelectionLabel(selection);
+    const displayValue = open ? query : query || regionSelectionLabel(selection);
     if (searchInput.value !== displayValue) searchInput.value = displayValue;
     searchInput.setAttribute("aria-expanded", String(open));
   }
@@ -217,7 +231,7 @@ function renderLibraryRegionPicker(library) {
       if (province.includes(keyword)) results.push({ province, city: "" });
       cities.filter((city) => isCityLevelRegion(city) && city.includes(keyword)).forEach((city) => results.push({ province, city }));
     });
-    results = results.slice(0, 24);
+    // 保留全部匹配项，由面板滚动承载，避免后面的地区无法被选中。
   } else if (letter) {
     results = Object.keys(REGION_CITIES)
       .filter((province) => REGION_INITIAL_BY_PROVINCE[province] === letter)

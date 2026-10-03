@@ -404,3 +404,17 @@
   .experience-card-actions { width: 100%; justify-content: space-between; }
 }
 
+
+/* P4：院校组合筛选。控件由 13-feature-filters.js 挂载。 */
+.institution-filter-bar > .p4-institution-filters {
+  grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+  min-width: 0; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.p4-institution-filters label { display: grid; gap: 7px; min-width: 0; color: var(--muted); font-size: 12px; }
+.p4-institution-filters select { width: 100%; min-width: 0; min-height: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; color: var(--navy); background: var(--theme-card-bg, #fff); font: inherit; }
+.p4-institution-filters select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.p4-filter-note { grid-column: 1 / -1; margin: 2px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+.institution-empty { grid-column: 1 / -1; }
+@media (max-width: 540px) {
+  .institution-filter-bar > .p4-institution-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
